@@ -3,7 +3,7 @@
 Application web pour apprendre le piano, sans installation ni serveur. Le son est synthétisé
 avec la Web Audio API et la progression est enregistrée localement dans le navigateur.
 
-**Jouer en ligne :** https://leroneleen-cmd.github.io/piano-app/
+**Jouer en ligne :** https://apprendre-piano.netlify.app/
 
 ## Fonctionnalités
 
