@@ -8,7 +8,8 @@ avec la Web Audio API et la progression est enregistrée localement dans le navi
 ## Fonctionnalités
 
 - **Plan du jour** — routine quotidienne d'objectifs, quota XP ajustable, série de jours (streak), badges à débloquer.
-- **Programme** — parcours progressif en 4 semaines (20 jours), objectifs cochables et déblocage séquentiel.
+- **Programme** — parcours progressif en 8 semaines (40 jours), avec objectif par semaine, objectifs cochables et déblocage séquentiel.
+- **Studio** — enregistre ce que tu joues et réécoute-toi (vitesse normale ou ralenti), avec sauvegarde locale des prises.
 - **Cours** — leçons guidées par niveaux (débutant → avancé) : gammes majeures/mineures, modes, accords, 7es, renversements, arpèges, lecture. Déblocage de niveau en niveau.
 - **Découvrir** — clavier jouable 3 octaves (souris + clavier d'ordinateur).
 - **Leçons** — reconnaissance des notes.

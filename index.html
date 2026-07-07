@@ -250,6 +250,13 @@
   .pgm-task.done label { color:var(--good); text-decoration:line-through; }
   .pgm-task .lnk { color:var(--accent-2); cursor:pointer; font-size:12px; white-space:nowrap; }
   .pgm-task .lnk:hover { text-decoration:underline; }
+  .wk-goal { font-size:12px; color:var(--text-dim); margin-top:3px; }
+  /* Recorder */
+  .rec-item { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px; border:1px solid var(--line); border-radius:10px; background:var(--bg-elev-2); margin-bottom:8px; }
+  .rec-item .rec-meta { font-size:12px; color:var(--text-dim); margin-top:2px; }
+  .rec-actions { display:flex; gap:6px; flex:none; }
+  .rec-actions .btn { padding:7px 12px; }
+  #recToggle.armed { background:linear-gradient(135deg,#ef6d6d,#c94a4a); color:#fff; border:none; }
 </style>
 </head>
 <body>
@@ -274,6 +281,7 @@
     <button class="tab" data-tab="program">Programme</button>
     <button class="tab" data-tab="courses">Cours</button>
     <button class="tab" data-tab="play">Découvrir</button>
+    <button class="tab" data-tab="studio">Studio</button>
     <button class="tab" data-tab="lessons">Leçons</button>
     <button class="tab" data-tab="read">Lecture</button>
     <button class="tab" data-tab="scales">Gammes &amp; Accords</button>
@@ -403,6 +411,26 @@
         <div class="stat"><div class="n" id="stEar">0%</div><div class="l">Précision à l'oreille</div></div>
       </div>
       <div style="margin-top:14px"><button class="btn" id="resetBtn">Réinitialiser la progression</button></div>
+    </div>
+  </section>
+
+  <!-- STUDIO (enregistrement) -->
+  <section class="panel" id="panel-studio">
+    <div class="card">
+      <h2>Studio d'enregistrement</h2>
+      <p class="sub">Enregistre ce que tu joues, puis réécoute-toi — à vitesse normale ou <b>au ralenti</b> pour analyser ton jeu. Ça marche sur tous les onglets&nbsp;: arme l'enregistrement, va jouer (mode libre, cours, chanson…), puis reviens ici pour réécouter et sauvegarder.</p>
+      <div class="row">
+        <button class="btn primary" id="recToggle">● Enregistrer</button>
+        <button class="btn" id="recPlay">▶ Réécouter</button>
+        <button class="btn" id="recSlow">▶ Ralenti (½)</button>
+        <button class="btn" id="recStopPlay">■ Stop</button>
+        <button class="btn" id="recSave">💾 Sauvegarder</button>
+      </div>
+      <div id="recStatus" style="margin-top:14px;font-size:14px;font-weight:600;min-height:22px;color:var(--accent)"></div>
+    </div>
+    <div class="card">
+      <h2>Mes enregistrements</h2>
+      <div id="recList"></div>
     </div>
   </section>
 
@@ -774,14 +802,14 @@ const KEYMAP = {
 const store = {
   data: { totalNotes: 0, xp: 0, lessons: 0, songs: 0, earRight: 0, earTotal: 0, songsDone: {},
           tech: 0, duo: 0, iv: 0, read: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null,
-          program: { done: {} }, courses: { done: {} } },
+          program: { done: {} }, courses: { done: {} }, recordings: [] },
   load() {
     try { const s = JSON.parse(localStorage.getItem('clavier_v1')); if (s) Object.assign(this.data, s); } catch(e){}
   },
   save() { localStorage.setItem('clavier_v1', JSON.stringify(this.data)); },
   reset() { this.data = { totalNotes:0, xp:0, lessons:0, songs:0, earRight:0, earTotal:0, songsDone:{},
           tech:0, duo:0, iv:0, read:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null,
-          program:{ done:{} }, courses:{ done:{} } }; this.save(); }
+          program:{ done:{} }, courses:{ done:{} }, recordings:[] }; this.save(); }
 };
 store.load();
 
@@ -900,11 +928,13 @@ function pressKey(midi, fromDemo = false) {
     DuoMode.onNote(midi);
     Reading.onNote(midi);
     Course.onNote(midi);
+    Recorder.noteOn(midi);
   }
 }
 function releaseKey(midi) {
   const el = keyEls.get(midi);
   if (!el) return;
+  Recorder.noteOff(midi);
   el.classList.remove('active');
   if (!document.getElementById('sustain').checked) AudioEngine.noteOff(midi);
   else setTimeout(() => AudioEngine.noteOff(midi), 400);
@@ -2102,7 +2132,7 @@ const Reading = (() => {
    PROGRAM — 4-week progressive curriculum
    ============================================================ */
 const PROGRAM = [
-  { title:'Semaine 1 — Découverte du clavier', days:[
+  { title:'Semaine 1 — Découverte du clavier', goal:'Prendre ses repères et jouer ses premières notes.', days:[
     { title:'Jour 1 · Trouver les notes', tasks:[
       { t:'Active « Afficher le nom des notes » et joue 30 notes', tab:'play' },
       { t:'Repère où se trouvent tous les Do du clavier', tab:'play' } ] },
@@ -2116,7 +2146,7 @@ const PROGRAM = [
     { title:'Jour 5 · Ta première mélodie', tasks:[
       { t:'Complète « Ah vous dirai-je maman » (Chansons)', tab:'songs' } ] },
   ] },
-  { title:'Semaine 2 — Rythme & mélodies', days:[
+  { title:'Semaine 2 — Rythme & mélodies', goal:'Le rythme, les gammes et de vraies mélodies.', days:[
     { title:'Jour 1 · Le métronome', tasks:[
       { t:'Joue la gamme de Do au métronome (Technique)', tab:'technique' } ] },
     { title:'Jour 2 · La gamme de Do', tasks:[
@@ -2129,7 +2159,7 @@ const PROGRAM = [
     { title:'Jour 5 · L\'oreille', tasks:[
       { t:'Reconnais 8 notes à l\'oreille (Oreille)', tab:'ear' } ] },
   ] },
-  { title:'Semaine 3 — Les deux mains', days:[
+  { title:'Semaine 3 — Les deux mains', goal:'Coordonner la main gauche et la main droite.', days:[
     { title:'Jour 1 · Main gauche seule', tasks:[
       { t:'Réussis la main gauche d\'un morceau (Deux mains)', tab:'duo' } ] },
     { title:'Jour 2 · Les accords', tasks:[
@@ -2141,7 +2171,7 @@ const PROGRAM = [
     { title:'Jour 5 · Lire en clé de fa', tasks:[
       { t:'10 notes justes en Lecture, clé de fa', tab:'read' } ] },
   ] },
-  { title:'Semaine 4 — Indépendance & musicalité', days:[
+  { title:'Semaine 4 — Indépendance & musicalité', goal:'Indépendance des mains, intervalles et nuances.', days:[
     { title:'Jour 1 · Les intervalles', tasks:[
       { t:'8 intervalles justes à l\'oreille (Théorie)', tab:'theory' } ] },
     { title:'Jour 2 · Le cycle des quintes', tasks:[
@@ -2152,6 +2182,56 @@ const PROGRAM = [
       { t:'Fais l\'exercice « Arpège de Do majeur »', tab:'technique' } ] },
     { title:'Jour 5 · Récital 🎉', tasks:[
       { t:'Rejoue un morceau entier à deux mains sans t\'arrêter', tab:'duo' } ] },
+  ] },
+  { title:'Semaine 5 — Les cours guidés', goal:'Suivre les cours par niveaux et enrichir son vocabulaire d\'accords.', days:[
+    { title:'Jour 1 · Niveau 1 des cours', tasks:[
+      { t:'Termine les 4 cours du Niveau 1 (onglet Cours)', tab:'courses' } ] },
+    { title:'Jour 2 · Passe au Niveau 2', tasks:[
+      { t:'Débloque et commence le Niveau 2 des cours', tab:'courses' } ] },
+    { title:'Jour 3 · Nouvelle gamme', tasks:[
+      { t:'Joue la gamme de Sol majeur au métronome (Technique)', tab:'technique' } ] },
+    { title:'Jour 4 · L\'accord de 7e', tasks:[
+      { t:'Écoute l\'accord de Sol7 (Gammes & Accords)', tab:'scales' } ] },
+    { title:'Jour 5 · Un nouveau morceau', tasks:[
+      { t:'Complète « Oh When the Saints » (Chansons)', tab:'songs' } ] },
+  ] },
+  { title:'Semaine 6 — Deux mains, la suite', goal:'Consolider le jeu à deux mains.', days:[
+    { title:'Jour 1 · Un morceau à deux mains', tasks:[
+      { t:'Réussis « Le pont de Londres » à deux mains', tab:'duo' } ] },
+    { title:'Jour 2 · L\'accompagnement', tasks:[
+      { t:'Travaille la basse d\'Alberti (Technique)', tab:'technique' } ] },
+    { title:'Jour 3 · Les renversements', tasks:[
+      { t:'Cours « Les renversements » (Niveau 2)', tab:'courses' } ] },
+    { title:'Jour 4 · Lire en clé de fa', tasks:[
+      { t:'10 notes justes en Lecture, clé de fa', tab:'read' } ] },
+    { title:'Jour 5 · Assembler', tasks:[
+      { t:'Réussis « Marie a un petit agneau » à deux mains', tab:'duo' } ] },
+  ] },
+  { title:'Semaine 7 — Vers l\'avancé', goal:'Aborder le répertoire avancé : gammes mineures, modes, arpèges.', days:[
+    { title:'Jour 1 · Mineure harmonique', tasks:[
+      { t:'Cours « La gamme mineure harmonique » (Niveau 3)', tab:'courses' } ] },
+    { title:'Jour 2 · Les modes', tasks:[
+      { t:'Cours « Les modes : le dorien » (Niveau 3)', tab:'courses' } ] },
+    { title:'Jour 3 · Les arpèges', tasks:[
+      { t:'Exercice « Arpège de La mineur » (Technique)', tab:'technique' } ] },
+    { title:'Jour 4 · Théorie', tasks:[
+      { t:'8 intervalles justes (Théorie)', tab:'theory' },
+      { t:'Explore 3 tonalités dans le cycle des quintes', tab:'theory' } ] },
+    { title:'Jour 5 · Chant de Noël', tasks:[
+      { t:'Complète « Douce nuit » (Chansons)', tab:'songs' } ] },
+  ] },
+  { title:'Semaine 8 — Récital final', goal:'Rassembler tout ce qu\'on a appris.', days:[
+    { title:'Jour 1 · Niveau 3 des cours', tasks:[
+      { t:'Termine tous les cours du Niveau 3', tab:'courses' } ] },
+    { title:'Jour 2 · Polyrythme', tasks:[
+      { t:'Travaille « 2 contre 3 » (Technique)', tab:'technique' } ] },
+    { title:'Jour 3 · Lecture avancée', tasks:[
+      { t:'Lis 8 notes en clé de sol (Lecture)', tab:'read' } ] },
+    { title:'Jour 4 · Un thème célèbre', tasks:[
+      { t:'Apprends le thème de « Lettre à Élise » (main droite)', tab:'songs' } ] },
+    { title:'Jour 5 · Récital 🎓', tasks:[
+      { t:'Enregistre-toi jouant un morceau complet à deux mains', tab:'studio' },
+      { t:'Réécoute-toi et repère ce qui est à améliorer', tab:'studio' } ] },
   ] },
 ];
 const Program = (() => {
@@ -2184,8 +2264,9 @@ const Program = (() => {
           + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + day.title + '</div>'
           + tasksHtml + '</div>';
       });
-      html += '<div class="pgm-week"><div class="pgm-week-head"><h3>' + w.title + '</h3>'
-        + '<span class="wk-prog">' + wkDone + '/' + w.days.length + ' jours</span></div>' + daysHtml + '</div>';
+      html += '<div class="pgm-week"><div class="pgm-week-head"><div><h3>' + w.title + '</h3>'
+        + (w.goal ? '<div class="wk-goal">' + w.goal + '</div>' : '')
+        + '</div><span class="wk-prog">' + wkDone + '/' + w.days.length + ' jours</span></div>' + daysHtml + '</div>';
     });
     contentEl.innerHTML = html;
     contentEl.querySelectorAll('.pgm-task input').forEach(cb => cb.addEventListener('change', () => {
@@ -2366,6 +2447,85 @@ const Course = (() => {
 })();
 
 /* ============================================================
+   RECORDER — record your playing and replay it
+   ============================================================ */
+const Recorder = (() => {
+  let recording = false, startT = 0, events = [], held = new Set(), playTimers = [], statusTimer = null;
+  const statusEl = () => document.getElementById('recStatus');
+  function status(t) { const e = statusEl(); if (e) e.textContent = t; }
+  function onCount(arr) { return (arr || events).filter(e => e.type === 'on').length; }
+  function duration(arr) { const a = arr || events; return a.length ? Math.max.apply(null, a.map(e => e.t)) : 0; }
+
+  function startRec() {
+    stopPlay(); events = []; held.clear(); recording = true; startT = performance.now();
+    const b = document.getElementById('recToggle'); b.textContent = '■ Arrêter'; b.classList.add('armed');
+    statusTimer = setInterval(() => status('● Enregistrement… ' + onCount() + ' notes · ' + ((performance.now() - startT) / 1000).toFixed(1) + ' s'), 200);
+  }
+  function stopRec() {
+    if (!recording) return;
+    const t = performance.now() - startT;
+    held.forEach(m => events.push({ type: 'off', midi: m, t })); held.clear();
+    recording = false;
+    if (statusTimer) { clearInterval(statusTimer); statusTimer = null; }
+    const b = document.getElementById('recToggle'); b.textContent = '● Enregistrer'; b.classList.remove('armed');
+    status(events.length ? 'Enregistré : ' + onCount() + ' notes · ' + (duration() / 1000).toFixed(1) + ' s. Clique « Réécouter ».' : 'Rien enregistré.');
+  }
+  function noteOn(midi) { if (recording) { events.push({ type: 'on', midi, t: performance.now() - startT }); held.add(midi); } }
+  function noteOff(midi) { if (recording && held.has(midi)) { events.push({ type: 'off', midi, t: performance.now() - startT }); held.delete(midi); } }
+
+  function play(arr, speed) {
+    stopPlay();
+    const evts = arr || events;
+    if (!evts.length) { status('Rien à réécouter — enregistre d\'abord.'); return; }
+    const dur = duration(evts);
+    evts.forEach(e => {
+      const id = setTimeout(() => {
+        const el = keyEls.get(e.midi);
+        if (e.type === 'on') { AudioEngine.noteOn(e.midi, { sustain: true }); if (el) el.classList.add('active'); }
+        else { AudioEngine.noteOff(e.midi); if (el) el.classList.remove('active'); }
+      }, e.t / speed);
+      playTimers.push(id);
+    });
+    playTimers.push(setTimeout(() => { keyEls.forEach(el => el.classList.remove('active')); status('▶ Lecture terminée.'); }, dur / speed + 500));
+    status('▶ Lecture' + (speed < 1 ? ' au ralenti' : '') + '…');
+  }
+  function stopPlay() { playTimers.forEach(clearTimeout); playTimers = []; keyEls.forEach(el => el.classList.remove('active')); }
+
+  function save() {
+    if (recording) stopRec();
+    if (!events.length) { status('Rien à sauvegarder — enregistre d\'abord.'); return; }
+    const take = { id: 'r' + Date.now(), name: 'Prise du ' + new Date().toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }), events: events.slice() };
+    store.data.recordings.unshift(take);
+    if (store.data.recordings.length > 20) store.data.recordings.pop();
+    store.save(); renderList(); status('💾 Sauvegardé : ' + take.name);
+  }
+  function find(id) { return store.data.recordings.find(x => x.id === id); }
+  function renderList() {
+    const el = document.getElementById('recList');
+    if (!store.data.recordings.length) { el.innerHTML = '<p class="sub" style="margin:0">Aucun enregistrement sauvegardé pour l\'instant.</p>'; return; }
+    el.innerHTML = store.data.recordings.map(r =>
+      '<div class="rec-item"><div><b>' + r.name + '</b><div class="rec-meta">' + onCount(r.events) + ' notes · ' + (duration(r.events) / 1000).toFixed(1) + ' s</div></div>'
+      + '<div class="rec-actions"><button class="btn" data-play="' + r.id + '">▶</button>'
+      + '<button class="btn" data-slow="' + r.id + '">▶ ½</button>'
+      + '<button class="btn" data-del="' + r.id + '">🗑</button></div></div>'
+    ).join('');
+    el.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => { const r = find(b.dataset.play); if (r) play(r.events, 1); }));
+    el.querySelectorAll('[data-slow]').forEach(b => b.addEventListener('click', () => { const r = find(b.dataset.slow); if (r) play(r.events, 0.5); }));
+    el.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { store.data.recordings = store.data.recordings.filter(x => x.id !== b.dataset.del); store.save(); renderList(); }));
+  }
+  function init() {
+    if (!store.data.recordings) store.data.recordings = [];
+    document.getElementById('recToggle').addEventListener('click', () => { if (recording) stopRec(); else startRec(); });
+    document.getElementById('recPlay').addEventListener('click', () => { if (recording) stopRec(); play(null, 1); });
+    document.getElementById('recSlow').addEventListener('click', () => { if (recording) stopRec(); play(null, 0.5); });
+    document.getElementById('recStopPlay').addEventListener('click', () => { stopPlay(); status('■ Arrêté.'); });
+    document.getElementById('recSave').addEventListener('click', save);
+    renderList();
+  }
+  return { init, noteOn, noteOff };
+})();
+
+/* ============================================================
    INIT
    ============================================================ */
 buildPiano();
@@ -2383,6 +2543,7 @@ DailyPlan.init();
 Reading.init();
 Program.init();
 Course.init();
+Recorder.init();
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {
