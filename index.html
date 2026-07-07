@@ -272,6 +272,7 @@
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="plan">Plan du jour</button>
     <button class="tab" data-tab="program">Programme</button>
+    <button class="tab" data-tab="courses">Cours</button>
     <button class="tab" data-tab="play">Découvrir</button>
     <button class="tab" data-tab="lessons">Leçons</button>
     <button class="tab" data-tab="read">Lecture</button>
@@ -346,6 +347,34 @@
     </div>
     <div class="card">
       <div id="programContent"></div>
+    </div>
+  </section>
+
+  <!-- COURS -->
+  <section class="panel" id="panel-courses">
+    <div class="card">
+      <h2>Cours par niveaux</h2>
+      <p class="sub">De vraies leçons&nbsp;: une explication, puis une pratique guidée. Termine tous les cours d'un niveau pour débloquer le suivant.</p>
+      <div class="chips" id="courseLevels"></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin:12px 0 6px">
+        <span id="courseLevelName"></span><span id="courseLevelProg" style="color:var(--accent);font-weight:700"></span>
+      </div>
+      <div class="progress-bar"><span id="courseLevelBar"></span></div>
+    </div>
+    <div class="card">
+      <div id="courseList" class="song-list"></div>
+    </div>
+    <div class="card" id="courseDetail" style="display:none">
+      <h2 id="courseTitle"></h2>
+      <div class="sub" id="courseIntro" style="white-space:pre-line;line-height:1.65"></div>
+      <div class="staff-paper" id="courseStaff" style="display:none;margin-bottom:12px"></div>
+      <div id="courseHowto" style="font-size:13px;color:var(--accent);margin:4px 0 12px"></div>
+      <div class="row" style="margin-bottom:8px">
+        <button class="btn primary" id="courseStart">🎯 Pratiquer</button>
+        <button class="btn" id="courseStop">■ Stop</button>
+        <span id="courseFb" class="feedback good" style="min-height:auto"></span>
+      </div>
+      <div class="progress-bar"><span id="courseProg"></span></div>
     </div>
   </section>
 
@@ -745,14 +774,14 @@ const KEYMAP = {
 const store = {
   data: { totalNotes: 0, xp: 0, lessons: 0, songs: 0, earRight: 0, earTotal: 0, songsDone: {},
           tech: 0, duo: 0, iv: 0, read: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null,
-          program: { done: {} } },
+          program: { done: {} }, courses: { done: {} } },
   load() {
     try { const s = JSON.parse(localStorage.getItem('clavier_v1')); if (s) Object.assign(this.data, s); } catch(e){}
   },
   save() { localStorage.setItem('clavier_v1', JSON.stringify(this.data)); },
   reset() { this.data = { totalNotes:0, xp:0, lessons:0, songs:0, earRight:0, earTotal:0, songsDone:{},
           tech:0, duo:0, iv:0, read:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null,
-          program:{ done:{} } }; this.save(); }
+          program:{ done:{} }, courses:{ done:{} } }; this.save(); }
 };
 store.load();
 
@@ -777,6 +806,7 @@ function checkStreak() {
     d.lastGoalDay = t; d.bestStreak = Math.max(d.bestStreak, d.streak); store.save();
   }
 }
+function doneCourses() { return Object.values((store.data.courses && store.data.courses.done) || {}).filter(Boolean).length; }
 
 function addXp(n) { store.data.xp += n; store.save(); renderStats(); }
 function renderStats() {
@@ -869,6 +899,7 @@ function pressKey(midi, fromDemo = false) {
     Independence.onNote(midi);
     DuoMode.onNote(midi);
     Reading.onNote(midi);
+    Course.onNote(midi);
   }
 }
 function releaseKey(midi) {
@@ -912,7 +943,7 @@ document.getElementById('tabs').addEventListener('click', e => {
   t.classList.add('active');
   document.getElementById('panel-' + t.dataset.tab).classList.add('active');
   // reset transient modes when leaving
-  Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop(); Reading.stop();
+  Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop(); Reading.stop(); Course.stop();
   const mt = document.getElementById('metroToggle'); if (mt) mt.textContent = '▶ Démarrer';
   clearMarks('hint'); clearMarks('target');
 });
@@ -1837,6 +1868,8 @@ const ACHIEVEMENTS = [
   { id:'streak3',label:'Assidu',           desc:'3 jours de suite',                 stat:()=>store.data.bestStreak, target:3 },
   { id:'streak7',label:'En feu',           desc:'7 jours de suite',                 stat:()=>store.data.bestStreak, target:7 },
   { id:'read50', label:'Déchiffreur',      desc:'50 notes lues sur la portée',      stat:()=>store.data.read,       target:50 },
+  { id:'crs4',   label:'Studieux',         desc:'Terminer 4 cours',                 stat:()=>doneCourses(),         target:4 },
+  { id:'crsAll', label:'Diplômé',          desc:'Terminer les 14 cours',            stat:()=>doneCourses(),         target:14 },
   { id:'xp1000', label:'1000 XP',          desc:'Atteindre 1000 XP au total',       stat:()=>store.data.xp,         target:1000 },
 ];
 const DailyPlan = (() => {
@@ -2081,6 +2114,168 @@ const Program = (() => {
 })();
 
 /* ============================================================
+   COURSES — graded lessons (débutant → avancé)
+   ============================================================ */
+const COURSES = [
+  { level:1, name:'Niveau 1 · Débutant', courses:[
+    { id:'l1a', title:'Se repérer sur le clavier',
+      intro:'Le clavier répète le même motif : des groupes de 2 et 3 touches noires. Le DO se trouve juste à gauche du groupe de 2 touches noires. Repère-le, puis monte Do-Ré-Mi-Fa-Sol avec les 5 doigts de la main droite (pouce = 1).',
+      howto:'Joue les 5 notes surlignées dans l\'ordre.',
+      practice:{ type:'sequence', notes:['C4','D4','E4','F4','G4'] } },
+    { id:'l1b', title:'La gamme de Do majeur',
+      intro:'Une gamme majeure suit toujours la formule d\'intervalles Ton–Ton–½Ton–Ton–Ton–Ton–½Ton. Sur les touches blanches à partir de Do : Do Ré Mi Fa Sol La Si Do. Passe le pouce sous les doigts après le Mi.',
+      howto:'Monte la gamme de Do sur une octave.',
+      practice:{ type:'sequence', notes:['C4','D4','E4','F4','G4','A4','B4','C5'] } },
+    { id:'l1c', title:'Ton premier accord',
+      intro:'Un accord parfait majeur (triade) empile la 1re, la 3e et la 5e note de la gamme. Pour Do majeur : Do + Mi + Sol, joués ensemble.',
+      howto:'Joue les 3 notes de l\'accord en même temps.',
+      practice:{ type:'chord', notes:['C4','E4','G4'] } },
+    { id:'l1d', title:'Lire sur la portée',
+      intro:'En clé de sol, les 5 lignes portent (de bas en haut) Mi Sol Si Ré Fa, et les interlignes Fa La Do Mi. Entraîne-toi à reconnaître quelques notes.',
+      howto:'Lis chaque note et joue-la (5 notes).',
+      practice:{ type:'reading', clef:'treble', count:5 } },
+  ] },
+  { level:2, name:'Niveau 2 · Intermédiaire', courses:[
+    { id:'l2a', title:'La gamme mineure naturelle',
+      intro:'La mineur est le relatif mineur de Do majeur : mêmes touches blanches, mais on part de La. Formule Ton–½Ton–Ton–Ton–½Ton–Ton–Ton. Le caractère est plus mélancolique.',
+      howto:'Monte la gamme de La mineur naturelle.',
+      practice:{ type:'sequence', notes:['A3','B3','C4','D4','E4','F4','G4','A4'] } },
+    { id:'l2b', title:'Accords majeurs et mineurs',
+      intro:'La couleur d\'un accord vient de sa tierce. Majeur = grande tierce (4 demi-tons) ; mineur = petite tierce (3 demi-tons). La mineur = La + Do + Mi.',
+      howto:'Joue l\'accord de La mineur (La–Do–Mi).',
+      practice:{ type:'chord', notes:['A3','C4','E4'] } },
+    { id:'l2c', title:'L\'accord de septième',
+      intro:'On ajoute une 4e note à la triade : la 7e. L\'accord de dominante Sol7 (Sol Si Ré Fa) crée une tension qui « appelle » l\'accord de Do. C\'est le moteur de milliers de morceaux.',
+      howto:'Joue l\'accord Sol7 (Sol–Si–Ré–Fa).',
+      practice:{ type:'chord', notes:['G3','B3','D4','F4'] } },
+    { id:'l2d', title:'Les renversements',
+      intro:'Un même accord peut se jouer avec une autre note à la basse. Do majeur : position fondamentale (Do-Mi-Sol), 1er renversement (Mi-Sol-Do), 2e renversement (Sol-Do-Mi). Indispensable pour enchaîner les accords en douceur.',
+      howto:'Joue les 3 positions à la suite (fondamentale → 1er → 2e).',
+      practice:{ type:'sequence', notes:['C4','E4','G4','E4','G4','C5','G4','C5','E5'] } },
+    { id:'l2e', title:'Lire en clé de fa',
+      intro:'La main gauche lit en clé de fa. Lignes : Sol Si Ré Fa La ; interlignes : La Do Mi Sol. Entraîne-toi sur le registre grave.',
+      howto:'Lis chaque note en clé de fa (5 notes).',
+      practice:{ type:'reading', clef:'bass', count:5 } },
+  ] },
+  { level:3, name:'Niveau 3 · Avancé', courses:[
+    { id:'l3a', title:'La gamme mineure harmonique',
+      intro:'On hausse la 7e note d\'un demi-ton pour créer une sensible qui tire vers la tonique. La mineur harmonique : La Si Do Ré Mi Fa Sol#. La sonorité entre Fa et Sol# est très caractéristique.',
+      howto:'Monte la gamme de La mineur harmonique.',
+      practice:{ type:'sequence', notes:['A3','B3','C4','D4','E4','F4','G#4','A4'] } },
+    { id:'l3b', title:'Les modes : le dorien',
+      intro:'Les modes sont des gammes aux couleurs propres. Le mode de Ré dorien (touches blanches de Ré à Ré) sonne comme un mineur plus lumineux — très présent en jazz et en musique celtique.',
+      howto:'Monte le mode de Ré dorien.',
+      practice:{ type:'sequence', notes:['D4','E4','F4','G4','A4','B4','C5','D5'] } },
+    { id:'l3c', title:'Accords de 4 sons (maj7)',
+      intro:'Cmaj7 (Do Mi Sol Si) apporte une couleur douce et « jazzy ». Compare avec Do majeur simple : la 7e majeure enrichit sans créer de forte tension.',
+      howto:'Joue l\'accord Do majeur 7 (Do–Mi–Sol–Si).',
+      practice:{ type:'chord', notes:['C4','E4','G4','B4'] } },
+    { id:'l3d', title:'Arpèges sur deux octaves',
+      intro:'Un arpège égrène les notes d\'un accord. Travaille Do majeur sur deux octaves en passant le pouce avec souplesse — la base de la virtuosité.',
+      howto:'Joue l\'arpège de Do sur deux octaves.',
+      practice:{ type:'sequence', notes:['C4','E4','G4','C5','E5','G5','C6'] } },
+    { id:'l3e', title:'Lecture avancée',
+      intro:'Élargis ton champ de lecture : notes plus aiguës, lignes supplémentaires. Vise la reconnaissance immédiate, sans compter les lignes une à une.',
+      howto:'Lis 8 notes en clé de sol.',
+      practice:{ type:'reading', clef:'treble', count:8 } },
+  ] },
+];
+const Course = (() => {
+  let level = 1, cur = null, pr = null;
+  const levelsEl = document.getElementById('courseLevels');
+  const listEl = document.getElementById('courseList');
+  const detail = document.getElementById('courseDetail');
+  const staffEl = document.getElementById('courseStaff');
+  const fbEl = document.getElementById('courseFb');
+  const progEl = document.getElementById('courseProg');
+
+  function levelObj(l) { return COURSES.find(x => x.level === l); }
+  function isDone(id) { return !!store.data.courses.done[id]; }
+  function levelComplete(l) { return levelObj(l).courses.every(c => isDone(c.id)); }
+  function unlocked(l) { return l <= 1 || levelComplete(l - 1); }
+  function readPool(clef) { return clef === 'bass' ? naturalsInRange(48, 60) : naturalsInRange(60, 81); }
+
+  function renderLevels() {
+    levelsEl.innerHTML = '';
+    COURSES.forEach(L => {
+      const ok = unlocked(L.level);
+      const b = document.createElement('button');
+      b.className = 'chip' + (L.level === level ? ' active' : '');
+      b.textContent = (ok ? '' : '🔒 ') + 'Niveau ' + L.level;
+      b.addEventListener('click', () => { if (!ok) return; level = L.level; detail.style.display = 'none'; stop(); renderLevels(); renderList(); });
+      levelsEl.appendChild(b);
+    });
+    const L = levelObj(level), dc = L.courses.filter(c => isDone(c.id)).length;
+    document.getElementById('courseLevelName').textContent = L.name;
+    document.getElementById('courseLevelProg').textContent = dc + ' / ' + L.courses.length + ' cours';
+    document.getElementById('courseLevelBar').style.width = (dc / L.courses.length * 100) + '%';
+  }
+  function renderList() {
+    const L = levelObj(level);
+    listEl.innerHTML = '';
+    L.courses.forEach((c, i) => {
+      const el = document.createElement('div');
+      el.className = 'song' + (cur && cur.id === c.id ? ' active' : '');
+      el.innerHTML = '<h3>' + (isDone(c.id) ? '✅ ' : '') + c.title + '</h3><span class="diff">Cours ' + (i + 1) + '</span>';
+      el.addEventListener('click', () => openCourse(c.id));
+      listEl.appendChild(el);
+    });
+  }
+  function openCourse(id) {
+    stop();
+    cur = levelObj(level).courses.find(c => c.id === id);
+    renderList();
+    detail.style.display = '';
+    document.getElementById('courseTitle').textContent = cur.title;
+    document.getElementById('courseIntro').textContent = cur.intro;
+    document.getElementById('courseHowto').textContent = '👉 ' + cur.howto;
+    staffEl.style.display = 'none'; fbEl.textContent = ''; progEl.style.width = isDone(cur.id) ? '100%' : '0%';
+    document.getElementById('courseStart').textContent = isDone(cur.id) ? '↺ Refaire la pratique' : '🎯 Pratiquer';
+  }
+  function markSeq() { clearMarks('target'); if (pr.idx < pr.notes.length) { mark(pr.notes[pr.idx], 'target'); progEl.style.width = (pr.idx / pr.notes.length * 100) + '%'; } }
+  function nextReading() { clearMarks('target'); const pool = readPool(pr.clef); pr.target = pool[Math.floor(Math.random() * pool.length)]; staffEl.innerHTML = staffSVG(pr.target, pr.clef); progEl.style.width = (pr.i / pr.n * 100) + '%'; }
+  function start() {
+    if (!cur) return;
+    const p = cur.practice; clearMarks('target'); clearMarks('hint'); progEl.style.width = '0%';
+    if (p.type === 'sequence') { pr = { type:'sequence', notes:p.notes.map(pm), idx:0 }; staffEl.style.display = 'none'; markSeq(); }
+    else if (p.type === 'chord') { const ms = p.notes.map(pm); pr = { type:'chord', need:new Set(ms), got:new Set() }; staffEl.style.display = 'none'; ms.forEach(m => mark(m, 'target')); }
+    else if (p.type === 'reading') { pr = { type:'reading', clef:p.clef || 'treble', n:p.count || 5, i:0, target:null }; staffEl.style.display = ''; nextReading(); }
+    fbEl.textContent = 'À toi de jouer !'; fbEl.className = 'feedback good';
+  }
+  function onNote(midi) {
+    if (!pr) return;
+    if (pr.type === 'sequence') {
+      if (midi === pr.notes[pr.idx]) { pr.idx++; addXp(1); fbEl.textContent = '👍'; fbEl.className = 'feedback good'; if (pr.idx >= pr.notes.length) complete(); else markSeq(); }
+      else { fbEl.textContent = '❌ suis les touches surlignées'; fbEl.className = 'feedback bad'; }
+    } else if (pr.type === 'chord') {
+      if (pr.need.has(midi)) { if (!pr.got.has(midi)) { pr.got.add(midi); addXp(1); } fbEl.textContent = '👍 ' + pr.got.size + '/' + pr.need.size; fbEl.className = 'feedback good'; if (pr.got.size >= pr.need.size) complete(); }
+      else { fbEl.textContent = '❌ note hors de l\'accord'; fbEl.className = 'feedback bad'; }
+    } else if (pr.type === 'reading') {
+      if (midi === pr.target) { pr.i++; addXp(2); store.data.read++; store.save(); fbEl.textContent = 'Juste ! 🎵'; fbEl.className = 'feedback good'; if (pr.i >= pr.n) complete(); else nextReading(); }
+      else { fbEl.textContent = '❌ c\'était ' + midiToShort(pr.target, document.getElementById('useSolfege').checked); fbEl.className = 'feedback bad'; }
+    }
+  }
+  function complete() {
+    clearMarks('target'); pr = null; progEl.style.width = '100%';
+    const already = isDone(cur.id);
+    store.data.courses.done[cur.id] = true; store.save();
+    const xp = already ? 5 : 30; addXp(xp);
+    fbEl.textContent = '🏆 Cours réussi ! +' + xp + ' XP'; fbEl.className = 'feedback good';
+    document.getElementById('courseStart').textContent = '↺ Refaire la pratique';
+    renderLevels(); renderList(); renderStats();
+    if (levelComplete(level) && level < COURSES.length) setTimeout(() => { fbEl.textContent = '🎓 Niveau ' + level + ' terminé — niveau ' + (level + 1) + ' débloqué !'; }, 500);
+  }
+  function stop() { pr = null; clearMarks('target'); }
+  function init() {
+    if (!store.data.courses) store.data.courses = { done: {} };
+    renderLevels(); renderList();
+    document.getElementById('courseStart').addEventListener('click', start);
+    document.getElementById('courseStop').addEventListener('click', () => { stop(); fbEl.textContent = 'Arrêté'; });
+  }
+  return { init, onNote, stop };
+})();
+
+/* ============================================================
    INIT
    ============================================================ */
 buildPiano();
@@ -2097,6 +2292,7 @@ DuoMode.init();
 DailyPlan.init();
 Reading.init();
 Program.init();
+Course.init();
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {

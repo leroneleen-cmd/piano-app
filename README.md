@@ -9,6 +9,7 @@ avec la Web Audio API et la progression est enregistrée localement dans le navi
 
 - **Plan du jour** — routine quotidienne d'objectifs, quota XP ajustable, série de jours (streak), badges à débloquer.
 - **Programme** — parcours progressif en 4 semaines (20 jours), objectifs cochables et déblocage séquentiel.
+- **Cours** — leçons guidées par niveaux (débutant → avancé) : gammes majeures/mineures, modes, accords, 7es, renversements, arpèges, lecture. Déblocage de niveau en niveau.
 - **Découvrir** — clavier jouable 3 octaves (souris + clavier d'ordinateur).
 - **Leçons** — reconnaissance des notes.
 - **Lecture** — lecture de notes sur la portée (clé de sol et clé de fa).
