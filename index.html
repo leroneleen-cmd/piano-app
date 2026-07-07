@@ -232,6 +232,24 @@
   .ach .a-title { font-weight:700; font-size:13.5px; }
   .ach .a-desc { font-size:11px; color:var(--text-dim); margin-top:2px; }
   .ach .a-prog { font-size:11px; color:var(--accent); margin-top:4px; font-weight:600; }
+  /* Staff / reading */
+  .staff-paper { background:#f6f6f8; border-radius:12px; padding:14px 8px; display:flex; justify-content:center; }
+  .staff-paper svg { max-width:100%; height:auto; }
+  .read-note-name { text-align:center; font-size:22px; font-weight:800; color:var(--accent); min-height:28px; margin-top:8px; }
+  /* Program */
+  .pgm-week { border:1px solid var(--line); border-radius:12px; margin-bottom:14px; overflow:hidden; }
+  .pgm-week-head { padding:12px 16px; background:var(--bg-elev-2); display:flex; justify-content:space-between; align-items:center; }
+  .pgm-week-head h3 { margin:0; font-size:15px; }
+  .pgm-week-head .wk-prog { font-size:12px; color:var(--text-dim); }
+  .pgm-day { padding:12px 16px; border-top:1px solid var(--line); }
+  .pgm-day.locked { opacity:.5; }
+  .pgm-day-title { font-weight:700; font-size:13.5px; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .pgm-task { display:flex; align-items:center; gap:10px; padding:5px 0; font-size:13px; }
+  .pgm-task input { width:18px; height:18px; accent-color:var(--good); cursor:pointer; flex:none; }
+  .pgm-task label { flex:1; }
+  .pgm-task.done label { color:var(--good); text-decoration:line-through; }
+  .pgm-task .lnk { color:var(--accent-2); cursor:pointer; font-size:12px; white-space:nowrap; }
+  .pgm-task .lnk:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -253,8 +271,10 @@
 <main>
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="plan">Plan du jour</button>
+    <button class="tab" data-tab="program">Programme</button>
     <button class="tab" data-tab="play">Découvrir</button>
     <button class="tab" data-tab="lessons">Leçons</button>
+    <button class="tab" data-tab="read">Lecture</button>
     <button class="tab" data-tab="scales">Gammes &amp; Accords</button>
     <button class="tab" data-tab="songs">Chansons</button>
     <button class="tab" data-tab="duo">Deux mains</button>
@@ -314,6 +334,21 @@
     </div>
   </section>
 
+  <!-- PROGRAMME -->
+  <section class="panel" id="panel-program">
+    <div class="card">
+      <h2>Programme en 4 semaines</h2>
+      <p class="sub">Un parcours progressif pour partir de zéro. Chaque jour propose 1 à 2 objectifs&nbsp;: coche-les quand c'est fait. Un jour se débloque quand le précédent est terminé. Clique «&nbsp;→ ouvrir&nbsp;» pour aller directement à l'exercice.</p>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+        <span>Progression globale</span><span id="programSummary" style="color:var(--accent);font-weight:700"></span>
+      </div>
+      <div class="progress-bar" style="height:12px"><span id="programProg"></span></div>
+    </div>
+    <div class="card">
+      <div id="programContent"></div>
+    </div>
+  </section>
+
   <!-- DÉCOUVRIR -->
   <section class="panel" id="panel-play">
     <div class="card">
@@ -360,6 +395,34 @@
       <div class="row" style="justify-content:center;margin-top:14px">
         <button class="btn primary" id="lessonStart">Commencer</button>
       </div>
+    </div>
+  </section>
+
+  <!-- LECTURE (portée) -->
+  <section class="panel" id="panel-read">
+    <div class="card">
+      <h2>Lecture sur la portée</h2>
+      <p class="sub">Lis la note affichée sur la portée et joue-la sur le clavier — <b>sans indice</b> au début&nbsp;! Enchaîne 10 notes justes pour valider une session.</p>
+      <div class="row" style="margin-bottom:14px">
+        <span style="font-size:13px;color:var(--text-dim)">Clé&nbsp;:</span>
+        <div class="chips" id="readClef">
+          <button class="chip active" data-clef="treble">𝄞 Clé de sol (aigu)</button>
+          <button class="chip" data-clef="bass">𝄢 Clé de fa (grave)</button>
+        </div>
+      </div>
+      <div class="staff-paper" id="readStaff"></div>
+      <div class="read-note-name" id="readName"></div>
+      <div class="feedback" id="readFb" style="min-height:20px;text-align:center"></div>
+      <div class="progress-bar"><span id="readProg"></span></div>
+      <div class="row" style="justify-content:center;margin-top:16px">
+        <button class="btn primary" id="readStart">Commencer</button>
+        <label class="toggle"><input type="checkbox" id="readAssist"> Aide (montrer le nom + la touche)</label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Aide-mémoire</h2>
+      <p class="sub"><b>Clé de sol</b> — lignes de bas en haut&nbsp;: <b>Mi&nbsp;Sol&nbsp;Si&nbsp;Ré&nbsp;Fa</b> ; interlignes&nbsp;: <b>Fa&nbsp;La&nbsp;Do&nbsp;Mi</b>. Le <b>Do central</b> se pose sur une petite ligne sous la portée.<br>
+      <b>Clé de fa</b> — lignes&nbsp;: <b>Sol&nbsp;Si&nbsp;Ré&nbsp;Fa&nbsp;La</b> ; interlignes&nbsp;: <b>La&nbsp;Do&nbsp;Mi&nbsp;Sol</b>. Le Do central se pose sur une petite ligne au-dessus.</p>
     </div>
   </section>
 
@@ -681,13 +744,15 @@ const KEYMAP = {
    ============================================================ */
 const store = {
   data: { totalNotes: 0, xp: 0, lessons: 0, songs: 0, earRight: 0, earTotal: 0, songsDone: {},
-          tech: 0, duo: 0, iv: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null },
+          tech: 0, duo: 0, iv: 0, read: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null,
+          program: { done: {} } },
   load() {
     try { const s = JSON.parse(localStorage.getItem('clavier_v1')); if (s) Object.assign(this.data, s); } catch(e){}
   },
   save() { localStorage.setItem('clavier_v1', JSON.stringify(this.data)); },
   reset() { this.data = { totalNotes:0, xp:0, lessons:0, songs:0, earRight:0, earTotal:0, songsDone:{},
-          tech:0, duo:0, iv:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null }; this.save(); }
+          tech:0, duo:0, iv:0, read:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null,
+          program:{ done:{} } }; this.save(); }
 };
 store.load();
 
@@ -803,6 +868,7 @@ function pressKey(midi, fromDemo = false) {
     Technique.onNote(midi);
     Independence.onNote(midi);
     DuoMode.onNote(midi);
+    Reading.onNote(midi);
   }
 }
 function releaseKey(midi) {
@@ -846,7 +912,7 @@ document.getElementById('tabs').addEventListener('click', e => {
   t.classList.add('active');
   document.getElementById('panel-' + t.dataset.tab).classList.add('active');
   // reset transient modes when leaving
-  Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop();
+  Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop(); Reading.stop();
   const mt = document.getElementById('metroToggle'); if (mt) mt.textContent = '▶ Démarrer';
   clearMarks('hint'); clearMarks('target');
 });
@@ -1770,6 +1836,7 @@ const ACHIEVEMENTS = [
   { id:'iv15',   label:'Théoricien',       desc:'15 intervalles justes',            stat:()=>store.data.iv,         target:15 },
   { id:'streak3',label:'Assidu',           desc:'3 jours de suite',                 stat:()=>store.data.bestStreak, target:3 },
   { id:'streak7',label:'En feu',           desc:'7 jours de suite',                 stat:()=>store.data.bestStreak, target:7 },
+  { id:'read50', label:'Déchiffreur',      desc:'50 notes lues sur la portée',      stat:()=>store.data.read,       target:50 },
   { id:'xp1000', label:'1000 XP',          desc:'Atteindre 1000 XP au total',       stat:()=>store.data.xp,         target:1000 },
 ];
 const DailyPlan = (() => {
@@ -1829,6 +1896,191 @@ const DailyPlan = (() => {
 })();
 
 /* ============================================================
+   STAFF RENDERER + READING TRAINER (portée musicale)
+   ============================================================ */
+function noteDiatonic(midi) {
+  const pc = ((midi % 12) + 12) % 12, oct = Math.floor(midi / 12) - 1;
+  const map = { 0:[0,0], 1:[0,1], 2:[1,0], 3:[1,1], 4:[2,0], 5:[3,0], 6:[3,1], 7:[4,0], 8:[4,1], 9:[5,0], 10:[5,1], 11:[6,0] };
+  const [li, sh] = map[pc];
+  return { d: oct * 7 + li, sharp: sh };
+}
+function naturalsInRange(lo, hi) { const a = []; for (let m = lo; m <= hi; m++) if (!SHARP[m % 12].includes('#')) a.push(m); return a; }
+function staffSVG(midi, clef) {
+  const dRef = clef === 'bass' ? 18 : 30;            // bottom-line diatonic index (G2 / E4)
+  const { d, sharp } = noteDiatonic(midi);
+  const y = 76 - (d - dRef) * 7;
+  const nx = 152;
+  let lines = '';
+  for (let ly = 20; ly <= 76; ly += 14) lines += '<line x1="6" y1="' + ly + '" x2="214" y2="' + ly + '" stroke="#3a3a44" stroke-width="1.5"/>';
+  let ledger = '';
+  if (y > 76) for (let ly = 90; ly <= y + 0.5; ly += 14) ledger += '<line x1="' + (nx-12) + '" y1="' + ly + '" x2="' + (nx+12) + '" y2="' + ly + '" stroke="#3a3a44" stroke-width="1.5"/>';
+  if (y < 20) for (let ly = 6; ly >= y - 0.5; ly -= 14) ledger += '<line x1="' + (nx-12) + '" y1="' + ly + '" x2="' + (nx+12) + '" y2="' + ly + '" stroke="#3a3a44" stroke-width="1.5"/>';
+  const stemUp = y >= 48;
+  const stem = stemUp
+    ? '<line x1="' + (nx+7) + '" y1="' + (y-1) + '" x2="' + (nx+7) + '" y2="' + (y-34) + '" stroke="#1a1a22" stroke-width="1.8"/>'
+    : '<line x1="' + (nx-7) + '" y1="' + (y+1) + '" x2="' + (nx-7) + '" y2="' + (y+34) + '" stroke="#1a1a22" stroke-width="1.8"/>';
+  const acc = sharp ? '<text x="' + (nx-17) + '" y="' + (y+6) + '" font-size="22" fill="#1a1a22" font-family="serif">♯</text>' : '';
+  const clefGlyph = clef === 'bass'
+    ? '<text x="8" y="46" font-size="42" fill="#1a1a22" font-family="serif">𝄢</text>'
+    : '<text x="10" y="74" font-size="54" fill="#1a1a22" font-family="serif">𝄞</text>';
+  return '<svg viewBox="0 0 220 120" width="264" xmlns="http://www.w3.org/2000/svg">'
+    + lines + clefGlyph + ledger + stem
+    + '<ellipse cx="' + nx + '" cy="' + y + '" rx="7.6" ry="5.4" fill="#1a1a22" transform="rotate(-22 ' + nx + ' ' + y + ')"/>'
+    + acc + '</svg>';
+}
+
+const Reading = (() => {
+  let clef = 'treble', target = null, running = false, streak = 0, timer = null;
+  const GOAL = 10;
+  const staffEl = document.getElementById('readStaff');
+  const nameEl = document.getElementById('readName');
+  const fbEl = document.getElementById('readFb');
+  const progEl = document.getElementById('readProg');
+  function assist() { return document.getElementById('readAssist').checked; }
+  function solf() { return document.getElementById('useSolfege').checked; }
+  function pool() { return clef === 'bass' ? naturalsInRange(48, 60) : naturalsInRange(60, 81); }
+  function preview() { target = clef === 'bass' ? 55 : 67; staffEl.innerHTML = staffSVG(target, clef); nameEl.textContent = ''; }
+  function next() {
+    clearMarks('hint'); if (timer) { clearTimeout(timer); timer = null; }
+    const p = pool(); target = p[Math.floor(Math.random() * p.length)];
+    staffEl.innerHTML = staffSVG(target, clef); fbEl.textContent = '';
+    if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else nameEl.textContent = '';
+  }
+  function start() { running = true; streak = 0; progEl.style.width = '0%'; document.getElementById('readStart').textContent = 'Recommencer'; next(); }
+  function stop() { running = false; if (timer) { clearTimeout(timer); timer = null; } clearMarks('hint'); }
+  function onNote(midi) {
+    if (!running || target === null) return;
+    if (midi === target) {
+      streak++; addXp(3); store.data.read++; store.save(); renderStats();
+      fbEl.textContent = 'Juste ! 🎵'; fbEl.className = 'feedback good'; progEl.style.width = (streak / GOAL * 100) + '%';
+      if (streak >= GOAL) { running = false; clearMarks('hint'); nameEl.textContent = '🏆'; fbEl.textContent = 'Lecture réussie ! +30 XP'; addXp(30); document.getElementById('readStart').textContent = 'Recommencer'; }
+      else timer = setTimeout(next, 500);
+    } else {
+      fbEl.textContent = '❌ c\'était ' + midiToShort(target, solf()); fbEl.className = 'feedback bad';
+      nameEl.textContent = midiToShort(target, solf());
+      streak = Math.max(0, streak - 1); progEl.style.width = (streak / GOAL * 100) + '%';
+    }
+  }
+  function init() {
+    document.getElementById('readClef').addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      clef = c.dataset.clef;
+      document.querySelectorAll('#readClef .chip').forEach(x => x.classList.toggle('active', x === c));
+      if (running) next(); else preview();
+    });
+    document.getElementById('readStart').addEventListener('click', start);
+    document.getElementById('readAssist').addEventListener('change', () => { if (running) { staffEl.innerHTML = staffSVG(target, clef); if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else { nameEl.textContent = ''; clearMarks('hint'); } } });
+    preview();
+  }
+  return { init, onNote, stop };
+})();
+
+/* ============================================================
+   PROGRAM — 4-week progressive curriculum
+   ============================================================ */
+const PROGRAM = [
+  { title:'Semaine 1 — Découverte du clavier', days:[
+    { title:'Jour 1 · Trouver les notes', tasks:[
+      { t:'Active « Afficher le nom des notes » et joue 30 notes', tab:'play' },
+      { t:'Repère où se trouvent tous les Do du clavier', tab:'play' } ] },
+    { title:'Jour 2 · Do Ré Mi', tasks:[
+      { t:'Réussis 1 leçon de reconnaissance (touches blanches)', tab:'lessons' } ] },
+    { title:'Jour 3 · Les cinq doigts', tasks:[
+      { t:'Fais l\'exercice « Pose des 5 doigts » (Technique)', tab:'technique' },
+      { t:'Recommence-le au métronome à 60 BPM', tab:'technique' } ] },
+    { title:'Jour 4 · Lire une note', tasks:[
+      { t:'10 notes justes en Lecture, clé de sol', tab:'read' } ] },
+    { title:'Jour 5 · Ta première mélodie', tasks:[
+      { t:'Complète « Ah vous dirai-je maman » (Chansons)', tab:'songs' } ] },
+  ] },
+  { title:'Semaine 2 — Rythme & mélodies', days:[
+    { title:'Jour 1 · Le métronome', tasks:[
+      { t:'Joue la gamme de Do au métronome (Technique)', tab:'technique' } ] },
+    { title:'Jour 2 · La gamme de Do', tasks:[
+      { t:'Écoute et repère la gamme de Do majeur (Gammes)', tab:'scales' },
+      { t:'Fais l\'exercice « Gamme de Do majeur »', tab:'technique' } ] },
+    { title:'Jour 3 · Lire plus vite', tasks:[
+      { t:'10 notes justes en Lecture, sans l\'aide', tab:'read' } ] },
+    { title:'Jour 4 · Une comptine', tasks:[
+      { t:'Complète « Frère Jacques » (Chansons)', tab:'songs' } ] },
+    { title:'Jour 5 · L\'oreille', tasks:[
+      { t:'Reconnais 8 notes à l\'oreille (Oreille)', tab:'ear' } ] },
+  ] },
+  { title:'Semaine 3 — Les deux mains', days:[
+    { title:'Jour 1 · Main gauche seule', tasks:[
+      { t:'Réussis la main gauche d\'un morceau (Deux mains)', tab:'duo' } ] },
+    { title:'Jour 2 · Les accords', tasks:[
+      { t:'Écoute les accords de Do, Fa et Sol majeur (Accords)', tab:'scales' } ] },
+    { title:'Jour 3 · Assembler', tasks:[
+      { t:'Réussis un morceau en mode « Deux mains »', tab:'duo' } ] },
+    { title:'Jour 4 · L\'accompagnement', tasks:[
+      { t:'Travaille l\'accompagnement main gauche (Technique)', tab:'technique' } ] },
+    { title:'Jour 5 · Lire en clé de fa', tasks:[
+      { t:'10 notes justes en Lecture, clé de fa', tab:'read' } ] },
+  ] },
+  { title:'Semaine 4 — Indépendance & musicalité', days:[
+    { title:'Jour 1 · Les intervalles', tasks:[
+      { t:'8 intervalles justes à l\'oreille (Théorie)', tab:'theory' } ] },
+    { title:'Jour 2 · Le cycle des quintes', tasks:[
+      { t:'Explore 3 tonalités dans le cycle des quintes', tab:'theory' } ] },
+    { title:'Jour 3 · Deux rythmes', tasks:[
+      { t:'Travaille la coordination polyrythmique (Technique)', tab:'technique' } ] },
+    { title:'Jour 4 · Les arpèges', tasks:[
+      { t:'Fais l\'exercice « Arpège de Do majeur »', tab:'technique' } ] },
+    { title:'Jour 5 · Récital 🎉', tasks:[
+      { t:'Rejoue un morceau entier à deux mains sans t\'arrêter', tab:'duo' } ] },
+  ] },
+];
+const Program = (() => {
+  const contentEl = document.getElementById('programContent');
+  const barEl = document.getElementById('programProg');
+  const summaryEl = document.getElementById('programSummary');
+  function key(wi, di, ti) { return 'w' + wi + 'd' + di + 't' + ti; }
+  function done(k) { return !!store.data.program.done[k]; }
+  function dayComplete(wi, di) { return PROGRAM[wi].days[di].tasks.every((_, ti) => done(key(wi, di, ti))); }
+  function flat() { const a = []; PROGRAM.forEach((w, wi) => w.days.forEach((_, di) => a.push({ wi, di }))); return a; }
+  function refresh() {
+    if (!store.data.program) store.data.program = { done: {} };
+    const days = flat(); let doneDays = 0; let html = '';
+    PROGRAM.forEach((w, wi) => {
+      let wkDone = 0, daysHtml = '';
+      w.days.forEach((day, di) => {
+        const fi = days.findIndex(x => x.wi === wi && x.di === di);
+        const prev = days[fi - 1];
+        const unlocked = fi === 0 || dayComplete(prev.wi, prev.di);
+        const complete = dayComplete(wi, di);
+        if (complete) { wkDone++; doneDays++; }
+        const tasksHtml = day.tasks.map((tk, ti) => {
+          const k = key(wi, di, ti), dn = done(k);
+          return '<div class="pgm-task ' + (dn ? 'done' : '') + '">'
+            + '<input type="checkbox" ' + (dn ? 'checked' : '') + ' ' + (unlocked ? '' : 'disabled') + ' data-key="' + k + '">'
+            + '<label>' + tk.t + '</label>'
+            + '<span class="lnk" data-tab="' + tk.tab + '">→ ouvrir</span></div>';
+        }).join('');
+        daysHtml += '<div class="pgm-day ' + (unlocked ? '' : 'locked') + '">'
+          + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + day.title + '</div>'
+          + tasksHtml + '</div>';
+      });
+      html += '<div class="pgm-week"><div class="pgm-week-head"><h3>' + w.title + '</h3>'
+        + '<span class="wk-prog">' + wkDone + '/' + w.days.length + ' jours</span></div>' + daysHtml + '</div>';
+    });
+    contentEl.innerHTML = html;
+    contentEl.querySelectorAll('.pgm-task input').forEach(cb => cb.addEventListener('change', () => {
+      if (cb.disabled) return;
+      store.data.program.done[cb.dataset.key] = cb.checked; store.save(); refresh();
+    }));
+    contentEl.querySelectorAll('.lnk').forEach(a => a.addEventListener('click', () => {
+      const b = document.querySelector('.tab[data-tab="' + a.dataset.tab + '"]'); if (b) b.click();
+    }));
+    const total = days.length;
+    barEl.style.width = (doneDays / total * 100) + '%';
+    summaryEl.textContent = doneDays + ' / ' + total + ' jours' + (doneDays === total ? ' — programme terminé, félicitations ! 🎓' : '');
+  }
+  function init() { if (!store.data.program) store.data.program = { done: {} }; refresh(); }
+  return { init, refresh };
+})();
+
+/* ============================================================
    INIT
    ============================================================ */
 buildPiano();
@@ -1843,6 +2095,8 @@ Independence.init();
 Theory.init();
 DuoMode.init();
 DailyPlan.init();
+Reading.init();
+Program.init();
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {
