@@ -1014,14 +1014,25 @@ const NOTE_ROOTS = ['C','D','E','F','G','A','B'];
 const SCALE_TYPES = {
   'Majeure': [0,2,4,5,7,9,11,12],
   'Mineure naturelle': [0,2,3,5,7,8,10,12],
+  'Mineure harmonique': [0,2,3,5,7,8,11,12],
+  'Mineure mélodique': [0,2,3,5,7,9,11,12],
+  'Dorien': [0,2,3,5,7,9,10,12],
+  'Mixolydien': [0,2,4,5,7,9,10,12],
   'Pentatonique': [0,2,4,7,9,12],
   'Blues': [0,3,5,6,7,10,12],
+  'Chromatique': [0,1,2,3,4,5,6,7,8,9,10,11,12],
+  'Ton entier': [0,2,4,6,8,10,12],
 };
 const CHORD_TYPES = {
   'Majeur': [0,4,7],
   'Mineur': [0,3,7],
   '7e': [0,4,7,10],
+  'Mineur 7': [0,3,7,10],
   'Majeur 7': [0,4,7,11],
+  'Sixte': [0,4,7,9],
+  'Diminué': [0,3,6],
+  'Augmenté': [0,4,8],
+  'Sus2': [0,2,7],
   'Sus4': [0,5,7],
 };
 function rootMidi(name) { return 60 + SHARP.indexOf(name); }
@@ -1396,6 +1407,23 @@ const TECH_EX = [
   { id:'chrom', name:'Chromatique (Do→Sol)', bpm:72, reps:2,
     notes:['C4','C#4','D4','D#4','E4','F4','F#4','G4','F#4','F4','E4','D#4','D4','C#4','C4'],
     fingers:[1,3,1,3,1,2,3,1,3,2,1,3,1,3,1] },
+  { id:'scale2', name:'Gamme de Do (2 octaves)', bpm:84, reps:1,
+    notes:['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6','B5','A5','G5','F5','E5','D5','C5','B4','A4','G4','F4','E4','D4','C4'] },
+  { id:'scaleG', name:'Gamme de Sol majeur', bpm:80, reps:2,
+    notes:['G4','A4','B4','C5','D5','E5','F#5','G5','F#5','E5','D5','C5','B4','A4','G4'],
+    fingers:[1,2,3,1,2,3,4,5,4,3,2,1,3,2,1] },
+  { id:'scaleF', name:'Gamme de Fa majeur', bpm:80, reps:2,
+    notes:['F4','G4','A4','A#4','C5','D5','E5','F5','E5','D5','C5','A#4','A4','G4','F4'],
+    fingers:[1,2,3,4,1,2,3,4,3,2,1,4,3,2,1] },
+  { id:'arpmin', name:'Arpège de La mineur', bpm:80, reps:3,
+    notes:['A3','C4','E4','A4','E4','C4','A3'],
+    fingers:[1,2,3,5,3,2,1] },
+  { id:'thirds', name:'Tierces brisées (Do)', bpm:72, reps:2,
+    notes:['C4','E4','D4','F4','E4','G4','F4','A4','G4','B4','A4','C5','B4','D5','C5','E5'],
+    fingers:[1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3] },
+  { id:'octaves', name:'Sauts d\'octave (Do)', bpm:66, reps:2,
+    notes:['C4','C5','D4','D5','E4','E5','F4','F5','G4','G5'],
+    fingers:[1,5,1,5,1,5,1,5,1,5] },
 ];
 const Technique = (() => {
   let ex = TECH_EX[0], idx = 0, reps = 0, active = false, useMetro = false;
