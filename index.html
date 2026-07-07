@@ -1146,6 +1146,60 @@ const SONGS = [
     desc:'Indispensable ! Contient quelques sauts.',
     notes:['C4','C4','D4','C4','F4','E4','C4','C4','D4','C4','G4','F4',
            'C4','C4','C5','A4','F4','E4','D4','A#4','A#4','A4','F4','G4','F4']
+  },
+  {
+    id:'mary', title:'Marie a un petit agneau', composer:'Trad.', diff:'Facile',
+    desc:'« Mary Had a Little Lamb » — une des toutes premières mélodies à connaître.',
+    notes:['E4','D4','C4','D4','E4','E4','E4','D4','D4','D4','E4','G4','G4',
+           'E4','D4','C4','D4','E4','E4','E4','E4','D4','D4','E4','D4','C4']
+  },
+  {
+    id:'hotcross', title:'Petits pains chauds', composer:'Trad.', diff:'Facile',
+    desc:'« Hot Cross Buns » — seulement trois notes (Mi-Ré-Do). Idéal pour démarrer.',
+    notes:['E4','D4','C4','E4','D4','C4','C4','C4','C4','C4','D4','D4','D4','D4','E4','D4','C4']
+  },
+  {
+    id:'row', title:'Rame, rame ton bateau', composer:'Trad.', diff:'Facile',
+    desc:'« Row, Row, Row Your Boat ».',
+    notes:['C4','C4','C4','D4','E4','E4','D4','E4','F4','G4',
+           'C5','C5','C5','G4','G4','G4','E4','E4','E4','C4','C4','C4','G4','F4','E4','D4','C4']
+  },
+  {
+    id:'clair2', title:'Au clair de la lune', composer:'Trad.', diff:'Facile',
+    desc:'La comptine française par excellence.',
+    notes:['C4','C4','C4','D4','E4','D4','C4','E4','D4','D4','C4']
+  },
+  {
+    id:'london', title:'Le pont de Londres', composer:'Trad.', diff:'Facile',
+    desc:'« London Bridge Is Falling Down ».',
+    notes:['G4','A4','G4','F4','E4','F4','G4','D4','E4','F4','E4','F4','G4',
+           'G4','A4','G4','F4','E4','F4','G4','D4','G4','E4','C4']
+  },
+  {
+    id:'saints', title:'Oh When the Saints', composer:'Trad.', diff:'Facile',
+    desc:'Le grand classique du gospel et du jazz Nouvelle-Orléans.',
+    notes:['C4','E4','F4','G4','C4','E4','F4','G4','C4','E4','F4','G4','E4','C4','E4','D4']
+  },
+  {
+    id:'susanna', title:'Oh ! Susanna', composer:'S. Foster', diff:'Moyen',
+    desc:'Un air folk américain entraînant.',
+    notes:['C4','D4','E4','G4','G4','A4','G4','E4','C4','D4','E4','E4','D4','C4','D4',
+           'C4','D4','E4','G4','G4','A4','G4','E4','C4','D4','E4','E4','D4','D4','C4',
+           'F4','F4','A4','A4','G4','E4','C4','D4','E4','E4','D4','C4','D4']
+  },
+  {
+    id:'silent', title:'Douce nuit', composer:'F. Gruber', diff:'Moyen',
+    desc:'« Silent Night » — le chant de Noël le plus célèbre.',
+    notes:['G4','A4','G4','E4','G4','A4','G4','E4','D5','D5','B4','C5','C5','G4',
+           'A4','A4','C5','B4','A4','G4','A4','G4','E4','A4','A4','C5','B4','A4','G4','A4','G4','E4',
+           'D5','D5','F5','D5','B4','C5','E5','C5']
+  },
+  {
+    id:'elise', title:'Lettre à Élise (thème)', composer:'Beethoven', diff:'Difficile',
+    desc:'« Für Elise » — le thème d\'ouverture, iconique. En La mineur.',
+    notes:['E5','D#5','E5','D#5','E5','B4','D5','C5','A4',
+           'C4','E4','A4','B4','E4','G#4','B4','C5','E4',
+           'E5','D#5','E5','D#5','E5','B4','D5','C5','A4']
   }
 ];
 
@@ -1710,6 +1764,14 @@ const DUO = [
     desc:'Main droite en arpège, main gauche « pom » sur le premier temps. Sens du 3 temps.',
     r:['G4','C5','E5','G4','C5','E5','F4','A4','C5','F4','A4','C5'],
     l:['C3',null,null,'C3',null,null,'F3',null,null,'F3',null,null] },
+  { id:'london2', title:'Le pont de Londres', composer:'Trad.', bpm:88,
+    desc:'Mélodie main droite, basse main gauche qui alterne Do et Sol.',
+    r:['G4','A4','G4','F4','E4','F4','G4','D4','E4','F4','E4','F4','G4'],
+    l:['C3',null,'G3',null,'C3',null,'G3',null,'C3',null,null,null,'C3'] },
+  { id:'mary2', title:'Marie a un petit agneau', composer:'Trad.', bpm:84,
+    desc:'Ta première mélodie connue à deux mains.',
+    r:['E4','D4','C4','D4','E4','E4','E4','D4','D4','D4','E4','G4','G4','E4','D4','C4'],
+    l:['C3',null,null,null,'C3',null,null,null,'G3',null,null,null,'C3',null,null,'C3'] },
 ];
 const DuoMode = (() => {
   let cur = null, hand = 'right', idx = 0, active = false, mode = null;
