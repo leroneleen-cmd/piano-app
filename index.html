@@ -94,6 +94,19 @@
   .navbtn .lbl { font-size: 11px; font-weight: 600; }
   .navbtn.active { color: var(--accent); }
   .navbtn.active .ic { filter: none; }
+  /* Song search + user songs + create forms */
+  .search-input, .form-input {
+    width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--bg-elev-2); color: var(--text); font-size: 14px; font-family: inherit;
+  }
+  .search-input:focus, .form-input:focus { outline: none; border-color: var(--accent); }
+  .song { position: relative; }
+  .song-del {
+    position: absolute; top: 10px; right: 12px; font-size: 14px; opacity: .55;
+    cursor: pointer; padding: 2px 4px; border-radius: 6px;
+  }
+  .song-del:hover { opacity: 1; background: rgba(239,109,109,.15); }
+  textarea.form-input { resize: vertical; font-family: ui-monospace, Menlo, monospace; }
 
   .panel { display: none; animation: fade .25s ease; }
   .panel.active { display: block; }
@@ -539,7 +552,8 @@
   <section class="panel" id="panel-songs">
     <div class="card">
       <h2>Apprendre une chanson</h2>
-      <p class="sub">Choisis un morceau. En mode guidé, la prochaine note à jouer s'illumine en <span style="color:var(--good)">vert</span> et attend que tu la joues. “Démo” te la joue en entier.</p>
+      <p class="sub">Choisis un morceau. En mode guidé, la prochaine note à jouer s'illumine en <span style="color:var(--good)">vert</span> et attend que tu la joues. “Démo” te la joue en entier. Tes morceaux importés/créés (onglet <b>Créer</b>) apparaissent aussi ici.</p>
+      <input class="search-input" id="songSearch" type="search" placeholder="🔍 Rechercher un morceau (titre, compositeur)…" style="margin-bottom:14px">
       <div class="song-list" id="songList"></div>
     </div>
     <div class="card" id="songPlayer" style="display:none">
@@ -553,6 +567,35 @@
       </div>
       <div class="progress-bar"><span id="songProg"></span></div>
       <div style="font-size:13px;color:var(--text-dim);margin-top:6px" id="songCounter"></div>
+    </div>
+  </section>
+
+  <!-- CRÉER / IMPORTER -->
+  <section class="panel" id="panel-create">
+    <div class="card">
+      <h2>Créer / Importer une chanson</h2>
+      <p class="sub">Transforme une musique en morceau jouable&nbsp;: importe un fichier <b>MIDI (.mid)</b> — on en extrait la ligne mélodique — ou saisis directement une suite de notes. Tes morceaux apparaissent ensuite dans <b>Chansons</b>.</p>
+      <p class="sub" style="color:var(--bad)">⚠️ N'importe que de la musique que tu as le droit d'utiliser. Les tubes récents des charts sont protégés par le droit d'auteur.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 8px">🎼 Importer un fichier MIDI</h3>
+      <p class="sub">On garde la mélodie (la note la plus aiguë à chaque instant), transposée dans la tessiture du clavier.</p>
+      <input type="file" id="midiInput" accept=".mid,.midi,audio/midi,audio/x-midi" style="display:none">
+      <div class="row">
+        <button class="btn primary" id="midiBtn">📁 Choisir un fichier MIDI</button>
+        <span id="midiStatus" style="font-size:13px;color:var(--text-dim)"></span>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin:0 0 8px">✍️ Composer à la main</h3>
+      <p class="sub">Saisis des notes séparées par des espaces. Format&nbsp;: nom + octave — ex. <b>C4 D4 E4 F4 G4</b> — ou en solfège <b>do4 re4 mi4</b>. Sans octave → octave 4. Dièse = <b>#</b> (ex. F#4), bémol = <b>b</b> (ex. Bb4).</p>
+      <input class="form-input" id="composeTitle" placeholder="Titre du morceau" style="margin-bottom:8px">
+      <textarea class="form-input" id="composeNotes" rows="3" placeholder="C4 D4 E4 F4 G4 A4 G4 F4 E4 D4 C4"></textarea>
+      <div class="row" style="margin-top:8px">
+        <button class="btn primary" id="composeSave">✓ Créer le morceau</button>
+        <button class="btn" id="composePreview">▶ Aperçu</button>
+        <span id="composeStatus" style="font-size:13px;color:var(--text-dim)"></span>
+      </div>
     </div>
   </section>
 
@@ -824,14 +867,14 @@ const KEYMAP = {
 const store = {
   data: { totalNotes: 0, xp: 0, lessons: 0, songs: 0, earRight: 0, earTotal: 0, songsDone: {},
           tech: 0, duo: 0, iv: 0, read: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null,
-          program: { done: {} }, courses: { done: {} }, recordings: [] },
+          program: { done: {} }, courses: { done: {} }, recordings: [], userSongs: [] },
   load() {
     try { const s = JSON.parse(localStorage.getItem('clavier_v1')); if (s) Object.assign(this.data, s); } catch(e){}
   },
   save() { localStorage.setItem('clavier_v1', JSON.stringify(this.data)); },
   reset() { this.data = { totalNotes:0, xp:0, lessons:0, songs:0, earRight:0, earTotal:0, songsDone:{},
           tech:0, duo:0, iv:0, read:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null,
-          program:{ done:{} }, courses:{ done:{} }, recordings:[] }; this.save(); }
+          program:{ done:{} }, courses:{ done:{} }, recordings:[], userSongs:[] }; this.save(); }
 };
 store.load();
 
@@ -996,15 +1039,15 @@ document.getElementById('useSolfege').addEventListener('change', updateLabels);
 const TAB_LABELS = {
   plan:'Plan du jour', program:'Programme', courses:'Cours', lessons:'Leçons', read:'Lecture',
   theory:'Théorie', play:'Découvrir', songs:'Chansons', duo:'Deux mains', scales:'Gammes',
-  technique:'Technique', ear:'Oreille', studio:'Studio'
+  technique:'Technique', ear:'Oreille', studio:'Studio', create:'Créer'
 };
 const CATEGORIES = [
   { id:'home',  label:'Accueil',   icon:'🏠', tabs:['plan','program'] },
   { id:'learn', label:'Apprendre', icon:'🎓', tabs:['courses','lessons','read','theory'] },
-  { id:'play',  label:'Jouer',     icon:'🎹', tabs:['play','songs','duo','scales'] },
+  { id:'play',  label:'Jouer',     icon:'🎹', tabs:['play','songs','duo','scales','create'] },
   { id:'drill', label:'Exercices', icon:'💪', tabs:['technique','ear','studio'] },
 ];
-const NO_PIANO = new Set(['plan','program']);
+const NO_PIANO = new Set(['plan','program','create']);
 let currentCat = 'home', currentTab = 'plan';
 const lastTabByCat = {};
 function catOfTab(tab) { return CATEGORIES.find(c => c.tabs.includes(tab)); }
@@ -1314,22 +1357,33 @@ const Songs = (() => {
   const counterEl = document.getElementById('songCounter');
   const fbEl = document.getElementById('songFeedback');
 
+  function allSongs() { return SONGS.concat(store.data.userSongs || []); }
   function render() {
-    listEl.innerHTML='';
-    SONGS.forEach(s => {
+    const q = (document.getElementById('songSearch')?.value || '').trim().toLowerCase();
+    const list = allSongs().filter(s => !q || (s.title + ' ' + (s.composer || '')).toLowerCase().includes(q));
+    listEl.innerHTML = '';
+    if (!list.length) { listEl.innerHTML = '<p class="sub" style="margin:0">Aucun morceau ne correspond à «&nbsp;' + q + '&nbsp;».</p>'; return; }
+    list.forEach(s => {
       const done = store.data.songsDone[s.id];
       const el = document.createElement('div');
-      el.className='song'; el.dataset.id=s.id;
-      el.innerHTML = `<h3>${s.title} ${done?'✅':''}</h3>
-        <div class="meta">${s.composer} · ${s.notes.length} notes</div>
-        <span class="diff">${s.diff}</span>`;
-      el.addEventListener('click', () => select(s.id));
+      el.className = 'song' + (current && current.id === s.id ? ' active' : ''); el.dataset.id = s.id;
+      el.innerHTML = `<h3>${s.title} ${done ? '✅' : ''}</h3>
+        <div class="meta">${s.composer || '—'} · ${s.notes.length} notes</div>
+        <span class="diff">${s.diff || 'Perso'}</span>`
+        + (s.user ? `<span class="song-del" data-del="${s.id}" title="Supprimer">🗑</span>` : '');
+      el.addEventListener('click', (e) => { if (e.target.classList.contains('song-del')) return; select(s.id); });
       listEl.appendChild(el);
     });
+    listEl.querySelectorAll('.song-del').forEach(b => b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      store.data.userSongs = (store.data.userSongs || []).filter(x => x.id !== b.dataset.del);
+      store.save(); render();
+    }));
   }
   function select(id) {
     stop();
-    current = SONGS.find(s=>s.id===id);
+    current = allSongs().find(s=>s.id===id);
+    if (!current) return;
     document.querySelectorAll('.song').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
     player.style.display='';
     titleEl.textContent = current.title;
@@ -1380,7 +1434,8 @@ const Songs = (() => {
   document.getElementById('songDemo').addEventListener('click', demo);
   document.getElementById('songGuide').addEventListener('click', guide);
   document.getElementById('songStop').addEventListener('click', () => { stop(); fbEl.textContent='Arrêté'; });
-  return { render, onNote, stop };
+  document.getElementById('songSearch').addEventListener('input', render);
+  return { render, onNote, stop, select };
 })();
 
 /* ============================================================
@@ -2639,6 +2694,134 @@ const Recorder = (() => {
 })();
 
 /* ============================================================
+   CREATE / IMPORT — build playable songs from MIDI or typed notes
+   ============================================================ */
+function midiName(m) { return SHARP[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1); }
+const SOLF2LETTER = { do:'C', ut:'C', 're':'D', 'ré':'D', 'mi':'E', 'fa':'F', 'sol':'G', 'la':'A', 'si':'B' };
+function noteToMidi(tok) {
+  tok = tok.trim().toLowerCase().replace('♯', '#').replace('♭', 'b').replace('é', 'e'); // é -> e (ré -> re)
+  if (!tok) return null;
+  let letter, acc, oct;
+  let m = tok.match(/^([a-g])(#|b)?(-?\d+)?$/);
+  if (m) { letter = m[1].toUpperCase(); acc = m[2]; oct = m[3]; }
+  else {
+    const sm = tok.match(/^(do|ut|re|mi|fa|sol|la|si)(#|b)?(-?\d+)?$/);
+    if (!sm) return null;
+    letter = SOLF2LETTER[sm[1]]; acc = sm[2]; oct = sm[3];
+  }
+  let pc = { C:0, D:2, E:4, F:5, G:7, A:9, B:11 }[letter];
+  if (acc === '#') pc += 1; if (acc === 'b') pc -= 1;
+  const octave = oct != null ? parseInt(oct) : 4;
+  return (octave + 1) * 12 + pc;
+}
+function inRange(mi) { while (mi < 48) mi += 12; while (mi > 84) mi -= 12; return mi; }
+function parseNotes(str) {
+  const toks = (str || '').split(/[\s,|]+/).filter(Boolean);
+  const names = [];
+  for (const t of toks) {
+    const mi = noteToMidi(t);
+    if (mi == null) throw new Error('Note non reconnue : « ' + t + ' »');
+    names.push(midiName(inRange(mi)));
+  }
+  return names;
+}
+// Minimal Standard MIDI File parser — extracts the melody (top note over time)
+function parseMIDI(buffer) {
+  const dv = new DataView(buffer); let p = 0;
+  const u8 = () => dv.getUint8(p++);
+  const u16 = () => { const v = dv.getUint16(p); p += 2; return v; };
+  const u32 = () => { const v = dv.getUint32(p); p += 4; return v; };
+  const str = (n) => { let s = ''; for (let i = 0; i < n; i++) s += String.fromCharCode(dv.getUint8(p++)); return s; };
+  const vlq = () => { let v = 0; while (true) { const b = u8(); v = (v << 7) | (b & 0x7f); if (!(b & 0x80)) break; } return v; };
+  if (str(4) !== 'MThd') throw new Error('Fichier MIDI invalide.');
+  u32(); u16(); const ntracks = u16(); const division = u16();
+  const events = [];
+  for (let t = 0; t < ntracks; t++) {
+    if (p + 8 > dv.byteLength) break;
+    const id = str(4); const len = u32(); const end = p + len;
+    if (id !== 'MTrk') { p = end; continue; }
+    let tick = 0, running = 0;
+    while (p < end) {
+      tick += vlq();
+      let sb = dv.getUint8(p), status;
+      if (sb & 0x80) { p++; status = sb; running = (sb < 0xF0) ? sb : 0; }
+      else status = running;
+      if (status === 0xFF) { u8(); const l = vlq(); p += l; }
+      else if (status === 0xF0 || status === 0xF7) { const l = vlq(); p += l; }
+      else {
+        const type = status & 0xF0;
+        if (type === 0x90) { const note = u8(); const vel = u8(); if (vel > 0) events.push({ tick, midi: note }); }
+        else if (type === 0x80) { u8(); u8(); }
+        else if (type === 0xA0 || type === 0xB0 || type === 0xE0) { u8(); u8(); }
+        else if (type === 0xC0 || type === 0xD0) { u8(); }
+        else { p++; }
+      }
+    }
+    p = end;
+  }
+  if (!events.length) throw new Error('Aucune note trouvée dans le fichier.');
+  events.sort((a, b) => a.tick - b.tick);
+  const tpq = (division & 0x8000) ? 96 : (division || 96);
+  const gate = Math.max(1, Math.round(tpq / 8)); // ~1/32 note tolerance for "simultaneous"
+  const melody = [];
+  for (let i = 0; i < events.length;) {
+    let top = events[i].midi; const t0 = events[i].tick; let j = i;
+    while (j < events.length && events[j].tick - t0 <= gate) { if (events[j].midi > top) top = events[j].midi; j++; }
+    melody.push(inRange(top)); i = j;
+  }
+  return melody.slice(0, 400).map(midiName);
+}
+
+const Create = (() => {
+  function saveSong(title, names, srcLabel) {
+    if (!names || !names.length) return null;
+    const song = { id: 'u' + Date.now(), title: (title || '').trim() || 'Mon morceau', composer: 'Perso',
+      diff: 'Perso', desc: srcLabel || 'Morceau personnel.', notes: names, user: true };
+    store.data.userSongs = store.data.userSongs || [];
+    store.data.userSongs.unshift(song);
+    if (store.data.userSongs.length > 50) store.data.userSongs.pop();
+    store.save();
+    return song;
+  }
+  function openInSongs(id) { switchTab('songs'); Songs.render(); Songs.select(id); }
+  function init() {
+    const midiStatus = () => document.getElementById('midiStatus');
+    document.getElementById('midiBtn').addEventListener('click', () => document.getElementById('midiInput').click());
+    document.getElementById('midiInput').addEventListener('change', async (e) => {
+      const file = e.target.files && e.target.files[0]; if (!file) return;
+      midiStatus().textContent = 'Lecture de « ' + file.name + ' »…';
+      try {
+        const names = parseMIDI(await file.arrayBuffer());
+        const song = saveSong(file.name.replace(/\.midi?$/i, ''), names, 'Importé depuis un fichier MIDI');
+        midiStatus().textContent = '✓ ' + names.length + ' notes importées.';
+        openInSongs(song.id);
+      } catch (err) { midiStatus().textContent = '❌ ' + err.message; }
+      e.target.value = '';
+    });
+    document.getElementById('composeSave').addEventListener('click', () => {
+      const st = document.getElementById('composeStatus');
+      try {
+        const names = parseNotes(document.getElementById('composeNotes').value);
+        if (!names.length) { st.textContent = 'Saisis au moins une note.'; return; }
+        const song = saveSong(document.getElementById('composeTitle').value, names, 'Composé à la main');
+        st.textContent = '✓ Créé (' + names.length + ' notes).';
+        openInSongs(song.id);
+      } catch (err) { st.textContent = '❌ ' + err.message; }
+    });
+    document.getElementById('composePreview').addEventListener('click', () => {
+      const st = document.getElementById('composeStatus');
+      try {
+        const names = parseNotes(document.getElementById('composeNotes').value);
+        if (!names.length) { st.textContent = 'Saisis au moins une note.'; return; }
+        st.textContent = '▶ Aperçu…';
+        playSequence(names.map(nm => ({ midi: pm(nm), dur: 0.4 })), 0.42, null, () => { st.textContent = 'Aperçu terminé.'; });
+      } catch (err) { st.textContent = '❌ ' + err.message; }
+    });
+  }
+  return { init };
+})();
+
+/* ============================================================
    INIT
    ============================================================ */
 buildPiano();
@@ -2657,6 +2840,7 @@ Reading.init();
 Program.init();
 Course.init();
 Recorder.init();
+Create.init();
 switchTab('plan'); // build nav + land on home
 clearMarks('target'); // clean home screen
 
