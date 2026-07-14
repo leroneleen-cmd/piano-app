@@ -157,7 +157,8 @@
   .key.white.hint { box-shadow: inset 0 0 0 3px var(--accent-2), inset 0 -6px 10px rgba(0,0,0,.08); }
   .key.white.target { box-shadow: inset 0 0 0 3px var(--good); }
   .key.black {
-    position: absolute; top: 0; width: 58%; height: 62%;
+    position: absolute; top: 0; height: 62%;
+    /* width is set per-key in JS (a fraction of one white key) */
     background: var(--black-key); border-radius: 0 0 6px 6px; z-index: 2;
     border: 1px solid #000; box-shadow: 0 4px 8px rgba(0,0,0,.5);
     display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px;
@@ -906,6 +907,7 @@ function buildPiano() {
     el.className = 'key black';
     el.dataset.midi = k.midi;
     el.style.left = (whitesBefore * whiteWidthPct) + '%';
+    el.style.width = (whiteWidthPct * 0.62) + '%';
     el.innerHTML = `<span class="kb">${(reverseKeymap[k.midi]||'').toUpperCase()}</span><span class="lbl"></span>`;
     el.addEventListener('mousedown', e => { e.preventDefault(); pressKey(k.midi); });
     el.addEventListener('mouseup', () => releaseKey(k.midi));
