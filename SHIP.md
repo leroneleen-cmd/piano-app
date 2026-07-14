@@ -63,6 +63,7 @@ Sur https://appstoreconnect.apple.com → **Mes apps** → **+** :
 - Catégorie : Éducation (secondaire : Musique) · Classement d'âge : 4+.
 - **Captures d'écran** (obligatoires) : prends-les depuis le simulateur iPhone (6.7" et 6.5").
 - Description, mots-clés, texte promotionnel.
+- **Localisations** : l'app détecte la langue de l'appareil (FR/EN/ES/DE) et propose un sélecteur. Dans App Store Connect, ajoute une **localisation par langue** (nom, description, mots-clés traduits) pour la visibilité sur chaque marché. Le clavier MIDI est **masqué automatiquement sur iOS** (Web MIDI non supporté par Safari/WKWebView) — rien à configurer.
 
 ## 5) Archiver et soumettre
 Dans Xcode :

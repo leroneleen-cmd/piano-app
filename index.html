@@ -282,6 +282,8 @@
   .staff-paper { background:#f6f6f8; border-radius:12px; padding:14px 8px; display:flex; justify-content:center; }
   .staff-paper svg { max-width:100%; height:auto; }
   .read-note-name { text-align:center; font-size:22px; font-weight:800; color:var(--accent); min-height:28px; margin-top:8px; }
+  .lang-select { background:var(--bg-elev-2); color:var(--text); border:1px solid var(--line); border-radius:8px; padding:5px 8px; font-size:12px; font-family:inherit; cursor:pointer; }
+  .lang-select:focus { outline:none; border-color:var(--accent); }
   /* Program */
   .pgm-week { border:1px solid var(--line); border-radius:12px; margin-bottom:14px; overflow:hidden; }
   .pgm-week-head { padding:12px 16px; background:var(--bg-elev-2); display:flex; justify-content:space-between; align-items:center; }
@@ -311,13 +313,14 @@
     <div class="logo">🎹</div>
     <div>
       <h1>Clavier</h1>
-      <p>Apprendre le piano en autonomie</p>
+      <p data-i18n="app.subtitle">Apprendre le piano en autonomie</p>
     </div>
   </div>
   <div class="streak">
-    <span>Notes jouées&nbsp;: <b id="totalNotes">0</b></span>
+    <select id="langSelect" class="lang-select" aria-label="Language"></select>
+    <span><span data-i18n="stats.notes">Notes jouées</span>&nbsp;: <b id="totalNotes">0</b></span>
     <span>·</span>
-    <span>XP&nbsp;: <b id="xp">0</b></span>
+    <span><span data-i18n="stats.xp">XP</span>&nbsp;: <b id="xp">0</b></span>
   </div>
 </header>
 
@@ -433,11 +436,13 @@
         <label class="toggle"><input type="checkbox" id="useSolfege"> Notation solfège (Do Ré Mi)</label>
         <label class="toggle"><input type="checkbox" id="sustain"> Sustain (notes tenues)</label>
       </div>
-      <div class="row" style="margin-top:14px">
-        <button class="btn" id="midiConnect">🎹 Connecter un piano / clavier MIDI</button>
-        <span id="midiConnStatus" style="font-size:13px;color:var(--text-dim)"></span>
+      <div id="midiBlock">
+        <div class="row" style="margin-top:14px">
+          <button class="btn" id="midiConnect">🎹 Connecter un piano / clavier MIDI</button>
+          <span id="midiConnStatus" style="font-size:13px;color:var(--text-dim)"></span>
+        </div>
+        <p class="sub" style="margin:8px 0 0;font-size:12px">Branche ton piano électrique en USB (ou Bluetooth), puis clique&nbsp;: il pilotera l'app partout (leçons, chansons, cours…). <b>Ordinateur Chrome/Edge ou Android</b> — non disponible sur iPhone/Safari.</p>
       </div>
-      <p class="sub" style="margin:8px 0 0;font-size:12px">Branche ton piano électrique en USB (ou Bluetooth), puis clique&nbsp;: il pilotera l'app partout (leçons, chansons, cours…). <b>Ordinateur Chrome/Edge ou Android</b> — non disponible sur iPhone/Safari.</p>
     </div>
     <div class="card">
       <h2>Ta progression</h2>
@@ -898,14 +903,14 @@ const KEYMAP = {
 const store = {
   data: { totalNotes: 0, xp: 0, lessons: 0, songs: 0, earRight: 0, earTotal: 0, songsDone: {},
           tech: 0, duo: 0, iv: 0, read: 0, streak: 0, bestStreak: 0, lastGoalDay: '', dailyGoalXp: 60, day: null,
-          program: { done: {} }, courses: { done: {} }, recordings: [], userSongs: [] },
+          program: { done: {} }, courses: { done: {} }, recordings: [], userSongs: [], lang: null },
   load() {
     try { const s = JSON.parse(localStorage.getItem('clavier_v1')); if (s) Object.assign(this.data, s); } catch(e){}
   },
   save() { localStorage.setItem('clavier_v1', JSON.stringify(this.data)); },
   reset() { this.data = { totalNotes:0, xp:0, lessons:0, songs:0, earRight:0, earTotal:0, songsDone:{},
           tech:0, duo:0, iv:0, read:0, streak:0, bestStreak:0, lastGoalDay:'', dailyGoalXp:60, day:null,
-          program:{ done:{} }, courses:{ done:{} }, recordings:[], userSongs:[] }; this.save(); }
+          program:{ done:{} }, courses:{ done:{} }, recordings:[], userSongs:[], lang: LANG || 'fr' }; this.save(); }
 };
 store.load();
 
@@ -931,6 +936,36 @@ function checkStreak() {
   }
 }
 function doneCourses() { return Object.values((store.data.courses && store.data.courses.done) || {}).filter(Boolean).length; }
+
+// --- Internationalisation (UI shell) ---
+const I18N = {
+  fr: { 'app.subtitle':'Apprendre le piano en autonomie', 'stats.notes':'Notes jouées', 'stats.xp':'XP',
+    'nav.home':'Accueil','nav.learn':'Apprendre','nav.play':'Jouer','nav.drill':'Exercices',
+    'tab.plan':'Plan du jour','tab.program':'Programme','tab.courses':'Cours','tab.lessons':'Leçons','tab.read':'Lecture','tab.theory':'Théorie','tab.play':'Découvrir','tab.songs':'Chansons','tab.duo':'Deux mains','tab.scales':'Gammes','tab.technique':'Technique','tab.ear':'Oreille','tab.studio':'Studio','tab.create':'Créer' },
+  en: { 'app.subtitle':'Learn piano on your own', 'stats.notes':'Notes played', 'stats.xp':'XP',
+    'nav.home':'Home','nav.learn':'Learn','nav.play':'Play','nav.drill':'Practice',
+    'tab.plan':'Daily plan','tab.program':'Program','tab.courses':'Courses','tab.lessons':'Lessons','tab.read':'Reading','tab.theory':'Theory','tab.play':'Explore','tab.songs':'Songs','tab.duo':'Two hands','tab.scales':'Scales','tab.technique':'Technique','tab.ear':'Ear','tab.studio':'Studio','tab.create':'Create' },
+  es: { 'app.subtitle':'Aprende piano por tu cuenta', 'stats.notes':'Notas tocadas', 'stats.xp':'XP',
+    'nav.home':'Inicio','nav.learn':'Aprender','nav.play':'Tocar','nav.drill':'Ejercicios',
+    'tab.plan':'Plan diario','tab.program':'Programa','tab.courses':'Cursos','tab.lessons':'Lecciones','tab.read':'Lectura','tab.theory':'Teoría','tab.play':'Explorar','tab.songs':'Canciones','tab.duo':'Dos manos','tab.scales':'Escalas','tab.technique':'Técnica','tab.ear':'Oído','tab.studio':'Estudio','tab.create':'Crear' },
+  de: { 'app.subtitle':'Klavier selbstständig lernen', 'stats.notes':'Gespielte Noten', 'stats.xp':'XP',
+    'nav.home':'Start','nav.learn':'Lernen','nav.play':'Spielen','nav.drill':'Übungen',
+    'tab.plan':'Tagesplan','tab.program':'Programm','tab.courses':'Kurse','tab.lessons':'Lektionen','tab.read':'Lesen','tab.theory':'Theorie','tab.play':'Entdecken','tab.songs':'Lieder','tab.duo':'Zwei Hände','tab.scales':'Tonleitern','tab.technique':'Technik','tab.ear':'Gehör','tab.studio':'Studio','tab.create':'Erstellen' }
+};
+const LANGS = [['fr','Français'], ['en','English'], ['es','Español'], ['de','Deutsch']];
+let LANG = 'fr';
+function t(key) { const d = I18N[LANG] || I18N.fr; return d[key] || I18N.fr[key] || key; }
+function applyI18n() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = t(el.getAttribute('data-i18n')); if (v) el.textContent = v; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const v = t(el.getAttribute('data-i18n-ph')); if (v) el.placeholder = v; });
+}
+function initLang() {
+  let l = store.data.lang;
+  if (!l) { const n = (navigator.language || 'fr').slice(0, 2).toLowerCase(); l = I18N[n] ? n : 'fr'; store.data.lang = l; store.save(); }
+  LANG = l;
+}
+function setLang(l) { LANG = l; store.data.lang = l; store.save(); applyI18n(); renderBottomNav(); renderSubtabs(); Songs.render(); }
 
 function addXp(n) { store.data.xp += n; store.save(); renderStats(); }
 function renderStats() {
@@ -1099,13 +1134,13 @@ function switchTab(tab) {
 function renderSubtabs() {
   const cat = CATEGORIES.find(c => c.id === currentCat);
   const el = document.getElementById('subtabs');
-  el.innerHTML = cat.tabs.map(t => '<button class="tab' + (t === currentTab ? ' active' : '') + '" data-tab="' + t + '">' + TAB_LABELS[t] + '</button>').join('');
+  el.innerHTML = cat.tabs.map(tb => '<button class="tab' + (tb === currentTab ? ' active' : '') + '" data-tab="' + tb + '">' + t('tab.' + tb) + '</button>').join('');
   el.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
   el.style.display = cat.tabs.length > 1 ? '' : 'none';
 }
 function renderBottomNav() {
   const el = document.getElementById('bottomnav');
-  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + c.label + '</span></button>').join('');
+  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + t('nav.' + c.id) + '</span></button>').join('');
   el.querySelectorAll('.navbtn').forEach(b => b.addEventListener('click', () => {
     const c = CATEGORIES.find(x => x.id === b.dataset.cat);
     switchTab(lastTabByCat[c.id] || c.tabs[0]);
@@ -3028,7 +3063,11 @@ const Midi = (() => {
     try { const access = await navigator.requestMIDIAccess(); bind(access); access.onstatechange = () => bind(access); }
     catch (e) { st().textContent = '❌ Accès MIDI refusé.'; }
   }
-  function init() { const b = document.getElementById('midiConnect'); if (b) b.addEventListener('click', connect); }
+  function init() {
+    // Web MIDI is unsupported on iOS/Safari (and thus the native App Store build) — hide the feature there.
+    if (!navigator.requestMIDIAccess) { const blk = document.getElementById('midiBlock'); if (blk) blk.style.display = 'none'; return; }
+    const b = document.getElementById('midiConnect'); if (b) b.addEventListener('click', connect);
+  }
   return { init };
 })();
 
@@ -3053,7 +3092,16 @@ Course.init();
 Recorder.init();
 Create.init();
 Midi.init();
-switchTab('plan'); // build nav + land on home
+// language: auto-detect device language on first run, then user-selectable
+initLang();
+applyI18n();
+(function () {
+  const sel = document.getElementById('langSelect');
+  sel.innerHTML = LANGS.map(([code, name]) => '<option value="' + code + '">' + name + '</option>').join('');
+  sel.value = LANG;
+  sel.addEventListener('change', () => setLang(sel.value));
+})();
+switchTab('plan'); // build nav + land on home (localized labels)
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {
