@@ -433,6 +433,11 @@
         <label class="toggle"><input type="checkbox" id="useSolfege"> Notation solfège (Do Ré Mi)</label>
         <label class="toggle"><input type="checkbox" id="sustain"> Sustain (notes tenues)</label>
       </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="midiConnect">🎹 Connecter un piano / clavier MIDI</button>
+        <span id="midiConnStatus" style="font-size:13px;color:var(--text-dim)"></span>
+      </div>
+      <p class="sub" style="margin:8px 0 0;font-size:12px">Branche ton piano électrique en USB (ou Bluetooth), puis clique&nbsp;: il pilotera l'app partout (leçons, chansons, cours…). <b>Ordinateur Chrome/Edge ou Android</b> — non disponible sur iPhone/Safari.</p>
     </div>
     <div class="card">
       <h2>Ta progression</h2>
@@ -553,7 +558,10 @@
     <div class="card">
       <h2>Apprendre une chanson</h2>
       <p class="sub">Choisis un morceau. En mode guidé, la prochaine note à jouer s'illumine en <span style="color:var(--good)">vert</span> et attend que tu la joues. “Démo” te la joue en entier. Tes morceaux importés/créés (onglet <b>Créer</b>) apparaissent aussi ici.</p>
-      <input class="search-input" id="songSearch" type="search" placeholder="🔍 Rechercher un morceau (titre, compositeur)…" style="margin-bottom:14px">
+      <div class="row" style="gap:10px;margin-bottom:14px">
+        <input class="search-input" id="songSearch" type="search" placeholder="🔍 Rechercher un morceau…" style="flex:1;margin:0;min-width:140px">
+        <select class="form-input" id="songComposer" style="max-width:200px;margin:0"><option value="">Tous les auteurs</option></select>
+      </div>
       <div class="song-list" id="songList"></div>
     </div>
     <div class="card" id="songPlayer" style="display:none">
@@ -605,6 +613,12 @@
         <button class="btn" id="humStop">■ Stop</button>
         <input class="form-input" id="humTitle" placeholder="Titre du morceau" style="max-width:220px">
         <button class="btn" id="humSave">✓ Créer le morceau</button>
+      </div>
+      <div class="row" style="margin-bottom:12px">
+        <label class="toggle"><input type="checkbox" id="humMetro"> Métronome pendant l'écoute</label>
+        <span style="font-size:13px;color:var(--text-dim)">Tempo</span>
+        <input class="form-input" id="humBpm" type="number" min="40" max="200" value="90" style="max-width:84px">
+        <span style="font-size:12px;color:var(--text-dim)">BPM · décompte 3‑2‑1 avant de démarrer</span>
       </div>
       <div style="display:flex;align-items:center;gap:16px">
         <div id="humNote" style="font-size:36px;font-weight:800;color:var(--accent);min-width:74px;text-align:center">—</div>
@@ -1361,6 +1375,46 @@ const SONGS = [
     notes:['E5','D#5','E5','D#5','E5','B4','D5','C5','A4',
            'C4','E4','A4','B4','E4','G#4','B4','C5','E4',
            'E5','D#5','E5','D#5','E5','B4','D5','C5','A4']
+  },
+  {
+    id:'beeth5', title:'Symphonie nº5 (motif)', composer:'Beethoven', diff:'Facile',
+    desc:'« Pom pom pom POM » — le motif du destin.',
+    notes:['G4','G4','G4','D#4','F4','F4','F4','D4']
+  },
+  {
+    id:'menuetg', title:'Menuet en Sol', composer:'Bach', diff:'Moyen',
+    desc:'Le célèbre menuet pour débutants (BWV Anh. 114).',
+    notes:['D5','G4','A4','B4','C5','D5','G4','G4','E5','C5','D5','E5','F#5','G5','G4','G4']
+  },
+  {
+    id:'nachtmusik', title:'Eine kleine Nachtmusik', composer:'Mozart', diff:'Moyen',
+    desc:'La sérénade la plus connue de Mozart.',
+    notes:['G4','D4','G4','D4','G4','B4','D5','D5','A4','D4','A4','D4','F#4','A4','D5']
+  },
+  {
+    id:'canon', title:'Canon (thème)', composer:'Pachelbel', diff:'Moyen',
+    desc:'Le canon en Ré, incontournable des mariages.',
+    notes:['F#5','E5','D5','C#5','B4','A4','B4','C#5','D5','C#5','B4','A4','G4','F#4','G4','E4']
+  },
+  {
+    id:'berceuse', title:'Berceuse', composer:'Brahms', diff:'Facile',
+    desc:'« Wiegenlied » — la berceuse la plus célèbre.',
+    notes:['E4','E4','G4','E4','E4','G4','E4','G4','C5','B4','A4','A4','G4']
+  },
+  {
+    id:'printemps', title:'Le Printemps', composer:'Vivaldi', diff:'Moyen',
+    desc:'Des « Quatre Saisons ».',
+    notes:['E5','E5','E5','B4','B4','B4','C#5','D5','E5','D5','C#5','B4','A4']
+  },
+  {
+    id:'goinghome', title:'Largo « Going Home »', composer:'Dvořák', diff:'Facile',
+    desc:'Le thème du Largo de la Symphonie du Nouveau Monde.',
+    notes:['E4','G4','G4','E4','D4','C4','D4','E4','G4','E4','D4']
+  },
+  {
+    id:'joytoworld', title:'Joie dans le monde', composer:'Haendel', diff:'Facile',
+    desc:'« Joy to the World » — une gamme descendante, très reconnaissable.',
+    notes:['C5','B4','A4','G4','F4','E4','D4','C4','G4','A4','A4','B4','B4','C5']
   }
 ];
 
@@ -1375,9 +1429,20 @@ const Songs = (() => {
   const fbEl = document.getElementById('songFeedback');
 
   function allSongs() { return SONGS.concat(store.data.userSongs || []); }
+  function populateComposers() {
+    const sel = document.getElementById('songComposer'); if (!sel) return;
+    const cur = sel.value;
+    const comps = [...new Set(allSongs().map(s => s.composer || '—'))].sort((a, b) => a.localeCompare(b, 'fr'));
+    sel.innerHTML = '<option value="">Tous les auteurs</option>' + comps.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+    sel.value = cur;
+  }
   function render() {
+    populateComposers();
     const q = (document.getElementById('songSearch')?.value || '').trim().toLowerCase();
-    const list = allSongs().filter(s => !q || (s.title + ' ' + (s.composer || '')).toLowerCase().includes(q));
+    const comp = document.getElementById('songComposer')?.value || '';
+    const list = allSongs().filter(s =>
+      (!q || (s.title + ' ' + (s.composer || '')).toLowerCase().includes(q)) &&
+      (!comp || (s.composer || '—') === comp));
     listEl.innerHTML = '';
     if (!list.length) { listEl.innerHTML = '<p class="sub" style="margin:0">Aucun morceau ne correspond à «&nbsp;' + q + '&nbsp;».</p>'; return; }
     list.forEach(s => {
@@ -1452,6 +1517,7 @@ const Songs = (() => {
   document.getElementById('songGuide').addEventListener('click', guide);
   document.getElementById('songStop').addEventListener('click', () => { stop(); fbEl.textContent='Arrêté'; });
   document.getElementById('songSearch').addEventListener('input', render);
+  document.getElementById('songComposer').addEventListener('change', render);
   return { render, onNote, stop, select };
 })();
 
@@ -2861,7 +2927,7 @@ const Create = (() => {
     });
 
     // ---- Hum / sing → melody (live mic pitch detection) ----
-    let hCtx = null, hStream = null, hRAF = null, hAnalyser = null, hBuf = null;
+    let hCtx = null, hStream = null, hRAF = null, hAnalyser = null, hBuf = null, hMetroTimer = null, hCountIn = null;
     let hCaptured = [], hRecent = [], hCur = null, hFrames = 0, hOn = false;
     const HUM_MIN = 3;
     const $ = (id) => document.getElementById(id);
@@ -2882,25 +2948,45 @@ const Create = (() => {
       $('humNote').textContent = note != null ? midiToShort(inRange(note), solf()) : '—';
       hRAF = requestAnimationFrame(humLoop);
     }
+    function humClick() { // high-pitched tick (>1200 Hz so the pitch detector ignores it)
+      if (!hCtx) return;
+      const o = hCtx.createOscillator(), g = hCtx.createGain();
+      o.frequency.value = 1600; o.connect(g); g.connect(hCtx.destination);
+      const t = hCtx.currentTime;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.3, t + 0.001); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+      o.start(t); o.stop(t + 0.06);
+    }
+    function beginListen(beat) {
+      hOn = true; $('humStatus').textContent = '🎙️ À l\'écoute… chante ou fredonne.'; $('humNote').textContent = '—';
+      if ($('humMetro').checked) hMetroTimer = setInterval(humClick, beat);
+      humLoop();
+    }
     async function humStart() {
-      if (hOn) return;
+      if (hOn || hCountIn) return;
       const st = $('humStatus');
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { st.textContent = '❌ Micro non disponible sur cet appareil.'; return; }
       try { hStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
       catch (e) { st.textContent = '❌ Accès au micro refusé.'; return; }
       hCaptured = []; hRecent = []; hCur = null; hFrames = 0;
-      $('humSeq').textContent = ''; $('humNote').textContent = '—';
+      $('humSeq').textContent = '';
       hCtx = new (window.AudioContext || window.webkitAudioContext)();
       const src = hCtx.createMediaStreamSource(hStream);
       hAnalyser = hCtx.createAnalyser(); hAnalyser.fftSize = 2048;
       src.connect(hAnalyser);
       hBuf = new Float32Array(hAnalyser.fftSize);
-      hOn = true; st.textContent = '🎙️ À l\'écoute… chante ou fredonne.';
       $('humBtn').textContent = '● Écoute…';
-      humLoop();
+      const bpm = Math.min(200, Math.max(40, +$('humBpm').value || 90)), beat = 60000 / bpm;
+      let count = 3; st.textContent = 'Prépare-toi…'; $('humNote').textContent = '3'; humClick();
+      hCountIn = setInterval(() => {
+        count--;
+        if (count > 0) { $('humNote').textContent = String(count); humClick(); }
+        else { clearInterval(hCountIn); hCountIn = null; humClick(); beginListen(beat); }
+      }, beat);
     }
     function humStop() {
       hOn = false;
+      if (hCountIn) { clearInterval(hCountIn); hCountIn = null; }
+      if (hMetroTimer) { clearInterval(hMetroTimer); hMetroTimer = null; }
       if (hRAF) cancelAnimationFrame(hRAF);
       if (hStream) { hStream.getTracks().forEach(t => t.stop()); hStream = null; }
       if (hCtx) { hCtx.close(); hCtx = null; }
@@ -2918,6 +3004,31 @@ const Create = (() => {
       openInSongs(song.id);
     });
   }
+  return { init };
+})();
+
+/* ============================================================
+   MIDI KEYBOARD — play with a real electric piano (Web MIDI)
+   ============================================================ */
+const Midi = (() => {
+  const st = () => document.getElementById('midiConnStatus');
+  function onMIDI(e) {
+    const cmd = e.data[0] & 0xF0, note = e.data[1], vel = e.data[2];
+    if (cmd === 0x90 && vel > 0) { keyEls.has(note) ? pressKey(note) : AudioEngine.noteOn(note, {}); }
+    else if (cmd === 0x80 || (cmd === 0x90 && vel === 0)) { keyEls.has(note) ? releaseKey(note) : AudioEngine.noteOff(note); }
+  }
+  function bind(access) {
+    const names = [];
+    access.inputs.forEach(inp => { inp.onmidimessage = onMIDI; names.push(inp.name); });
+    st().textContent = names.length ? ('✓ Connecté : ' + names.join(', ')) : 'Aucun clavier détecté — branche-le, allume-le, puis réessaie.';
+  }
+  async function connect() {
+    if (!navigator.requestMIDIAccess) { st().textContent = '❌ Web MIDI non supporté ici (utilise Chrome/Edge sur ordinateur, ou Android). Pas disponible sur iPhone/Safari.'; return; }
+    st().textContent = 'Connexion…';
+    try { const access = await navigator.requestMIDIAccess(); bind(access); access.onstatechange = () => bind(access); }
+    catch (e) { st().textContent = '❌ Accès MIDI refusé.'; }
+  }
+  function init() { const b = document.getElementById('midiConnect'); if (b) b.addEventListener('click', connect); }
   return { init };
 })();
 
@@ -2941,6 +3052,7 @@ Program.init();
 Course.init();
 Recorder.init();
 Create.init();
+Midi.init();
 switchTab('plan'); // build nav + land on home
 clearMarks('target'); // clean home screen
 
