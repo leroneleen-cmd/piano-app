@@ -44,7 +44,7 @@
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     min-height: 100%;
-    padding-bottom: calc(40px + env(safe-area-inset-bottom));
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
   header {
     display: flex; align-items: center; justify-content: space-between;
@@ -64,18 +64,36 @@
 
   main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-  .tabs {
-    display: flex; gap: 6px; flex-wrap: wrap;
+  .subtabs {
+    display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
     background: var(--bg-elev); padding: 6px; border-radius: 12px;
-    border: 1px solid var(--line); margin-bottom: 20px;
+    border: 1px solid var(--line); margin-bottom: 18px; scrollbar-width: none;
   }
+  .subtabs::-webkit-scrollbar { display: none; }
   .tab {
-    flex: 1; min-width: 120px; text-align: center; padding: 11px 10px;
+    flex: 1 0 auto; white-space: nowrap; text-align: center; padding: 11px 16px;
     border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;
     color: var(--text-dim); border: none; background: transparent; transition: .15s;
   }
   .tab:hover { color: var(--text); }
   .tab.active { background: var(--bg-elev-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+  /* Bottom navigation (categories) */
+  .bottomnav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    display: flex; justify-content: center; gap: 4px;
+    background: rgba(20,23,32,.94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  }
+  .navbtn {
+    flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: transparent; border: none; cursor: pointer; color: var(--text-dim);
+    padding: 6px 4px; border-radius: 10px; transition: .15s;
+  }
+  .navbtn .ic { font-size: 20px; line-height: 1; filter: grayscale(.4) opacity(.75); transition: .15s; }
+  .navbtn .lbl { font-size: 11px; font-weight: 600; }
+  .navbtn.active { color: var(--accent); }
+  .navbtn.active .ic { filter: none; }
 
   .panel { display: none; animation: fade .25s ease; }
   .panel.active { display: block; }
@@ -290,24 +308,10 @@
 </header>
 
 <main>
-  <div class="tabs" id="tabs">
-    <button class="tab active" data-tab="plan">Plan du jour</button>
-    <button class="tab" data-tab="program">Programme</button>
-    <button class="tab" data-tab="courses">Cours</button>
-    <button class="tab" data-tab="play">Découvrir</button>
-    <button class="tab" data-tab="studio">Studio</button>
-    <button class="tab" data-tab="lessons">Leçons</button>
-    <button class="tab" data-tab="read">Lecture</button>
-    <button class="tab" data-tab="scales">Gammes &amp; Accords</button>
-    <button class="tab" data-tab="songs">Chansons</button>
-    <button class="tab" data-tab="duo">Deux mains</button>
-    <button class="tab" data-tab="technique">Technique</button>
-    <button class="tab" data-tab="theory">Théorie</button>
-    <button class="tab" data-tab="ear">Oreille</button>
-  </div>
+  <div class="subtabs" id="subtabs"></div>
 
   <!-- Shared piano -->
-  <div class="piano-wrap">
+  <div class="piano-wrap" id="pianoWrap">
     <div class="piano-top">
       <span id="pianoHint">Clique sur les touches ou utilise ton clavier d'ordinateur</span>
       <span class="now-playing" id="nowPlaying"></span>
@@ -439,6 +443,7 @@
         <button class="btn" id="recSlow">▶ Ralenti (½)</button>
         <button class="btn" id="recStopPlay">■ Stop</button>
         <button class="btn" id="recSave">💾 Sauvegarder</button>
+        <button class="btn" id="recExport">⬇ Exporter (WAV)</button>
       </div>
       <div id="recStatus" style="margin-top:14px;font-size:14px;font-weight:600;min-height:22px;color:var(--accent)"></div>
     </div>
@@ -698,6 +703,8 @@
     Construit avec Web Audio API — aucune installation, aucun réseau requis. Ta progression est enregistrée dans ce navigateur.
   </footer>
 </main>
+
+<nav class="bottomnav" id="bottomnav"></nav>
 
 <script>
 /* ============================================================
@@ -982,19 +989,52 @@ document.getElementById('showKb').addEventListener('change', updateLabels);
 document.getElementById('useSolfege').addEventListener('change', updateLabels);
 
 /* ============================================================
-   TABS
+   NAVIGATION — categories (bottom nav) + sub-tabs (pages)
    ============================================================ */
-document.getElementById('tabs').addEventListener('click', e => {
-  const t = e.target.closest('.tab'); if (!t) return;
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
-  document.getElementById('panel-' + t.dataset.tab).classList.add('active');
+const TAB_LABELS = {
+  plan:'Plan du jour', program:'Programme', courses:'Cours', lessons:'Leçons', read:'Lecture',
+  theory:'Théorie', play:'Découvrir', songs:'Chansons', duo:'Deux mains', scales:'Gammes',
+  technique:'Technique', ear:'Oreille', studio:'Studio'
+};
+const CATEGORIES = [
+  { id:'home',  label:'Accueil',   icon:'🏠', tabs:['plan','program'] },
+  { id:'learn', label:'Apprendre', icon:'🎓', tabs:['courses','lessons','read','theory'] },
+  { id:'play',  label:'Jouer',     icon:'🎹', tabs:['play','songs','duo','scales'] },
+  { id:'drill', label:'Exercices', icon:'💪', tabs:['technique','ear','studio'] },
+];
+const NO_PIANO = new Set(['plan','program']);
+let currentCat = 'home', currentTab = 'plan';
+const lastTabByCat = {};
+function catOfTab(tab) { return CATEGORIES.find(c => c.tabs.includes(tab)); }
+
+function switchTab(tab) {
+  const cat = catOfTab(tab); if (!cat) return;
+  currentCat = cat.id; currentTab = tab; lastTabByCat[cat.id] = tab;
   // reset transient modes when leaving
   Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop(); Reading.stop(); Course.stop();
   const mt = document.getElementById('metroToggle'); if (mt) mt.textContent = '▶ Démarrer';
   clearMarks('hint'); clearMarks('target');
-});
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  const pw = document.getElementById('pianoWrap'); if (pw) pw.style.display = NO_PIANO.has(tab) ? 'none' : '';
+  renderSubtabs(); renderBottomNav();
+  window.scrollTo(0, 0);
+}
+function renderSubtabs() {
+  const cat = CATEGORIES.find(c => c.id === currentCat);
+  const el = document.getElementById('subtabs');
+  el.innerHTML = cat.tabs.map(t => '<button class="tab' + (t === currentTab ? ' active' : '') + '" data-tab="' + t + '">' + TAB_LABELS[t] + '</button>').join('');
+  el.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  el.style.display = cat.tabs.length > 1 ? '' : 'none';
+}
+function renderBottomNav() {
+  const el = document.getElementById('bottomnav');
+  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + c.label + '</span></button>').join('');
+  el.querySelectorAll('.navbtn').forEach(b => b.addEventListener('click', () => {
+    const c = CATEGORIES.find(x => x.id === b.dataset.cat);
+    switchTab(lastTabByCat[c.id] || c.tabs[0]);
+  }));
+}
 
 /* ============================================================
    LESSONS: note recognition
@@ -2040,7 +2080,7 @@ const DailyPlan = (() => {
         + '<div class="t-check">' + (ok ? '✓' : '○') + '</div></div>';
     }).join('');
     tasksEl.querySelectorAll('.task').forEach(el => el.addEventListener('click', () => {
-      const b = document.querySelector('.tab[data-tab="' + el.dataset.tab + '"]'); if (b) b.click();
+      switchTab(el.dataset.tab);
     }));
 
     const doneCount = DAILY_TASKS.filter(t => taskValue(t) >= (t.target === 'goal' ? goal : t.target)).length;
@@ -2292,7 +2332,7 @@ const Program = (() => {
       store.data.program.done[cb.dataset.key] = cb.checked; store.save(); refresh();
     }));
     contentEl.querySelectorAll('.lnk').forEach(a => a.addEventListener('click', () => {
-      const b = document.querySelector('.tab[data-tab="' + a.dataset.tab + '"]'); if (b) b.click();
+      switchTab(a.dataset.tab);
     }));
     const total = days.length;
     barEl.style.width = (doneDays / total * 100) + '%';
@@ -2525,11 +2565,63 @@ const Recorder = (() => {
       '<div class="rec-item"><div><b>' + r.name + '</b><div class="rec-meta">' + onCount(r.events) + ' notes · ' + (duration(r.events) / 1000).toFixed(1) + ' s</div></div>'
       + '<div class="rec-actions"><button class="btn" data-play="' + r.id + '">▶</button>'
       + '<button class="btn" data-slow="' + r.id + '">▶ ½</button>'
+      + '<button class="btn" data-wav="' + r.id + '">⬇</button>'
       + '<button class="btn" data-del="' + r.id + '">🗑</button></div></div>'
     ).join('');
     el.querySelectorAll('[data-play]').forEach(b => b.addEventListener('click', () => { const r = find(b.dataset.play); if (r) play(r.events, 1); }));
     el.querySelectorAll('[data-slow]').forEach(b => b.addEventListener('click', () => { const r = find(b.dataset.slow); if (r) play(r.events, 0.5); }));
+    el.querySelectorAll('[data-wav]').forEach(b => b.addEventListener('click', () => { const r = find(b.dataset.wav); if (r) exportWav(r.events, r.name); }));
     el.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => { store.data.recordings = store.data.recordings.filter(x => x.id !== b.dataset.del); store.save(); renderList(); }));
+  }
+  // ---- WAV export (offline render of the recorded notes) ----
+  function eventsToNotes(evts) {
+    const on = {}, notes = [], endT = duration(evts) / 1000;
+    evts.forEach(e => {
+      if (e.type === 'on') on[e.midi] = e.t / 1000;
+      else if (on[e.midi] != null) { notes.push({ midi: e.midi, start: on[e.midi], end: e.t / 1000 }); on[e.midi] = null; }
+    });
+    Object.keys(on).forEach(m => { if (on[m] != null) notes.push({ midi: +m, start: on[m], end: endT }); });
+    return notes;
+  }
+  async function exportWav(evts, name) {
+    if (!evts || !evts.length) { status('Rien à exporter.'); return; }
+    status('⏳ Rendu du fichier audio…');
+    const notes = eventsToNotes(evts);
+    const sr = 44100, total = duration(evts) / 1000 + 2;
+    const octx = new OfflineAudioContext(1, Math.ceil(total * sr), sr);
+    const f = (m) => 440 * Math.pow(2, (m - 69) / 12);
+    notes.forEach(n => {
+      const master = octx.createGain(); master.connect(octx.destination);
+      [['triangle', 1, 0.6], ['sine', 2, 0.25], ['sine', 3, 0.12]].forEach(([type, ratio, g]) => {
+        const o = octx.createOscillator(); o.type = type; o.frequency.value = f(n.midi) * ratio;
+        const gg = octx.createGain(); gg.gain.value = g; o.connect(gg); gg.connect(master);
+        o.start(n.start); o.stop(Math.max(n.start + 0.14, n.end) + 0.4);
+      });
+      const peak = 0.22, t0 = n.start, rel = Math.max(t0 + 0.14, n.end) + 0.3;
+      master.gain.setValueAtTime(0.0001, t0);
+      master.gain.exponentialRampToValueAtTime(peak, t0 + 0.006);
+      master.gain.exponentialRampToValueAtTime(peak * 0.5, t0 + 0.12);
+      master.gain.exponentialRampToValueAtTime(0.0001, rel);
+    });
+    const buf = await octx.startRendering();
+    const blob = new Blob([encodeWAV(buf)], { type: 'audio/wav' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url;
+    a.download = (name || 'clavier').replace(/[^\w-]+/g, '_') + '.wav';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    status('⬇ Fichier WAV exporté.');
+  }
+  function encodeWAV(buffer) {
+    const sr = buffer.sampleRate, len = buffer.length, data = buffer.getChannelData(0);
+    const out = new ArrayBuffer(44 + len * 2), view = new DataView(out);
+    const ws = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
+    ws(0, 'RIFF'); view.setUint32(4, 36 + len * 2, true); ws(8, 'WAVE'); ws(12, 'fmt ');
+    view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true);
+    view.setUint32(24, sr, true); view.setUint32(28, sr * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true);
+    ws(36, 'data'); view.setUint32(40, len * 2, true);
+    let off = 44; for (let i = 0; i < len; i++) { const s = Math.max(-1, Math.min(1, data[i])); view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7FFF, true); off += 2; }
+    return view;
   }
   function init() {
     if (!store.data.recordings) store.data.recordings = [];
@@ -2538,6 +2630,7 @@ const Recorder = (() => {
     document.getElementById('recSlow').addEventListener('click', () => { if (recording) stopRec(); play(null, 0.5); });
     document.getElementById('recStopPlay').addEventListener('click', () => { stopPlay(); status('■ Arrêté.'); });
     document.getElementById('recSave').addEventListener('click', save);
+    document.getElementById('recExport').addEventListener('click', () => { if (recording) stopRec(); exportWav(events, 'clavier-prise'); });
     renderList();
   }
   return { init, noteOn, noteOff };
@@ -2562,6 +2655,7 @@ Reading.init();
 Program.init();
 Course.init();
 Recorder.init();
+switchTab('plan'); // build nav + land on home
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {
