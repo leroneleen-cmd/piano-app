@@ -2,8 +2,18 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Clavier — Apprendre le piano en autonomie</title>
+<!-- PWA / iOS -->
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0f1117" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Clavier" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="apple-touch-icon" href="icons/icon-180.png" />
+<link rel="icon" type="image/png" href="icons/icon-192.png" />
 <style>
   :root {
     --bg: #0f1117;
@@ -24,18 +34,22 @@
     --shadow: 0 10px 30px rgba(0,0,0,.45);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  /* Native feel: no long-press callout / no text selection on UI, allow it only where useful */
+  html { -webkit-text-size-adjust: 100%; }
+  body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; overscroll-behavior: none; touch-action: manipulation; }
   html, body { margin: 0; height: 100%; }
   body {
     background: radial-gradient(1200px 600px at 50% -10%, #1a1f2e, var(--bg));
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     min-height: 100%;
-    padding-bottom: 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom));
   }
   header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 28px; max-width: 1100px; margin: 0 auto;
+    padding: calc(18px + env(safe-area-inset-top)) calc(28px + env(safe-area-inset-right)) 18px calc(28px + env(safe-area-inset-left));
+    max-width: 1100px; margin: 0 auto;
   }
   .brand { display: flex; align-items: center; gap: 12px; }
   .brand .logo {
@@ -920,6 +934,10 @@ function pressKey(midi, fromDemo = false) {
     midiToLabel(midi, document.getElementById('useSolfege').checked);
   if (!fromDemo) {
     store.data.totalNotes++; store.save(); renderStats();
+    // native haptic feedback when running inside the iOS/Android app (no-op on web)
+    if (window.Capacitor && Capacitor.Plugins && Capacitor.Plugins.Haptics) {
+      try { Capacitor.Plugins.Haptics.impact({ style: 'Light' }); } catch (e) {}
+    }
     // hooks for interactive modes
     Lessons.onNote(midi);
     Songs.onNote(midi);
@@ -2554,6 +2572,11 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 document.getElementById('useSolfege').addEventListener('change', () => {
   Scales.sync(); Chords.sync(); Ear.build();
 });
+
+// Register service worker for offline / installable PWA (ignored inside the native app)
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
 </script>
 </body>
 </html>

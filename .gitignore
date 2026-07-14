@@ -1,2 +1,9 @@
 # Local Netlify folder
 .netlify
+
+# Node / Capacitor
+node_modules
+www
+ios/App/Pods
+ios/App/App/public
+.DS_Store
