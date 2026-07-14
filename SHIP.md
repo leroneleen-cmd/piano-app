@@ -50,6 +50,7 @@ Dans Xcode, cible **App** :
 - **Signing & Capabilities** → coche « Automatically manage signing » → sélectionne ton **Team**.
 - **General** → Display Name : `Clavier` · Version : `1.0` · Build : `1` · iOS Deployment Target : `14.0`.
 - **Info** → ajoute la clé `ITSAppUsesNonExemptEncryption` = `NO` (évite la question sur le chiffrement).
+- **Info** → ajoute `NSMicrophoneUsageDescription` (ex. « Le micro sert à transformer ce que tu fredonnes en notes »). **Obligatoire** : sans cette clé l'app crashe à l'ouverture du micro (fonction « Fredonner »).
 - Choisis les orientations (Portrait suffit ; paysage possible).
 - Lance sur un simulateur (▶) pour tester, puis sur ton iPhone.
 

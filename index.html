@@ -597,6 +597,23 @@
         <span id="composeStatus" style="font-size:13px;color:var(--text-dim)"></span>
       </div>
     </div>
+    <div class="card">
+      <h3 style="margin:0 0 8px">🎤 Fredonner / chanter en direct</h3>
+      <p class="sub">Active ton micro et <b>chante ou fredonne</b> une mélodie&nbsp;: on détecte les notes en temps réel et on en fait un morceau jouable. Astuce&nbsp;: au calme, une note à la fois, et marque une petite pause entre deux notes identiques. <i>(Une seule voix — ça ne transcrit pas un morceau complet joué dans la pièce.)</i></p>
+      <div class="row" style="margin-bottom:10px">
+        <button class="btn primary" id="humBtn">🎤 Démarrer l'écoute</button>
+        <button class="btn" id="humStop">■ Stop</button>
+        <input class="form-input" id="humTitle" placeholder="Titre du morceau" style="max-width:220px">
+        <button class="btn" id="humSave">✓ Créer le morceau</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div id="humNote" style="font-size:36px;font-weight:800;color:var(--accent);min-width:74px;text-align:center">—</div>
+        <div style="flex:1;min-width:0">
+          <div id="humSeq" style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--text);min-height:20px;word-break:break-word"></div>
+          <div id="humStatus" style="font-size:12px;color:var(--text-dim);margin-top:4px"></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- OREILLE -->
@@ -2772,6 +2789,31 @@ function parseMIDI(buffer) {
   return melody.slice(0, 400).map(midiName);
 }
 
+// --- Live pitch detection (autocorrelation) for humming/singing ---
+function freqToMidi(f) { return Math.round(69 + 12 * Math.log2(f / 440)); }
+function autoCorrelate(buf, sr) {
+  let SIZE = buf.length, rms = 0;
+  for (let i = 0; i < SIZE; i++) rms += buf[i] * buf[i];
+  rms = Math.sqrt(rms / SIZE);
+  if (rms < 0.012) return -1; // too quiet / silence
+  let r1 = 0, r2 = SIZE - 1, th = 0.2;
+  for (let i = 0; i < SIZE / 2; i++) if (Math.abs(buf[i]) < th) { r1 = i; break; }
+  for (let i = 1; i < SIZE / 2; i++) if (Math.abs(buf[SIZE - i]) < th) { r2 = SIZE - i; break; }
+  const b = buf.slice(r1, r2); SIZE = b.length;
+  if (SIZE < 8) return -1;
+  const c = new Float32Array(SIZE);
+  for (let i = 0; i < SIZE; i++) for (let j = 0; j < SIZE - i; j++) c[i] += b[j] * b[j + i];
+  let d = 0; while (d < SIZE - 1 && c[d] > c[d + 1]) d++;
+  let maxv = -1, maxp = -1;
+  for (let i = d; i < SIZE; i++) if (c[i] > maxv) { maxv = c[i]; maxp = i; }
+  let T0 = maxp;
+  const x1 = c[T0 - 1] || 0, x2 = c[T0] || 0, x3 = c[T0 + 1] || 0, a = (x1 + x3 - 2 * x2) / 2, bb = (x3 - x1) / 2;
+  if (a) T0 = T0 - bb / (2 * a);
+  if (T0 <= 0) return -1;
+  return sr / T0;
+}
+function median(arr) { const s = [...arr].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; }
+
 const Create = (() => {
   function saveSong(title, names, srcLabel) {
     if (!names || !names.length) return null;
@@ -2816,6 +2858,64 @@ const Create = (() => {
         st.textContent = '▶ Aperçu…';
         playSequence(names.map(nm => ({ midi: pm(nm), dur: 0.4 })), 0.42, null, () => { st.textContent = 'Aperçu terminé.'; });
       } catch (err) { st.textContent = '❌ ' + err.message; }
+    });
+
+    // ---- Hum / sing → melody (live mic pitch detection) ----
+    let hCtx = null, hStream = null, hRAF = null, hAnalyser = null, hBuf = null;
+    let hCaptured = [], hRecent = [], hCur = null, hFrames = 0, hOn = false;
+    const HUM_MIN = 3;
+    const $ = (id) => document.getElementById(id);
+    function solf() { return $('useSolfege').checked; }
+    function humCommit(midi) {
+      hCaptured.push(midiName(inRange(midi)));
+      $('humSeq').textContent = hCaptured.map(x => midiToShort(pm(x), solf())).join('  ');
+    }
+    function humLoop() {
+      if (!hOn) return;
+      hAnalyser.getFloatTimeDomainData(hBuf);
+      const f = autoCorrelate(hBuf, hCtx.sampleRate);
+      let note = null;
+      if (f > 0 && f >= 65 && f <= 1200) { hRecent.push(freqToMidi(f)); if (hRecent.length > 5) hRecent.shift(); note = median(hRecent); }
+      else hRecent.length = 0;
+      if (note === hCur) { if (note !== null) { hFrames++; if (hFrames === HUM_MIN) humCommit(note); } }
+      else { hCur = note; hFrames = note === null ? 0 : 1; }
+      $('humNote').textContent = note != null ? midiToShort(inRange(note), solf()) : '—';
+      hRAF = requestAnimationFrame(humLoop);
+    }
+    async function humStart() {
+      if (hOn) return;
+      const st = $('humStatus');
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { st.textContent = '❌ Micro non disponible sur cet appareil.'; return; }
+      try { hStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
+      catch (e) { st.textContent = '❌ Accès au micro refusé.'; return; }
+      hCaptured = []; hRecent = []; hCur = null; hFrames = 0;
+      $('humSeq').textContent = ''; $('humNote').textContent = '—';
+      hCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = hCtx.createMediaStreamSource(hStream);
+      hAnalyser = hCtx.createAnalyser(); hAnalyser.fftSize = 2048;
+      src.connect(hAnalyser);
+      hBuf = new Float32Array(hAnalyser.fftSize);
+      hOn = true; st.textContent = '🎙️ À l\'écoute… chante ou fredonne.';
+      $('humBtn').textContent = '● Écoute…';
+      humLoop();
+    }
+    function humStop() {
+      hOn = false;
+      if (hRAF) cancelAnimationFrame(hRAF);
+      if (hStream) { hStream.getTracks().forEach(t => t.stop()); hStream = null; }
+      if (hCtx) { hCtx.close(); hCtx = null; }
+      $('humBtn').textContent = '🎤 Démarrer l\'écoute';
+      $('humStatus').textContent = hCaptured.length
+        ? 'Capturé ' + hCaptured.length + ' notes. Donne un titre puis « Créer le morceau ».'
+        : 'Rien capturé — réessaie plus fort et plus près du micro.';
+    }
+    $('humBtn').addEventListener('click', humStart);
+    $('humStop').addEventListener('click', humStop);
+    $('humSave').addEventListener('click', () => {
+      if (hOn) humStop();
+      if (!hCaptured.length) { $('humStatus').textContent = 'Fredonne d\'abord une mélodie.'; return; }
+      const song = saveSong($('humTitle').value, hCaptured.slice(), 'Fredonné au micro');
+      openInSongs(song.id);
     });
   }
   return { init };
