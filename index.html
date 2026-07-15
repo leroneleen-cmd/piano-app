@@ -313,14 +313,14 @@
     <div class="logo">🎹</div>
     <div>
       <h1>Clavier</h1>
-      <p data-i18n="app.subtitle">Apprendre le piano en autonomie</p>
+      <p data-tr>Apprendre le piano en autonomie</p>
     </div>
   </div>
   <div class="streak">
     <select id="langSelect" class="lang-select" aria-label="Language"></select>
-    <span><span data-i18n="stats.notes">Notes jouées</span>&nbsp;: <b id="totalNotes">0</b></span>
+    <span><span data-tr>Notes jouées</span>&nbsp;: <b id="totalNotes">0</b></span>
     <span>·</span>
-    <span><span data-i18n="stats.xp">XP</span>&nbsp;: <b id="xp">0</b></span>
+    <span>XP&nbsp;: <b id="xp">0</b></span>
   </div>
 </header>
 
@@ -341,39 +341,39 @@
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px">
         <div>
-          <h2 style="margin-bottom:2px">Ton plan du jour</h2>
+          <h2 style="margin-bottom:2px" data-tr>Ton plan du jour</h2>
           <p class="sub" style="margin:0" id="planDate"></p>
         </div>
         <div style="text-align:center">
           <div style="font-size:30px;font-weight:800;color:var(--accent)" id="planStreak">🔥 0</div>
-          <div style="font-size:11px;color:var(--text-dim)">jours de suite · record <span id="planBest">0</span></div>
+          <div style="font-size:11px;color:var(--text-dim)"><span data-tr>jours de suite · record</span> <span id="planBest">0</span></div>
         </div>
       </div>
       <div style="margin-top:18px">
         <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
-          <span>Objectif XP du jour</span><span id="planXpLabel" style="color:var(--accent);font-weight:700"></span>
+          <span data-tr>Objectif XP du jour</span><span id="planXpLabel" style="color:var(--accent);font-weight:700"></span>
         </div>
         <div class="progress-bar" style="height:12px"><span id="planXpBar"></span></div>
         <div class="row" style="margin-top:12px">
-          <span style="font-size:12px;color:var(--text-dim)">Niveau&nbsp;:</span>
+          <span style="font-size:12px;color:var(--text-dim)" data-tr>Niveau :</span>
           <div class="chips" id="planGoal">
-            <button class="chip" data-goal="30">🌱 Détente · 30</button>
-            <button class="chip" data-goal="60">🎯 Régulier · 60</button>
-            <button class="chip" data-goal="120">🔥 Intensif · 120</button>
+            <button class="chip" data-goal="30" data-tr>🌱 Détente · 30</button>
+            <button class="chip" data-goal="60" data-tr>🎯 Régulier · 60</button>
+            <button class="chip" data-goal="120" data-tr>🔥 Intensif · 120</button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Routine du jour</h2>
-      <p class="sub">Coche les 6 objectifs en pratiquant. Clique un objectif pour aller directement à l'exercice.</p>
+      <h2 data-tr>Routine du jour</h2>
+      <p class="sub" data-tr>Coche les 6 objectifs en pratiquant. Clique un objectif pour aller directement à l'exercice.</p>
       <div id="planTasks"></div>
     </div>
 
     <div class="card">
-      <h2>Objectifs à débloquer</h2>
-      <p class="sub">Des paliers pour suivre ta progression sur le long terme.</p>
+      <h2 data-tr>Objectifs à débloquer</h2>
+      <p class="sub" data-tr>Des paliers pour suivre ta progression sur le long terme.</p>
       <div id="planAchievements" class="stat-grid"></div>
     </div>
   </section>
@@ -381,8 +381,8 @@
   <!-- PROGRAMME -->
   <section class="panel" id="panel-program">
     <div class="card">
-      <h2>Programme en 4 semaines</h2>
-      <p class="sub">Un parcours progressif pour partir de zéro. Chaque jour propose 1 à 2 objectifs&nbsp;: coche-les quand c'est fait. Un jour se débloque quand le précédent est terminé. Clique «&nbsp;→ ouvrir&nbsp;» pour aller directement à l'exercice.</p>
+      <h2 data-tr>Programme en 4 semaines</h2>
+      <p class="sub" data-tr>Un parcours progressif pour partir de zéro. Chaque jour propose 1 à 2 objectifs&nbsp;: coche-les quand c'est fait. Un jour se débloque quand le précédent est terminé. Clique «&nbsp;→ ouvrir&nbsp;» pour aller directement à l'exercice.</p>
       <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
         <span>Progression globale</span><span id="programSummary" style="color:var(--accent);font-weight:700"></span>
       </div>
@@ -396,7 +396,7 @@
   <!-- COURS -->
   <section class="panel" id="panel-courses">
     <div class="card">
-      <h2>Cours par niveaux</h2>
+      <h2 data-tr>Cours par niveaux</h2>
       <p class="sub">De vraies leçons&nbsp;: une explication, puis une pratique guidée. Termine tous les cours d'un niveau pour débloquer le suivant.</p>
       <div class="chips" id="courseLevels"></div>
       <div style="display:flex;justify-content:space-between;font-size:13px;margin:12px 0 6px">
@@ -408,7 +408,7 @@
       <div id="courseList" class="song-list"></div>
     </div>
     <div class="card" id="courseDetail" style="display:none">
-      <h2 id="courseTitle"></h2>
+      <h2 id="courseTitle" data-tr></h2>
       <div class="sub" id="courseIntro" style="white-space:pre-line;line-height:1.65"></div>
       <div class="staff-paper" id="courseStaff" style="display:none;margin-bottom:12px"></div>
       <div id="courseHowto" style="font-size:13px;color:var(--accent);margin:4px 0 12px"></div>
@@ -424,7 +424,7 @@
   <!-- DÉCOUVRIR -->
   <section class="panel" id="panel-play">
     <div class="card">
-      <h2>Mode libre</h2>
+      <h2 data-tr>Mode libre</h2>
       <p class="sub">Explore le clavier. Les <b>touches blanches</b> se jouent avec la rangée
         <span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span><span class="kbd">F</span><span class="kbd">G</span><span class="kbd">H</span><span class="kbd">J</span><span class="kbd">K</span>
         et les <b>noires</b> avec <span class="kbd">W</span><span class="kbd">E</span><span class="kbd">T</span><span class="kbd">Y</span><span class="kbd">U</span>.
@@ -445,7 +445,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>Ta progression</h2>
+      <h2 data-tr>Ta progression</h2>
       <div class="stat-grid">
         <div class="stat"><div class="n" id="stNotes">0</div><div class="l">Notes jouées</div></div>
         <div class="stat"><div class="n" id="stLessons">0</div><div class="l">Leçons réussies</div></div>
@@ -459,7 +459,7 @@
   <!-- STUDIO (enregistrement) -->
   <section class="panel" id="panel-studio">
     <div class="card">
-      <h2>Studio d'enregistrement</h2>
+      <h2 data-tr>Studio d'enregistrement</h2>
       <p class="sub">Enregistre ce que tu joues, puis réécoute-toi — à vitesse normale ou <b>au ralenti</b> pour analyser ton jeu. Ça marche sur tous les onglets&nbsp;: arme l'enregistrement, va jouer (mode libre, cours, chanson…), puis reviens ici pour réécouter et sauvegarder.</p>
       <div class="row">
         <button class="btn primary" id="recToggle">● Enregistrer</button>
@@ -472,7 +472,7 @@
       <div id="recStatus" style="margin-top:14px;font-size:14px;font-weight:600;min-height:22px;color:var(--accent)"></div>
     </div>
     <div class="card">
-      <h2>Mes enregistrements</h2>
+      <h2 data-tr>Mes enregistrements</h2>
       <div id="recList"></div>
     </div>
   </section>
@@ -480,7 +480,7 @@
   <!-- LEÇONS -->
   <section class="panel" id="panel-lessons">
     <div class="card">
-      <h2>Reconnaître les notes</h2>
+      <h2 data-tr>Reconnaître les notes</h2>
       <p class="sub">La touche à jouer clignote en <span style="color:var(--accent-2)">bleu</span>. Joue-la (souris ou clavier). Enchaîne 10 notes justes pour valider la leçon.</p>
       <div class="row" style="margin-bottom:14px">
         <span style="font-size:13px;color:var(--text-dim)">Difficulté&nbsp;:</span>
@@ -501,7 +501,7 @@
   <!-- LECTURE (portée) -->
   <section class="panel" id="panel-read">
     <div class="card">
-      <h2>Lecture sur la portée</h2>
+      <h2 data-tr>Lecture sur la portée</h2>
       <p class="sub">Lis la note affichée sur la portée et joue-la sur le clavier — <b>sans indice</b> au début&nbsp;! Enchaîne 10 notes justes pour valider une session.</p>
       <div class="row" style="margin-bottom:14px">
         <span style="font-size:13px;color:var(--text-dim)">Clé&nbsp;:</span>
@@ -520,7 +520,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>Aide-mémoire</h2>
+      <h2 data-tr>Aide-mémoire</h2>
       <p class="sub"><b>Clé de sol</b> — lignes de bas en haut&nbsp;: <b>Mi&nbsp;Sol&nbsp;Si&nbsp;Ré&nbsp;Fa</b> ; interlignes&nbsp;: <b>Fa&nbsp;La&nbsp;Do&nbsp;Mi</b>. Le <b>Do central</b> se pose sur une petite ligne sous la portée.<br>
       <b>Clé de fa</b> — lignes&nbsp;: <b>Sol&nbsp;Si&nbsp;Ré&nbsp;Fa&nbsp;La</b> ; interlignes&nbsp;: <b>La&nbsp;Do&nbsp;Mi&nbsp;Sol</b>. Le Do central se pose sur une petite ligne au-dessus.</p>
     </div>
@@ -529,7 +529,7 @@
   <!-- GAMMES & ACCORDS -->
   <section class="panel" id="panel-scales">
     <div class="card">
-      <h2>Gammes</h2>
+      <h2 data-tr>Gammes</h2>
       <p class="sub">Choisis une gamme&nbsp;: les notes s'illuminent sur le clavier. Clique “Écouter” pour l'entendre montante puis descendante.</p>
       <div class="row" style="margin-bottom:12px">
         <span style="font-size:13px;color:var(--text-dim)">Tonique&nbsp;:</span>
@@ -543,7 +543,7 @@
         <span id="scaleNotes" style="font-size:13px;color:var(--text-dim)"></span></div>
     </div>
     <div class="card">
-      <h2>Accords</h2>
+      <h2 data-tr>Accords</h2>
       <p class="sub">Les accords de base. Les notes qui composent l'accord s'illuminent&nbsp;; “Écouter” les joue ensemble.</p>
       <div class="row" style="margin-bottom:12px">
         <span style="font-size:13px;color:var(--text-dim)">Fondamentale&nbsp;:</span>
@@ -561,8 +561,8 @@
   <!-- CHANSONS -->
   <section class="panel" id="panel-songs">
     <div class="card">
-      <h2>Apprendre une chanson</h2>
-      <p class="sub">Choisis un morceau. En mode guidé, la prochaine note à jouer s'illumine en <span style="color:var(--good)">vert</span> et attend que tu la joues. “Démo” te la joue en entier. Tes morceaux importés/créés (onglet <b>Créer</b>) apparaissent aussi ici.</p>
+      <h2 data-tr>Apprendre une chanson</h2>
+      <p class="sub" data-tr>Choisis un morceau. En mode guidé, la prochaine note à jouer s'illumine en <span style="color:var(--good)">vert</span> et attend que tu la joues. “Démo” te la joue en entier. Tes morceaux importés/créés (onglet <b>Créer</b>) apparaissent aussi ici.</p>
       <div class="row" style="gap:10px;margin-bottom:14px">
         <input class="search-input" id="songSearch" type="search" placeholder="🔍 Rechercher un morceau…" style="flex:1;margin:0;min-width:140px">
         <select class="form-input" id="songComposer" style="max-width:200px;margin:0"><option value="">Tous les auteurs</option></select>
@@ -570,7 +570,7 @@
       <div class="song-list" id="songList"></div>
     </div>
     <div class="card" id="songPlayer" style="display:none">
-      <h2 id="songTitle"></h2>
+      <h2 id="songTitle" data-tr></h2>
       <p class="sub" id="songDesc"></p>
       <div class="row" style="margin-bottom:8px">
         <button class="btn primary" id="songGuide">🎯 Mode guidé</button>
@@ -586,12 +586,12 @@
   <!-- CRÉER / IMPORTER -->
   <section class="panel" id="panel-create">
     <div class="card">
-      <h2>Créer / Importer une chanson</h2>
+      <h2 data-tr>Créer / Importer une chanson</h2>
       <p class="sub">Transforme une musique en morceau jouable&nbsp;: importe un fichier <b>MIDI (.mid)</b> — on en extrait la ligne mélodique — ou saisis directement une suite de notes. Tes morceaux apparaissent ensuite dans <b>Chansons</b>.</p>
       <p class="sub" style="color:var(--bad)">⚠️ N'importe que de la musique que tu as le droit d'utiliser. Les tubes récents des charts sont protégés par le droit d'auteur.</p>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px">🎼 Importer un fichier MIDI</h3>
+      <h3 style="margin:0 0 8px" data-tr>🎼 Importer un fichier MIDI</h3>
       <p class="sub">On garde la mélodie (la note la plus aiguë à chaque instant), transposée dans la tessiture du clavier.</p>
       <input type="file" id="midiInput" accept=".mid,.midi,audio/midi,audio/x-midi" style="display:none">
       <div class="row">
@@ -600,7 +600,7 @@
       </div>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px">✍️ Composer à la main</h3>
+      <h3 style="margin:0 0 8px" data-tr>✍️ Composer à la main</h3>
       <p class="sub">Saisis des notes séparées par des espaces. Format&nbsp;: nom + octave — ex. <b>C4 D4 E4 F4 G4</b> — ou en solfège <b>do4 re4 mi4</b>. Sans octave → octave 4. Dièse = <b>#</b> (ex. F#4), bémol = <b>b</b> (ex. Bb4).</p>
       <input class="form-input" id="composeTitle" placeholder="Titre du morceau" style="margin-bottom:8px">
       <textarea class="form-input" id="composeNotes" rows="3" placeholder="C4 D4 E4 F4 G4 A4 G4 F4 E4 D4 C4"></textarea>
@@ -611,7 +611,7 @@
       </div>
     </div>
     <div class="card">
-      <h3 style="margin:0 0 8px">🎤 Fredonner / chanter en direct</h3>
+      <h3 style="margin:0 0 8px" data-tr>🎤 Fredonner / chanter en direct</h3>
       <p class="sub">Active ton micro et <b>chante ou fredonne</b> une mélodie&nbsp;: on détecte les notes en temps réel et on en fait un morceau jouable. Astuce&nbsp;: au calme, une note à la fois, et marque une petite pause entre deux notes identiques. <i>(Une seule voix — ça ne transcrit pas un morceau complet joué dans la pièce.)</i></p>
       <div class="row" style="margin-bottom:10px">
         <button class="btn primary" id="humBtn">🎤 Démarrer l'écoute</button>
@@ -638,7 +638,7 @@
   <!-- OREILLE -->
   <section class="panel" id="panel-ear">
     <div class="card">
-      <h2>Entraînement de l'oreille</h2>
+      <h2 data-tr>Entraînement de l'oreille</h2>
       <p class="sub">Écoute la note, puis devine son nom. On commence sur les 7 notes blanches (Do → Si).</p>
       <div class="quiz-big">
         <div class="q">Clique pour écouter la note mystère&nbsp;:</div>
@@ -655,12 +655,12 @@
   <!-- DEUX MAINS -->
   <section class="panel" id="panel-duo">
     <div class="card">
-      <h2>Mains séparées</h2>
+      <h2 data-tr>Mains séparées</h2>
       <p class="sub">La bonne méthode pour apprendre un morceau&nbsp;: on travaille chaque main <b>séparément</b>, lentement, puis on <b>assemble</b>. Choisis un morceau, puis une main. En mode guidé, la <b style="color:var(--good)">main droite</b> s'illumine en vert et la <b style="color:var(--accent-2)">main gauche</b> en bleu.</p>
       <div class="song-list" id="duoList"></div>
     </div>
     <div class="card" id="duoPlayer" style="display:none">
-      <h2 id="duoTitle"></h2>
+      <h2 id="duoTitle" data-tr></h2>
       <p class="sub" id="duoDesc"></p>
       <div class="row" style="margin-bottom:12px">
         <span style="font-size:13px;color:var(--text-dim)">Main&nbsp;:</span>
@@ -685,7 +685,7 @@
   <!-- TECHNIQUE -->
   <section class="panel" id="panel-technique">
     <div class="card">
-      <h2>Métronome</h2>
+      <h2 data-tr>Métronome</h2>
       <p class="sub">La base de toute progression technique&nbsp;: joue lentement et régulièrement, puis accélère de 5&nbsp;BPM quand c'est propre.</p>
       <div class="row">
         <button class="btn primary" id="metroToggle">▶ Démarrer</button>
@@ -695,7 +695,7 @@
     </div>
 
     <div class="card">
-      <h2>Exercices de dextérité</h2>
+      <h2 data-tr>Exercices de dextérité</h2>
       <p class="sub">La note à jouer s'illumine et le <b>numéro du doigt</b> s'affiche (1&nbsp;=&nbsp;pouce … 5&nbsp;=&nbsp;auriculaire). Termine toutes les répétitions pour valider l'exercice.</p>
       <div class="chips" id="techList" style="margin-bottom:14px"></div>
       <div class="row" style="margin-bottom:10px">
@@ -710,7 +710,7 @@
     </div>
 
     <div class="card">
-      <h2>Indépendance des mains</h2>
+      <h2 data-tr>Indépendance des mains</h2>
       <p class="sub">Le nerf de la guerre au piano&nbsp;: dissocier la main gauche et la main droite. Deux approches, de la plus simple à la plus exigeante.</p>
       <div class="chips" id="indepList" style="margin-bottom:16px"></div>
 
@@ -750,7 +750,7 @@
   <!-- THÉORIE -->
   <section class="panel" id="panel-theory">
     <div class="card">
-      <h2>Reconnaître les intervalles</h2>
+      <h2 data-tr>Reconnaître les intervalles</h2>
       <p class="sub">Deux notes sont jouées l'une après l'autre. Quel intervalle les sépare&nbsp;? Entraîne ton oreille harmonique.</p>
       <div class="quiz-big"><button class="btn primary" id="ivReplay">🔊 Rejouer l'intervalle</button></div>
       <div class="quiz-options" id="ivOptions"></div>
@@ -759,7 +759,7 @@
     </div>
 
     <div class="card">
-      <h2>Cycle des quintes</h2>
+      <h2 data-tr>Cycle des quintes</h2>
       <p class="sub">La carte de toutes les tonalités. Clique une tonalité&nbsp;: sa gamme majeure s'illumine sur le clavier et ses altérations s'affichent.</p>
       <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center">
         <div id="cof"></div>
@@ -768,13 +768,13 @@
     </div>
 
     <div class="card">
-      <h2>Valeurs rythmiques</h2>
+      <h2 data-tr>Valeurs rythmiques</h2>
       <p class="sub">Clique une valeur pour l'entendre sur une mesure à 80&nbsp;BPM. C'est la durée relative des notes.</p>
       <div class="chips" id="rhythmList"></div>
     </div>
 
     <div class="card">
-      <h2>Mémo théorie</h2>
+      <h2 data-tr>Mémo théorie</h2>
       <div style="font-size:13.5px;color:var(--text-dim);line-height:1.75" id="theoryMemo"></div>
     </div>
   </section>
@@ -937,35 +937,180 @@ function checkStreak() {
 }
 function doneCourses() { return Object.values((store.data.courses && store.data.courses.done) || {}).filter(Boolean).length; }
 
-// --- Internationalisation (UI shell) ---
-const I18N = {
-  fr: { 'app.subtitle':'Apprendre le piano en autonomie', 'stats.notes':'Notes jouées', 'stats.xp':'XP',
-    'nav.home':'Accueil','nav.learn':'Apprendre','nav.play':'Jouer','nav.drill':'Exercices',
-    'tab.plan':'Plan du jour','tab.program':'Programme','tab.courses':'Cours','tab.lessons':'Leçons','tab.read':'Lecture','tab.theory':'Théorie','tab.play':'Découvrir','tab.songs':'Chansons','tab.duo':'Deux mains','tab.scales':'Gammes','tab.technique':'Technique','tab.ear':'Oreille','tab.studio':'Studio','tab.create':'Créer' },
-  en: { 'app.subtitle':'Learn piano on your own', 'stats.notes':'Notes played', 'stats.xp':'XP',
-    'nav.home':'Home','nav.learn':'Learn','nav.play':'Play','nav.drill':'Practice',
-    'tab.plan':'Daily plan','tab.program':'Program','tab.courses':'Courses','tab.lessons':'Lessons','tab.read':'Reading','tab.theory':'Theory','tab.play':'Explore','tab.songs':'Songs','tab.duo':'Two hands','tab.scales':'Scales','tab.technique':'Technique','tab.ear':'Ear','tab.studio':'Studio','tab.create':'Create' },
-  es: { 'app.subtitle':'Aprende piano por tu cuenta', 'stats.notes':'Notas tocadas', 'stats.xp':'XP',
-    'nav.home':'Inicio','nav.learn':'Aprender','nav.play':'Tocar','nav.drill':'Ejercicios',
-    'tab.plan':'Plan diario','tab.program':'Programa','tab.courses':'Cursos','tab.lessons':'Lecciones','tab.read':'Lectura','tab.theory':'Teoría','tab.play':'Explorar','tab.songs':'Canciones','tab.duo':'Dos manos','tab.scales':'Escalas','tab.technique':'Técnica','tab.ear':'Oído','tab.studio':'Estudio','tab.create':'Crear' },
-  de: { 'app.subtitle':'Klavier selbstständig lernen', 'stats.notes':'Gespielte Noten', 'stats.xp':'XP',
-    'nav.home':'Start','nav.learn':'Lernen','nav.play':'Spielen','nav.drill':'Übungen',
-    'tab.plan':'Tagesplan','tab.program':'Programm','tab.courses':'Kurse','tab.lessons':'Lektionen','tab.read':'Lesen','tab.theory':'Theorie','tab.play':'Entdecken','tab.songs':'Lieder','tab.duo':'Zwei Hände','tab.scales':'Tonleitern','tab.technique':'Technik','tab.ear':'Gehör','tab.studio':'Studio','tab.create':'Erstellen' }
-};
-const LANGS = [['fr','Français'], ['en','English'], ['es','Español'], ['de','Deutsch']];
+// --- Internationalisation (French source strings -> translations) ---
+const LANGS = [['fr','Français'], ['en','English'], ['es','Español'], ['de','Deutsch'], ['zh','中文']];
 let LANG = 'fr';
-function t(key) { const d = I18N[LANG] || I18N.fr; return d[key] || I18N.fr[key] || key; }
+const TR = { en: {}, es: {}, de: {}, zh: {} };
+// dict(fr, en, es, de, zh)
+function dict(fr, en, es, de, zh) { TR.en[fr] = en; TR.es[fr] = es; TR.de[fr] = de; TR.zh[fr] = zh; }
+[
+  // ---- shell / nav ----
+  ['Apprendre le piano en autonomie','Learn piano on your own','Aprende piano por tu cuenta','Klavier selbstständig lernen','自学钢琴'],
+  ['Notes jouées','Notes played','Notas tocadas','Gespielte Noten','已弹音符'],
+  ['Accueil','Home','Inicio','Start','主页'],
+  ['Apprendre','Learn','Aprender','Lernen','学习'],
+  ['Jouer','Play','Tocar','Spielen','演奏'],
+  ['Exercices','Practice','Ejercicios','Übungen','练习'],
+  ['Plan du jour','Daily plan','Plan diario','Tagesplan','每日计划'],
+  ['Programme','Program','Programa','Programm','课程表'],
+  ['Cours','Courses','Cursos','Kurse','课程'],
+  ['Leçons','Lessons','Lecciones','Lektionen','课时'],
+  ['Lecture','Reading','Lectura','Lesen','读谱'],
+  ['Théorie','Theory','Teoría','Theorie','乐理'],
+  ['Découvrir','Explore','Explorar','Entdecken','探索'],
+  ['Chansons','Songs','Canciones','Lieder','歌曲'],
+  ['Deux mains','Two hands','Dos manos','Zwei Hände','双手'],
+  ['Gammes','Scales','Escalas','Tonleitern','音阶'],
+  ['Technique','Technique','Técnica','Technik','技巧'],
+  ['Oreille','Ear','Oído','Gehör','听力'],
+  ['Studio','Studio','Estudio','Studio','录音室'],
+  ['Créer','Create','Crear','Erstellen','创作'],
+  // ---- home / daily plan ----
+  ['Ton plan du jour','Your daily plan','Tu plan diario','Dein Tagesplan','你的每日计划'],
+  ['Objectif XP du jour','Daily XP goal','Meta de XP diaria','Tages-XP-Ziel','每日经验目标'],
+  ['Niveau :','Level:','Nivel:','Stufe:','等级：'],
+  ['🌱 Détente · 30','🌱 Relaxed · 30','🌱 Relax · 30','🌱 Locker · 30','🌱 轻松 · 30'],
+  ['🎯 Régulier · 60','🎯 Regular · 60','🎯 Regular · 60','🎯 Regelmäßig · 60','🎯 常规 · 60'],
+  ['🔥 Intensif · 120','🔥 Intensive · 120','🔥 Intenso · 120','🔥 Intensiv · 120','🔥 强化 · 120'],
+  ['Routine du jour','Today\'s routine','Rutina de hoy','Heutige Routine','今日日程'],
+  ['Coche les 6 objectifs en pratiquant. Clique un objectif pour aller directement à l\'exercice.','Tick off the 6 goals as you practise. Tap a goal to jump straight to the exercise.','Marca los 6 objetivos al practicar. Toca un objetivo para ir directo al ejercicio.','Hake die 6 Ziele beim Üben ab. Tippe ein Ziel an, um direkt zur Übung zu springen.','练习时勾选这 6 个目标。点击目标可直接进入练习。'],
+  ['Objectifs à débloquer','Goals to unlock','Objetivos por desbloquear','Ziele zum Freischalten','待解锁目标'],
+  ['Des paliers pour suivre ta progression sur le long terme.','Milestones to track your long-term progress.','Hitos para seguir tu progreso a largo plazo.','Meilensteine für deinen langfristigen Fortschritt.','长期进步的里程碑。'],
+  ['Échauffement — jouer 40 notes','Warm-up — play 40 notes','Calentamiento — toca 40 notas','Aufwärmen — 40 Noten spielen','热身 — 弹 40 个音符'],
+  ['Lecture de notes — réussir 1 leçon','Note reading — pass 1 lesson','Lectura de notas — pasa 1 lección','Notenlesen — 1 Lektion bestehen','认音 — 完成 1 课'],
+  ['Technique — 1 exercice de dextérité','Technique — 1 dexterity exercise','Técnica — 1 ejercicio de destreza','Technik — 1 Fingerübung','技巧 — 1 个灵活性练习'],
+  ['Un morceau — chanson ou mains séparées','A piece — song or hands-separate','Una pieza — canción o manos separadas','Ein Stück — Lied oder getrennte Hände','一首曲子 — 歌曲或分手'],
+  ['Oreille & théorie — 8 bonnes réponses','Ear & theory — 8 correct answers','Oído y teoría — 8 respuestas correctas','Gehör & Theorie — 8 richtige Antworten','听力与乐理 — 8 个正确'],
+  ['Premiers pas','First steps','Primeros pasos','Erste Schritte','起步'],
+  ['50 notes jouées','50 notes played','50 notas tocadas','50 Noten gespielt','已弹 50 个音符'],
+  ['Centurion','Centurion','Centurión','Zenturio','百人'],
+  ['500 notes jouées','500 notes played','500 notas tocadas','500 Noten gespielt','已弹 500 个音符'],
+  ['Infatigable','Tireless','Incansable','Unermüdlich','不知疲倦'],
+  ['2000 notes jouées','2000 notes played','2000 notas tocadas','2000 Noten gespielt','已弹 2000 个音符'],
+  ['Élève appliqué','Diligent student','Alumno aplicado','Fleißiger Schüler','勤奋学生'],
+  ['3 leçons de notes réussies','3 note lessons passed','3 lecciones de notas superadas','3 Notenlektionen bestanden','完成 3 节认音课'],
+  ['Musicien','Musician','Músico','Musiker','音乐家'],
+  ['3 chansons complétées','3 songs completed','3 canciones completadas','3 Lieder abgeschlossen','完成 3 首歌曲'],
+  ['Terminer 1 morceau à 2 voix','Finish 1 two-hand piece','Termina 1 pieza a dos manos','1 zweistimmiges Stück beenden','完成 1 首双手曲子'],
+  ['Doigts agiles','Nimble fingers','Dedos ágiles','Flinke Finger','灵活手指'],
+  ['5 exercices de technique','5 technique exercises','5 ejercicios de técnica','5 Technikübungen','5 个技巧练习'],
+  ['Bonne oreille','Good ear','Buen oído','Gutes Gehör','好耳力'],
+  ['20 notes reconnues','20 notes recognised','20 notas reconocidas','20 Noten erkannt','辨认 20 个音符'],
+  ['Théoricien','Theorist','Teórico','Theoretiker','理论家'],
+  ['15 intervalles justes','15 correct intervals','15 intervalos correctos','15 richtige Intervalle','15 个正确音程'],
+  ['Assidu','Committed','Constante','Beständig','坚持'],
+  ['3 jours de suite','3 days in a row','3 días seguidos','3 Tage in Folge','连续 3 天'],
+  ['En feu','On fire','En racha','In Flammen','火热'],
+  ['7 jours de suite','7 days in a row','7 días seguidos','7 Tage in Folge','连续 7 天'],
+  ['Déchiffreur','Sight-reader','Lector','Blattleser','视谱者'],
+  ['50 notes lues sur la portée','50 notes read on the staff','50 notas leídas en el pentagrama','50 Noten im Notensystem gelesen','在五线谱上读 50 个音符'],
+  ['Studieux','Studious','Estudioso','Lernbegierig','好学'],
+  ['Terminer 4 cours','Finish 4 courses','Termina 4 cursos','4 Kurse beenden','完成 4 门课程'],
+  ['Diplômé','Graduate','Graduado','Absolvent','毕业'],
+  ['Terminer les 14 cours','Finish all 14 courses','Termina los 14 cursos','Alle 14 Kurse beenden','完成全部 14 门课程'],
+  ['1000 XP','1000 XP','1000 XP','1000 XP','1000 经验'],
+  ['Atteindre 1000 XP au total','Reach 1000 XP total','Alcanza 1000 XP en total','Insgesamt 1000 XP erreichen','累计达到 1000 经验'],
+  // ---- common buttons / feedback ----
+  ['Commencer','Start','Empezar','Starten','开始'],
+  ['Recommencer','Restart','Reiniciar','Neu starten','重新开始'],
+  ['🎯 Mode guidé','🎯 Guided mode','🎯 Modo guiado','🎯 Geführter Modus','🎯 引导模式'],
+  ['▶ Démo','▶ Demo','▶ Demo','▶ Demo','▶ 演示'],
+  ['■ Stop','■ Stop','■ Stop','■ Stopp','■ 停止'],
+  ['🎯 Pratiquer','🎯 Practise','🎯 Practicar','🎯 Üben','🎯 练习'],
+  ['🎯 S\'entraîner','🎯 Practise','🎯 Entrenar','🎯 Trainieren','🎯 训练'],
+  ['À toi de jouer !','Your turn!','¡Te toca!','Du bist dran!','轮到你了！'],
+  ['Arrêté','Stopped','Detenido','Gestoppt','已停止'],
+  ['Démo terminée','Demo finished','Demo terminada','Demo beendet','演示结束'],
+  ['Réinitialiser la progression','Reset progress','Reiniciar progreso','Fortschritt zurücksetzen','重置进度'],
+  ['Ta progression','Your progress','Tu progreso','Dein Fortschritt','你的进度'],
+  ['Leçons réussies','Lessons passed','Lecciones superadas','Bestandene Lektionen','已完成课时'],
+  ['Chansons complétées','Songs completed','Canciones completadas','Abgeschlossene Lieder','已完成歌曲'],
+  ['Précision à l\'oreille','Ear accuracy','Precisión de oído','Gehörgenauigkeit','听力准确率'],
+  // ---- page headings & descriptions ----
+  ['Mode libre','Free play','Modo libre','Freies Spiel','自由演奏'],
+  ['Apprendre une chanson','Learn a song','Aprende una canción','Ein Lied lernen','学习一首歌'],
+  ['Reconnaître les notes','Recognise the notes','Reconoce las notas','Noten erkennen','辨认音符'],
+  ['Lecture sur la portée','Reading on the staff','Lectura en el pentagrama','Lesen im Notensystem','五线谱读谱'],
+  ['Aide-mémoire','Cheat sheet','Chuleta','Spickzettel','速记表'],
+  ['Métronome','Metronome','Metrónomo','Metronom','节拍器'],
+  ['Exercices de dextérité','Dexterity exercises','Ejercicios de destreza','Fingerübungen','灵活性练习'],
+  ['Indépendance des mains','Hand independence','Independencia de manos','Handunabhängigkeit','双手独立'],
+  ['Reconnaître les intervalles','Recognise intervals','Reconoce intervalos','Intervalle erkennen','辨认音程'],
+  ['Cycle des quintes','Circle of fifths','Círculo de quintas','Quintenzirkel','五度圈'],
+  ['Valeurs rythmiques','Note values','Valores rítmicos','Notenwerte','音符时值'],
+  ['Mémo théorie','Theory notes','Apuntes de teoría','Theorie-Notizen','乐理笔记'],
+  ['Entraînement de l\'oreille','Ear training','Entrenamiento auditivo','Gehörbildung','听力训练'],
+  ['Studio d\'enregistrement','Recording studio','Estudio de grabación','Aufnahmestudio','录音室'],
+  ['Mes enregistrements','My recordings','Mis grabaciones','Meine Aufnahmen','我的录音'],
+  ['Cours par niveaux','Courses by level','Cursos por nivel','Kurse nach Stufe','分级课程'],
+  ['Programme en 4 semaines','8-week program','Programa de 8 semanas','8-Wochen-Programm','8 周课程表'],
+  ['Créer / Importer une chanson','Create / Import a song','Crear / Importar una canción','Lied erstellen / importieren','创作 / 导入歌曲'],
+  ['🎼 Importer un fichier MIDI','🎼 Import a MIDI file','🎼 Importar un archivo MIDI','🎼 MIDI-Datei importieren','🎼 导入 MIDI 文件'],
+  ['✍️ Composer à la main','✍️ Compose by hand','✍️ Componer a mano','✍️ Von Hand komponieren','✍️ 手动编写'],
+  ['🎤 Fredonner / chanter en direct','🎤 Hum / sing live','🎤 Tararea / canta en vivo','🎤 Live summen / singen','🎤 实时哼唱'],
+  ['Gammes','Scales','Escalas','Tonleitern','音阶'],
+  ['Accords','Chords','Acordes','Akkorde','和弦'],
+  ['Reconnaître les notes','Recognise the notes','Reconoce las notas','Noten erkennen','辨认音符'],
+  ['jours de suite · record','days in a row · best','días seguidos · récord','Tage in Folge · Rekord','连续天数 · 最佳'],
+  ['Choisis un morceau. En mode guidé, la prochaine note à jouer s\'illumine en vert et attend que tu la joues. “Démo” te la joue en entier. Tes morceaux importés/créés (onglet Créer) apparaissent aussi ici.','Pick a piece. In guided mode, the next note lights up in green and waits for you to play it. “Demo” plays it in full. Your imported/created songs (Create tab) show up here too.','Elige una pieza. En modo guiado, la siguiente nota se ilumina en verde y espera a que la toques. “Demo” la toca entera. Tus canciones importadas/creadas (pestaña Crear) también aparecen aquí.','Wähle ein Stück. Im geführten Modus leuchtet die nächste Note grün und wartet, bis du sie spielst. „Demo“ spielt es komplett. Deine importierten/erstellten Stücke (Tab Erstellen) erscheinen hier auch.','选择一首曲子。引导模式下，下一个音符会亮绿色并等你弹奏。“演示”会完整播放。你导入/创作的曲子（创作标签）也会显示在此。'],
+  ['Progression globale','Overall progress','Progreso general','Gesamtfortschritt','总进度'],
+  ['Un parcours progressif pour partir de zéro. Chaque jour propose 1 à 2 objectifs : coche-les quand c\'est fait. Un jour se débloque quand le précédent est terminé. Clique « → ouvrir » pour aller directement à l\'exercice.','A step-by-step path from scratch. Each day has 1–2 goals: tick them when done. A day unlocks when the previous one is finished. Tap “→ open” to jump straight to the exercise.','Un recorrido progresivo desde cero. Cada día propone 1–2 objetivos: márcalos al terminar. Un día se desbloquea al completar el anterior. Toca “→ abrir” para ir directo al ejercicio.','Ein schrittweiser Weg von Grund auf. Jeder Tag hat 1–2 Ziele: hake sie ab. Ein Tag wird freigeschaltet, wenn der vorige fertig ist. Tippe „→ öffnen“, um direkt zur Übung zu springen.','从零开始的循序渐进路径。每天有 1–2 个目标：完成后勾选。完成前一天才解锁下一天。点击“→ 打开”直接进入练习。'],
+  ['→ ouvrir','→ open','→ abrir','→ öffnen','→ 打开'],
+  ['De vraies leçons : une explication, puis une pratique guidée. Termine tous les cours d\'un niveau pour débloquer le suivant.','Real lessons: an explanation, then guided practice. Finish all courses in a level to unlock the next.','Lecciones de verdad: una explicación y luego práctica guiada. Termina todos los cursos de un nivel para desbloquear el siguiente.','Echte Lektionen: eine Erklärung, dann geführtes Üben. Beende alle Kurse einer Stufe, um die nächste freizuschalten.','真正的课程：先讲解，再引导练习。完成一个等级的所有课程即可解锁下一级。'],
+  ['🎯 Pratiquer','🎯 Practise','🎯 Practicar','🎯 Üben','🎯 练习'],
+  ['↺ Refaire la pratique','↺ Redo practice','↺ Rehacer práctica','↺ Übung wiederholen','↺ 重做练习'],
+  ['Niveau 1 · Débutant','Level 1 · Beginner','Nivel 1 · Principiante','Stufe 1 · Anfänger','第 1 级 · 初级'],
+  ['Niveau 2 · Intermédiaire','Level 2 · Intermediate','Nivel 2 · Intermedio','Stufe 2 · Mittel','第 2 级 · 中级'],
+  ['Niveau 3 · Avancé','Level 3 · Advanced','Nivel 3 · Avanzado','Stufe 3 · Fortgeschritten','第 3 级 · 高级'],
+  ['🎤 Démarrer l\'écoute','🎤 Start listening','🎤 Empezar a escuchar','🎤 Zuhören starten','🎤 开始聆听'],
+  ['✓ Créer le morceau','✓ Create the song','✓ Crear la pieza','✓ Stück erstellen','✓ 生成曲子'],
+  ['📁 Choisir un fichier MIDI','📁 Choose a MIDI file','📁 Elegir un archivo MIDI','📁 MIDI-Datei wählen','📁 选择 MIDI 文件'],
+  ['🎹 Connecter un piano / clavier MIDI','🎹 Connect a MIDI piano / keyboard','🎹 Conectar un piano / teclado MIDI','🎹 MIDI-Piano/-Keyboard verbinden','🎹 连接 MIDI 钢琴/键盘'],
+  ['Réécouter','Replay','Reproducir','Abspielen','回放'],
+  ['Facile','Easy','Fácil','Leicht','简单'],
+  ['Moyen','Medium','Medio','Mittel','中等'],
+  ['Difficile','Hard','Difícil','Schwer','困难'],
+  ['Perso','Custom','Propio','Eigen','自定义'],
+  ['Tous les auteurs','All composers','Todos los autores','Alle Komponisten','全部作者'],
+  ['jours','days','días','Tage','天'],
+  ['programme terminé, félicitations !','program finished, congratulations!','¡programa terminado, felicidades!','Programm beendet, Glückwunsch!','课程完成，恭喜！'],
+  ['Semaine 1 — Découverte du clavier','Week 1 — Getting to know the keyboard','Semana 1 — Descubrir el teclado','Woche 1 — Die Tastatur entdecken','第 1 周 — 认识键盘'],
+  ['Semaine 2 — Rythme & mélodies','Week 2 — Rhythm & melodies','Semana 2 — Ritmo y melodías','Woche 2 — Rhythmus & Melodien','第 2 周 — 节奏与旋律'],
+  ['Semaine 3 — Les deux mains','Week 3 — Both hands','Semana 3 — Las dos manos','Woche 3 — Beide Hände','第 3 周 — 双手'],
+  ['Semaine 4 — Indépendance & musicalité','Week 4 — Independence & musicality','Semana 4 — Independencia y musicalidad','Woche 4 — Unabhängigkeit & Musikalität','第 4 周 — 独立性与乐感'],
+  ['Semaine 5 — Les cours guidés','Week 5 — The guided courses','Semana 5 — Los cursos guiados','Woche 5 — Die geführten Kurse','第 5 周 — 引导课程'],
+  ['Semaine 6 — Deux mains, la suite','Week 6 — Two hands, continued','Semana 6 — Dos manos, continuación','Woche 6 — Zwei Hände, Fortsetzung','第 6 周 — 双手（续）'],
+  ['Semaine 7 — Vers l\'avancé','Week 7 — Towards advanced','Semana 7 — Hacia lo avanzado','Woche 7 — Auf zum Fortgeschrittenen','第 7 周 — 迈向高级'],
+  ['Semaine 8 — Récital final','Week 8 — Final recital','Semana 8 — Recital final','Woche 8 — Abschlusskonzert','第 8 周 — 结业演奏'],
+  ['Prendre ses repères et jouer ses premières notes.','Find your bearings and play your first notes.','Ubícate y toca tus primeras notas.','Orientiere dich und spiele deine ersten Noten.','找准位置，弹出第一批音符。'],
+  ['Le rythme, les gammes et de vraies mélodies.','Rhythm, scales and real melodies.','El ritmo, las escalas y melodías reales.','Rhythmus, Tonleitern und echte Melodien.','节奏、音阶和真正的旋律。'],
+  ['Coordonner la main gauche et la main droite.','Coordinate the left and right hand.','Coordina la mano izquierda y la derecha.','Linke und rechte Hand koordinieren.','协调左右手。'],
+  ['Indépendance des mains, intervalles et nuances.','Hand independence, intervals and dynamics.','Independencia de manos, intervalos y matices.','Handunabhängigkeit, Intervalle und Dynamik.','双手独立、音程与力度。'],
+  ['Suivre les cours par niveaux et enrichir son vocabulaire d\'accords.','Follow the level courses and grow your chord vocabulary.','Sigue los cursos por niveles y amplía tu vocabulario de acordes.','Folge den Stufenkursen und erweitere dein Akkord-Vokabular.','跟随分级课程，丰富和弦词汇。'],
+  ['Consolider le jeu à deux mains.','Consolidate two-hand playing.','Consolida el juego a dos manos.','Das zweihändige Spiel festigen.','巩固双手演奏。'],
+  ['Aborder le répertoire avancé : gammes mineures, modes, arpèges.','Tackle the advanced repertoire: minor scales, modes, arpeggios.','Aborda el repertorio avanzado: escalas menores, modos, arpegios.','Das fortgeschrittene Repertoire angehen: Molltonleitern, Modi, Arpeggien.','进入高级曲目：小调音阶、调式、琶音。'],
+  ['Rassembler tout ce qu\'on a appris.','Bring together everything you\'ve learned.','Reúne todo lo aprendido.','Alles Gelernte zusammenbringen.','汇集所学的一切。'],
+  ['Niveau','Level','Nivel','Stufe','等级'],
+].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+function t(s) { if (LANG === 'fr' || !s) return s; const d = TR[LANG]; const k = s.replace(/[\u00a0]/g, ' ').replace(/\s+/g, ' ').trim(); return (d && (d[s] || d[k])) || s; }
 function applyI18n() {
   document.documentElement.lang = LANG;
-  document.querySelectorAll('[data-i18n]').forEach(el => { const v = t(el.getAttribute('data-i18n')); if (v) el.textContent = v; });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const v = t(el.getAttribute('data-i18n-ph')); if (v) el.placeholder = v; });
+  document.querySelectorAll('[data-tr]').forEach(el => { if (el.__fr == null) el.__fr = el.textContent.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim(); el.textContent = t(el.__fr); });
+  document.querySelectorAll('[data-tr-ph]').forEach(el => { if (el.__frp == null) el.__frp = el.getAttribute('placeholder') || ''; el.setAttribute('placeholder', t(el.__frp)); });
 }
 function initLang() {
   let l = store.data.lang;
-  if (!l) { const n = (navigator.language || 'fr').slice(0, 2).toLowerCase(); l = I18N[n] ? n : 'fr'; store.data.lang = l; store.save(); }
+  if (!l) { const n = (navigator.language || 'fr').slice(0, 2).toLowerCase(); l = TR[n] ? n : 'fr'; store.data.lang = l; store.save(); }
   LANG = l;
 }
-function setLang(l) { LANG = l; store.data.lang = l; store.save(); applyI18n(); renderBottomNav(); renderSubtabs(); Songs.render(); }
+function refreshDynamic() {
+  if (typeof DailyPlan !== 'undefined') DailyPlan.refresh();
+  if (typeof Program !== 'undefined') Program.refresh();
+  if (typeof Course !== 'undefined' && Course.refresh) Course.refresh();
+  if (typeof Songs !== 'undefined') Songs.render();
+}
+function setLang(l) { LANG = l; store.data.lang = l; store.save(); applyI18n(); renderBottomNav(); renderSubtabs(); refreshDynamic(); }
 
 function addXp(n) { store.data.xp += n; store.save(); renderStats(); }
 function renderStats() {
@@ -1134,13 +1279,13 @@ function switchTab(tab) {
 function renderSubtabs() {
   const cat = CATEGORIES.find(c => c.id === currentCat);
   const el = document.getElementById('subtabs');
-  el.innerHTML = cat.tabs.map(tb => '<button class="tab' + (tb === currentTab ? ' active' : '') + '" data-tab="' + tb + '">' + t('tab.' + tb) + '</button>').join('');
+  el.innerHTML = cat.tabs.map(tb => '<button class="tab' + (tb === currentTab ? ' active' : '') + '" data-tab="' + tb + '">' + t(TAB_LABELS[tb]) + '</button>').join('');
   el.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
   el.style.display = cat.tabs.length > 1 ? '' : 'none';
 }
 function renderBottomNav() {
   const el = document.getElementById('bottomnav');
-  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + t('nav.' + c.id) + '</span></button>').join('');
+  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + t(c.label) + '</span></button>').join('');
   el.querySelectorAll('.navbtn').forEach(b => b.addEventListener('click', () => {
     const c = CATEGORIES.find(x => x.id === b.dataset.cat);
     switchTab(lastTabByCat[c.id] || c.tabs[0]);
@@ -1468,7 +1613,7 @@ const Songs = (() => {
     const sel = document.getElementById('songComposer'); if (!sel) return;
     const cur = sel.value;
     const comps = [...new Set(allSongs().map(s => s.composer || '—'))].sort((a, b) => a.localeCompare(b, 'fr'));
-    sel.innerHTML = '<option value="">Tous les auteurs</option>' + comps.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+    sel.innerHTML = '<option value="">' + t('Tous les auteurs') + '</option>' + comps.map(c => '<option value="' + c + '">' + c + '</option>').join('');
     sel.value = cur;
   }
   function render() {
@@ -1486,7 +1631,7 @@ const Songs = (() => {
       el.className = 'song' + (current && current.id === s.id ? ' active' : ''); el.dataset.id = s.id;
       el.innerHTML = `<h3>${s.title} ${done ? '✅' : ''}</h3>
         <div class="meta">${s.composer || '—'} · ${s.notes.length} notes</div>
-        <span class="diff">${s.diff || 'Perso'}</span>`
+        <span class="diff">${t(s.diff || 'Perso')}</span>`
         + (s.user ? `<span class="song-del" data-del="${s.id}" title="Supprimer">🗑</span>` : '');
       el.addEventListener('click', (e) => { if (e.target.classList.contains('song-del')) return; select(s.id); });
       listEl.appendChild(el);
@@ -2235,7 +2380,7 @@ const DailyPlan = (() => {
     ensureDay(); checkStreak();
     const d = store.data, goal = d.dailyGoalXp;
     const dateEl = document.getElementById('planDate');
-    if (dateEl) dateEl.textContent = new Date().toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' });
+    if (dateEl) dateEl.textContent = new Date().toLocaleDateString(LANG, { weekday:'long', day:'numeric', month:'long' });
     document.getElementById('planStreak').textContent = '🔥 ' + d.streak;
     document.getElementById('planBest').textContent = d.bestStreak;
     const tx = today('xp');
@@ -2243,13 +2388,13 @@ const DailyPlan = (() => {
     document.getElementById('planXpBar').style.width = Math.min(100, tx / goal * 100) + '%';
     goalEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', +c.dataset.goal === goal));
 
-    tasksEl.innerHTML = DAILY_TASKS.map(t => {
-      const target = t.target === 'goal' ? goal : t.target;
-      const cur = Math.min(taskValue(t), target);
+    tasksEl.innerHTML = DAILY_TASKS.map(tk => {
+      const target = tk.target === 'goal' ? goal : tk.target;
+      const cur = Math.min(taskValue(tk), target);
       const ok = cur >= target;
-      return '<div class="task ' + (ok ? 'done' : '') + '" data-tab="' + t.tab + '">'
-        + '<div class="ic">' + t.ic + '</div>'
-        + '<div class="body"><div class="t-label">' + t.label + '</div>'
+      return '<div class="task ' + (ok ? 'done' : '') + '" data-tab="' + tk.tab + '">'
+        + '<div class="ic">' + tk.ic + '</div>'
+        + '<div class="body"><div class="t-label">' + t(tk.label) + '</div>'
         + '<div class="t-bar"><span style="width:' + (cur / target * 100) + '%"></span></div>'
         + '<div class="t-num">' + cur + ' / ' + target + '</div></div>'
         + '<div class="t-check">' + (ok ? '✓' : '○') + '</div></div>';
@@ -2262,8 +2407,8 @@ const DailyPlan = (() => {
     achEl.innerHTML = ACHIEVEMENTS.map(a => {
       const v = a.stat(), ok = v >= a.target, pct = Math.min(100, v / a.target * 100);
       return '<div class="stat ach ' + (ok ? '' : 'locked') + '">'
-        + '<div class="a-title">' + (ok ? '🏅' : '🔒') + ' ' + a.label + '</div>'
-        + '<div class="a-desc">' + a.desc + '</div>'
+        + '<div class="a-title">' + (ok ? '🏅' : '🔒') + ' ' + t(a.label) + '</div>'
+        + '<div class="a-desc">' + t(a.desc) + '</div>'
         + '<div class="progress-bar" style="height:6px;margin:8px 0 2px"><span style="width:' + pct + '%"></span></div>'
         + '<div class="a-prog">' + Math.min(v, a.target) + ' / ' + a.target + '</div></div>';
     }).join('');
@@ -2490,16 +2635,16 @@ const Program = (() => {
           const k = key(wi, di, ti), dn = done(k);
           return '<div class="pgm-task ' + (dn ? 'done' : '') + '">'
             + '<input type="checkbox" ' + (dn ? 'checked' : '') + ' ' + (unlocked ? '' : 'disabled') + ' data-key="' + k + '">'
-            + '<label>' + tk.t + '</label>'
-            + '<span class="lnk" data-tab="' + tk.tab + '">→ ouvrir</span></div>';
+            + '<label>' + t(tk.t) + '</label>'
+            + '<span class="lnk" data-tab="' + tk.tab + '">' + t('→ ouvrir') + '</span></div>';
         }).join('');
         daysHtml += '<div class="pgm-day ' + (unlocked ? '' : 'locked') + '">'
-          + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + day.title + '</div>'
+          + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + t(day.title) + '</div>'
           + tasksHtml + '</div>';
       });
-      html += '<div class="pgm-week"><div class="pgm-week-head"><div><h3>' + w.title + '</h3>'
-        + (w.goal ? '<div class="wk-goal">' + w.goal + '</div>' : '')
-        + '</div><span class="wk-prog">' + wkDone + '/' + w.days.length + ' jours</span></div>' + daysHtml + '</div>';
+      html += '<div class="pgm-week"><div class="pgm-week-head"><div><h3>' + t(w.title) + '</h3>'
+        + (w.goal ? '<div class="wk-goal">' + t(w.goal) + '</div>' : '')
+        + '</div><span class="wk-prog">' + wkDone + '/' + w.days.length + ' ' + t('jours') + '</span></div>' + daysHtml + '</div>';
     });
     contentEl.innerHTML = html;
     contentEl.querySelectorAll('.pgm-task input').forEach(cb => cb.addEventListener('change', () => {
@@ -2511,7 +2656,7 @@ const Program = (() => {
     }));
     const total = days.length;
     barEl.style.width = (doneDays / total * 100) + '%';
-    summaryEl.textContent = doneDays + ' / ' + total + ' jours' + (doneDays === total ? ' — programme terminé, félicitations ! 🎓' : '');
+    summaryEl.textContent = doneDays + ' / ' + total + ' ' + t('jours') + (doneDays === total ? ' — ' + t('programme terminé, félicitations !') + ' 🎓' : '');
   }
   function init() { if (!store.data.program) store.data.program = { done: {} }; refresh(); }
   return { init, refresh };
@@ -2605,12 +2750,12 @@ const Course = (() => {
       const ok = unlocked(L.level);
       const b = document.createElement('button');
       b.className = 'chip' + (L.level === level ? ' active' : '');
-      b.textContent = (ok ? '' : '🔒 ') + 'Niveau ' + L.level;
+      b.textContent = (ok ? '' : '🔒 ') + t('Niveau') + ' ' + L.level;
       b.addEventListener('click', () => { if (!ok) return; level = L.level; detail.style.display = 'none'; stop(); renderLevels(); renderList(); });
       levelsEl.appendChild(b);
     });
     const L = levelObj(level), dc = L.courses.filter(c => isDone(c.id)).length;
-    document.getElementById('courseLevelName').textContent = L.name;
+    document.getElementById('courseLevelName').textContent = t(L.name);
     document.getElementById('courseLevelProg').textContent = dc + ' / ' + L.courses.length + ' cours';
     document.getElementById('courseLevelBar').style.width = (dc / L.courses.length * 100) + '%';
   }
@@ -2676,7 +2821,7 @@ const Course = (() => {
     document.getElementById('courseStart').addEventListener('click', start);
     document.getElementById('courseStop').addEventListener('click', () => { stop(); fbEl.textContent = 'Arrêté'; });
   }
-  return { init, onNote, stop };
+  return { init, onNote, stop, refresh: function () { renderLevels(); renderList(); } };
 })();
 
 /* ============================================================
