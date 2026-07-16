@@ -431,10 +431,10 @@
         L'<b>octave grave</b> (main gauche) se joue avec la rangée du bas
         <span class="kbd">Z</span><span class="kbd">X</span><span class="kbd">C</span><span class="kbd">V</span><span class="kbd">B</span><span class="kbd">N</span>.</p>
       <div class="row">
-        <label class="toggle"><input type="checkbox" id="showLabels" checked> Afficher le nom des notes</label>
-        <label class="toggle"><input type="checkbox" id="showKb" checked> Afficher les touches clavier</label>
-        <label class="toggle"><input type="checkbox" id="useSolfege"> Notation solfège (Do Ré Mi)</label>
-        <label class="toggle"><input type="checkbox" id="sustain"> Sustain (notes tenues)</label>
+        <label class="toggle"><input type="checkbox" id="showLabels" checked> <span data-tr>Afficher le nom des notes</span></label>
+        <label class="toggle"><input type="checkbox" id="showKb" checked> <span data-tr>Afficher les touches clavier</span></label>
+        <label class="toggle"><input type="checkbox" id="useSolfege"> <span data-tr>Notation solfège (Do Ré Mi)</span></label>
+        <label class="toggle"><input type="checkbox" id="sustain"> <span data-tr>Sustain (notes tenues)</span></label>
       </div>
       <div id="midiBlock">
         <div class="row" style="margin-top:14px">
@@ -516,7 +516,7 @@
       <div class="progress-bar"><span id="readProg"></span></div>
       <div class="row" style="justify-content:center;margin-top:16px">
         <button class="btn primary" id="readStart" data-tr>Commencer</button>
-        <label class="toggle"><input type="checkbox" id="readAssist"> Aide (montrer le nom + la touche)</label>
+        <label class="toggle"><input type="checkbox" id="readAssist"> <span data-tr>Aide (montrer le nom + la touche)</span></label>
       </div>
     </div>
     <div class="card">
@@ -620,7 +620,7 @@
         <button class="btn" id="humSave" data-tr>✓ Créer le morceau</button>
       </div>
       <div class="row" style="margin-bottom:12px">
-        <label class="toggle"><input type="checkbox" id="humMetro"> Métronome pendant l'écoute</label>
+        <label class="toggle"><input type="checkbox" id="humMetro"> <span data-tr>Métronome pendant l'écoute</span></label>
         <span style="font-size:13px;color:var(--text-dim)" data-tr>Tempo</span>
         <input class="form-input" id="humBpm" type="number" min="40" max="200" value="90" style="max-width:84px">
         <span style="font-size:12px;color:var(--text-dim)" data-tr>BPM · décompte 3‑2‑1 avant de démarrer</span>
@@ -702,7 +702,7 @@
         <button class="btn primary" id="techGuide" data-tr>🎯 S'entraîner</button>
         <button class="btn" id="techDemo" data-tr>▶ Démo</button>
         <button class="btn" id="techStop" data-tr>■ Stop</button>
-        <label class="toggle"><input type="checkbox" id="techMetro"> avec métronome</label>
+        <label class="toggle"><input type="checkbox" id="techMetro"> <span data-tr>avec métronome</span></label>
       </div>
       <div id="techCounter" style="font-size:15px;font-weight:600;margin-bottom:8px;min-height:26px;display:flex;align-items:center"></div>
       <div class="feedback good" id="techFb" style="min-height:20px;text-align:left"></div>
@@ -1110,6 +1110,12 @@ function dict(fr, en, es, de, zh) { TR.en[fr] = en; TR.es[fr] = es; TR.de[fr] = 
 [["Tonique :","Tonic:","Tónica:","Grundton:","主音："],["Fondamentale :","Root:","Fundamental:","Grundton:","根音："],["Type :","Type:","Tipo:","Typ:","类型："],["Clé :","Clef:","Clave:","Schlüssel:","谱号："],["Main :","Hand:","Mano:","Hand:","手："],["Difficulté :","Difficulty:","Dificultad:","Schwierigkeit:","难度："],["Tempo","Tempo","Tempo","Tempo","速度"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
 
 [["Ode à la joie","Ode to Joy","Oda a la alegría","Ode an die Freude","欢乐颂"],["Ah vous dirai-je maman","Twinkle Twinkle","Estrellita","Morgen kommt der Weihnachtsmann","小星星"],["Frère Jacques","Frère Jacques","Fray Santiago","Bruder Jakob","雅克兄弟"],["Jingle Bells (refrain)","Jingle Bells (chorus)","Jingle Bells (estribillo)","Jingle Bells (Refrain)","铃儿响叮当（副歌）"],["Joyeux anniversaire","Happy Birthday","Feliz cumpleaños","Happy Birthday","生日快乐"],["Marie a un petit agneau","Mary Had a Little Lamb","María tenía un corderito","Mary Had a Little Lamb","玛丽有只小羊羔"],["Petits pains chauds","Hot Cross Buns","Hot Cross Buns","Hot Cross Buns","热十字面包"],["Rame, rame ton bateau","Row Your Boat","Rema tu barca","Row Your Boat","划船歌"],["Au clair de la lune","Au clair de la lune","A la luz de la luna","Au clair de la lune","月光下"],["Le pont de Londres","London Bridge","El puente de Londres","London Bridge","伦敦桥"],["Douce nuit","Silent Night","Noche de paz","Stille Nacht","平安夜"],["Lettre à Élise (thème)","Für Elise (theme)","Para Elisa (tema)","Für Elise (Thema)","致爱丽丝（主题）"],["Symphonie nº5 (motif)","Symphony No. 5 (motif)","Sinfonía n.º 5 (motivo)","Sinfonie Nr. 5 (Motiv)","第五交响曲（动机）"],["Menuet en Sol","Minuet in G","Minueto en Sol","Menuett in G","G 大调小步舞曲"],["Canon (thème)","Canon (theme)","Canon (tema)","Kanon (Thema)","卡农（主题）"],["Berceuse","Lullaby","Nana","Wiegenlied","摇篮曲"],["Le Printemps","Spring","La primavera","Der Frühling","春"],["Largo « Going Home »","Largo \"Going Home\"","Largo \"Going Home\"","Largo „Going Home\"","广板《归家》"],["Joie dans le monde","Joy to the World","Alegría al mundo","Joy to the World","普世欢腾"],["Petite valse en Do","Little Waltz in C","Pequeño vals en Do","Kleiner Walzer in C","C 大调小圆舞曲"],["Do","C","C","C","C"],["Ré","D","D","D","D"],["Mi","E","E","E","E"],["Fa","F","F","F","F"],["Sol","G","G","G","G"],["La","A","A","A","A"],["Si","B","B","B","B"],["Fa#","F#","F#","F#","F#"],["Réb","Db","Db","Db","Db"],["Lab","Ab","Ab","Ab","Ab"],["Mib","Eb","Eb","Eb","Eb"],["Sib","Bb","Bb","Bb","Bb"],["Prêt ?","Ready?","¿Listo?","Bereit?","准备好了吗？"],["Clique pour écouter la note mystère :","Click to hear the mystery note:","Haz clic para oír la nota misteriosa:","Klicke, um die Rätselnote zu hören:","点击聆听神秘音符："],["BPM · décompte 3‑2‑1 avant de démarrer","BPM · 3-2-1 count-in before starting","BPM · cuenta 3-2-1 antes de empezar","BPM · 3-2-1-Einzähler vor dem Start","BPM · 开始前 3-2-1 倒数"],["touche Q","key Q","tecla Q","Taste Q","Q 键"],["touche M","key M","tecla M","Taste M","M 键"],["Main gauche","Left hand","Mano izquierda","Linke Hand","左手"],["Main droite","Right hand","Mano derecha","Rechte Hand","右手"],["Exercice","Exercise","Ejercicio","Übung","练习曲"],["Aucun enregistrement sauvegardé pour l'instant.","No recordings saved yet.","Aún no hay grabaciones guardadas.","Noch keine Aufnahmen gespeichert.","暂无已保存的录音。"],["🔍 Rechercher un morceau…","🔍 Search for a song…","🔍 Buscar una canción…","🔍 Ein Stück suchen…","🔍 搜索曲子……"],["Titre du morceau","Song title","Título de la pieza","Titel des Stücks","曲子标题"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Ode à la joie","Ode to Joy","Oda a la alegría","Ode an die Freude","欢乐颂"],["Ah vous dirai-je maman","Twinkle Twinkle","Estrellita","Morgen kommt der Weihnachtsmann","小星星"],["Frère Jacques","Frère Jacques","Fray Santiago","Bruder Jakob","雅克兄弟"],["Jingle Bells (refrain)","Jingle Bells (chorus)","Jingle Bells (estribillo)","Jingle Bells (Refrain)","铃儿响叮当（副歌）"],["Joyeux anniversaire","Happy Birthday","Feliz cumpleaños","Happy Birthday","生日快乐"],["Marie a un petit agneau","Mary Had a Little Lamb","María tenía un corderito","Mary Had a Little Lamb","玛丽有只小羊羔"],["Petits pains chauds","Hot Cross Buns","Hot Cross Buns","Hot Cross Buns","热十字面包"],["Rame, rame ton bateau","Row Your Boat","Rema tu barca","Row Your Boat","划船歌"],["Au clair de la lune","Au clair de la lune","A la luz de la luna","Au clair de la lune","月光下"],["Le pont de Londres","London Bridge","El puente de Londres","London Bridge","伦敦桥"],["Douce nuit","Silent Night","Noche de paz","Stille Nacht","平安夜"],["Lettre à Élise (thème)","Für Elise (theme)","Para Elisa (tema)","Für Elise (Thema)","致爱丽丝（主题）"],["Symphonie nº5 (motif)","Symphony No. 5 (motif)","Sinfonía n.º 5 (motivo)","Sinfonie Nr. 5 (Motiv)","第五交响曲（动机）"],["Menuet en Sol","Minuet in G","Minueto en Sol","Menuett in G","G 大调小步舞曲"],["Canon (thème)","Canon (theme)","Canon (tema)","Kanon (Thema)","卡农（主题）"],["Berceuse","Lullaby","Nana","Wiegenlied","摇篮曲"],["Le Printemps","Spring","La primavera","Der Frühling","春"],["Largo « Going Home »","Largo \"Going Home\"","Largo \"Going Home\"","Largo „Going Home\"","广板《归家》"],["Joie dans le monde","Joy to the World","Alegría al mundo","Joy to the World","普世欢腾"],["Petite valse en Do","Little Waltz in C","Pequeño vals en Do","Kleiner Walzer in C","C 大调小圆舞曲"],["Do","C","C","C","C"],["Ré","D","D","D","D"],["Mi","E","E","E","E"],["Fa","F","F","F","F"],["Sol","G","G","G","G"],["La","A","A","A","A"],["Si","B","B","B","B"],["Fa#","F#","F#","F#","F#"],["Réb","Db","Db","Db","Db"],["Lab","Ab","Ab","Ab","Ab"],["Mib","Eb","Eb","Eb","Eb"],["Sib","Bb","Bb","Bb","Bb"],["Prêt ?","Ready?","¿Listo?","Bereit?","准备好了吗？"],["Clique pour écouter la note mystère :","Click to hear the mystery note:","Haz clic para oír la nota misteriosa:","Klicke, um die Rätselnote zu hören:","点击聆听神秘音符："],["BPM · décompte 3‑2‑1 avant de démarrer","BPM · 3-2-1 count-in before starting","BPM · cuenta 3-2-1 antes de empezar","BPM · 3-2-1-Einzähler vor dem Start","BPM · 开始前 3-2-1 倒数"],["touche Q","key Q","tecla Q","Taste Q","Q 键"],["touche M","key M","tecla M","Taste M","M 键"],["Main gauche","Left hand","Mano izquierda","Linke Hand","左手"],["Main droite","Right hand","Mano derecha","Rechte Hand","右手"],["Exercice","Exercise","Ejercicio","Übung","练习曲"],["Aucun enregistrement sauvegardé pour l'instant.","No recordings saved yet.","Aún no hay grabaciones guardadas.","Noch keine Aufnahmen gespeichert.","暂无已保存的录音。"],["🔍 Rechercher un morceau…","🔍 Search for a song…","🔍 Buscar una canción…","🔍 Ein Stück suchen…","🔍 搜索曲子……"],["Titre du morceau","Song title","Título de la pieza","Titel des Stücks","曲子标题"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Afficher le nom des notes","Show note names","Mostrar nombres de notas","Notennamen anzeigen","显示音名"],["Afficher les touches clavier","Show keyboard keys","Mostrar teclas del teclado","Tastaturtasten anzeigen","显示键盘按键"],["Notation solfège (Do Ré Mi)","Solfège notation (Do Re Mi)","Notación solfeo (Do Re Mi)","Solmisation (Do Re Mi)","唱名法（Do Re Mi）"],["Sustain (notes tenues)","Sustain (held notes)","Sostenido (notas mantenidas)","Sustain (gehaltene Noten)","延音（按住的音）"],["Aide (montrer le nom + la touche)","Help (show name + key)","Ayuda (mostrar nombre + tecla)","Hilfe (Name + Taste anzeigen)","帮助（显示音名 + 琴键）"],["Métronome pendant l'écoute","Metronome while listening","Metrónomo durante la escucha","Metronom beim Zuhören","聆听时用节拍器"],["avec métronome","with metronome","con metrónomo","mit Metronom","配节拍器"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Main gauche (Q)","Left hand (Q)","Mano izquierda (Q)","Linke Hand (Q)","左手（Q）"],["Main droite (M)","Right hand (M)","Mano derecha (M)","Rechte Hand (M)","右手（M）"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
 
 function tr(s) { if (LANG === 'fr' || !s) return s; const d = TR[LANG]; const k = s.replace(/[\u00a0]/g, ' ').replace(/\s+/g, ' ').trim(); return (d && (d[s] || d[k])) || s; }
 function applyI18n() {
@@ -2017,8 +2023,9 @@ const Independence = (() => {
     }
     polyGrid.innerHTML = '<div class="grid">' + cells + '</div>'
       + '<div style="display:flex;gap:18px;margin-top:8px;font-size:11px;color:var(--text-dim)">'
-      + '<span><span class="swatch" style="background:var(--accent-2)"></span>Main gauche (Q)</span>'
-      + '<span><span class="swatch" style="background:var(--accent)"></span>Main droite (M)</span></div>';
+      + '<span><span class="swatch" style="background:var(--accent-2)"></span><span data-tr>Main gauche (Q)</span></span>'
+      + '<span><span class="swatch" style="background:var(--accent)"></span><span data-tr>Main droite (M)</span></span></div>';
+    applyI18n();
   }
   function cellMs() { return (60000 / (+document.getElementById('polyBpm').value)) / pPat.cpb; }
   function polyStart() {
