@@ -384,7 +384,7 @@
       <h2 data-tr>Programme en 4 semaines</h2>
       <p class="sub" data-tr>Un parcours progressif pour partir de zéro. Chaque jour propose 1 à 2 objectifs&nbsp;: coche-les quand c'est fait. Un jour se débloque quand le précédent est terminé. Clique «&nbsp;→ ouvrir&nbsp;» pour aller directement à l'exercice.</p>
       <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
-        <span>Progression globale</span><span id="programSummary" style="color:var(--accent);font-weight:700"></span>
+        <span data-tr>Progression globale</span><span id="programSummary" style="color:var(--accent);font-weight:700"></span>
       </div>
       <div class="progress-bar" style="height:12px"><span id="programProg"></span></div>
     </div>
@@ -483,7 +483,7 @@
       <h2 data-tr>Reconnaître les notes</h2>
       <p class="sub" data-tr>La touche à jouer clignote en <span style="color:var(--accent-2)">bleu</span>. Joue-la (souris ou clavier). Enchaîne 10 notes justes pour valider la leçon.</p>
       <div class="row" style="margin-bottom:14px">
-        <span style="font-size:13px;color:var(--text-dim)">Difficulté&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Difficulté&nbsp;:</span>
         <div class="chips" id="lessonLevels">
           <button class="chip active" data-level="white" data-tr>Touches blanches</button>
           <button class="chip" data-level="all" data-tr>Toutes les touches</button>
@@ -504,7 +504,7 @@
       <h2 data-tr>Lecture sur la portée</h2>
       <p class="sub" data-tr>Lis la note affichée sur la portée et joue-la sur le clavier — <b>sans indice</b> au début&nbsp;! Enchaîne 10 notes justes pour valider une session.</p>
       <div class="row" style="margin-bottom:14px">
-        <span style="font-size:13px;color:var(--text-dim)">Clé&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Clé&nbsp;:</span>
         <div class="chips" id="readClef">
           <button class="chip active" data-clef="treble" data-tr>𝄞 Clé de sol (aigu)</button>
           <button class="chip" data-clef="bass" data-tr>𝄢 Clé de fa (grave)</button>
@@ -532,11 +532,11 @@
       <h2 data-tr>Gammes</h2>
       <p class="sub" data-tr>Choisis une gamme&nbsp;: les notes s'illuminent sur le clavier. Clique “Écouter” pour l'entendre montante puis descendante.</p>
       <div class="row" style="margin-bottom:12px">
-        <span style="font-size:13px;color:var(--text-dim)">Tonique&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Tonique&nbsp;:</span>
         <div class="chips" id="scaleRoot"></div>
       </div>
       <div class="row" style="margin-bottom:14px">
-        <span style="font-size:13px;color:var(--text-dim)">Type&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Type&nbsp;:</span>
         <div class="chips" id="scaleType"></div>
       </div>
       <div class="row"><button class="btn primary" id="playScale" data-tr>▶ Écouter la gamme</button>
@@ -546,11 +546,11 @@
       <h2 data-tr>Accords</h2>
       <p class="sub" data-tr>Les accords de base. Les notes qui composent l'accord s'illuminent&nbsp;; “Écouter” les joue ensemble.</p>
       <div class="row" style="margin-bottom:12px">
-        <span style="font-size:13px;color:var(--text-dim)">Fondamentale&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Fondamentale&nbsp;:</span>
         <div class="chips" id="chordRoot"></div>
       </div>
       <div class="row" style="margin-bottom:14px">
-        <span style="font-size:13px;color:var(--text-dim)">Type&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Type&nbsp;:</span>
         <div class="chips" id="chordType"></div>
       </div>
       <div class="row"><button class="btn primary" id="playChord" data-tr>▶ Écouter l'accord</button>
@@ -621,7 +621,7 @@
       </div>
       <div class="row" style="margin-bottom:12px">
         <label class="toggle"><input type="checkbox" id="humMetro"> Métronome pendant l'écoute</label>
-        <span style="font-size:13px;color:var(--text-dim)">Tempo</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Tempo</span>
         <input class="form-input" id="humBpm" type="number" min="40" max="200" value="90" style="max-width:84px">
         <span style="font-size:12px;color:var(--text-dim)">BPM · décompte 3‑2‑1 avant de démarrer</span>
       </div>
@@ -663,7 +663,7 @@
       <h2 id="duoTitle" data-tr></h2>
       <p class="sub" id="duoDesc" data-tr></p>
       <div class="row" style="margin-bottom:12px">
-        <span style="font-size:13px;color:var(--text-dim)">Main&nbsp;:</span>
+        <span style="font-size:13px;color:var(--text-dim)" data-tr>Main&nbsp;:</span>
         <div class="chips" id="duoHand">
           <button class="chip active" data-hand="right" data-tr>✋ Main droite</button>
           <button class="chip" data-hand="left" data-tr>🤚 Main gauche</button>
@@ -1101,11 +1101,19 @@ function dict(fr, en, es, de, zh) { TR.en[fr] = en; TR.es[fr] = es; TR.de[fr] = 
 
 [["Clique sur les touches ou utilise ton clavier d'ordinateur","Click the keys or use your computer keyboard","Haz clic en las teclas o usa el teclado del ordenador","Klicke die Tasten an oder nutze deine Computertastatur","点击琴键或使用电脑键盘"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
 
-function t(s) { if (LANG === 'fr' || !s) return s; const d = TR[LANG]; const k = s.replace(/[\u00a0]/g, ' ').replace(/\s+/g, ' ').trim(); return (d && (d[s] || d[k])) || s; }
+[["▶ Démarrer","▶ Start","▶ Iniciar","▶ Starten","▶ 开始"],["Recommencer","Restart","Reiniciar","Neu starten","重新开始"],["Juste ! 🎵","Correct! 🎵","¡Correcto! 🎵","Richtig! 🎵","正确！🎵"],["Leçon réussie ! 🏆","Lesson passed! 🏆","¡Lección superada! 🏆","Lektion bestanden! 🏆","课时通过！🏆"],["+50 XP — bravo !","+50 XP — well done!","+50 XP — ¡bien!","+50 XP — super!","+50 经验——太棒了！"],["Pas tout à fait — réessaie","Not quite — try again","No del todo — inténtalo de nuevo","Nicht ganz — versuch's nochmal","还差一点——再试一次"],["Démo terminée","Demo finished","Demo terminada","Demo beendet","演示结束"],["À toi de jouer !","Your turn!","¡Te toca!","Du bist dran!","轮到你了！"],["🏆 Morceau terminé ! +40 XP","🏆 Piece complete! +40 XP","🏆 ¡Pieza completada! +40 XP","🏆 Stück fertig! +40 XP","🏆 曲子完成！+40 经验"],["Arrêté","Stopped","Detenido","Gestoppt","已停止"],["Bravo ! 🎯","Well done! 🎯","¡Bien! 🎯","Super! 🎯","太棒了！🎯"],["■ Arrêter","■ Stop","■ Detener","■ Stopp","■ 停止"],["C'est parti — suis les doigtés !","Here we go — follow the fingering!","¡Vamos — sigue la digitación!","Los geht's — folge dem Fingersatz!","开始吧——跟着指法！"],["Démo terminée — à toi !","Demo done — your turn!","Demo lista — ¡te toca!","Demo fertig — du bist dran!","演示结束——轮到你！"],["❌ mauvaise note — regarde le doigté surligné","❌ wrong note — look at the highlighted fingering","❌ nota incorrecta — mira la digitación resaltada","❌ falsche Note — sieh dir den markierten Fingersatz an","❌ 弹错了——看高亮的指法"],["Bravo — remonte le tempo de 5 BPM et recommence.","Well done — raise the tempo by 5 BPM and start again.","Bien — sube el tempo 5 BPM y vuelve a empezar.","Super — erhöhe das Tempo um 5 BPM und beginne neu.","很好——把速度加快 5 BPM 再来一次。"],["Joue avec le modèle… (Q = gauche, M = droite)","Play along with the model… (Q = left, M = right)","Toca con el modelo… (Q = izquierda, M = derecha)","Spiel mit dem Modell… (Q = links, M = rechts)","跟示范一起弹……（Q = 左手，M = 右手）"],["Juste ! 🎯","Correct! 🎯","¡Correcto! 🎯","Richtig! 🎯","正确！🎯"],["Choisis une main, puis « Mode guidé ».","Pick a hand, then \"Guided mode\".","Elige una mano y luego \"Modo guiado\".","Wähle eine Hand, dann „Geführter Modus“.","先选一只手，再点“引导模式”。"],["Encore l'autre main…","The other hand too…","También la otra mano…","Noch die andere Hand…","还有另一只手……"],["❌ mauvaise note","❌ wrong note","❌ nota incorrecta","❌ falsche Note","❌ 弹错了"],["Lecture réussie ! +30 XP","Reading passed! +30 XP","¡Lectura superada! +30 XP","Lesen bestanden! +30 XP","读谱通过！+30 经验"],["❌ suis les touches surlignées","❌ follow the highlighted keys","❌ sigue las teclas resaltadas","❌ folge den markierten Tasten","❌ 跟着高亮的琴键"],["❌ note hors de l'accord","❌ note not in the chord","❌ nota fuera del acorde","❌ Note nicht im Akkord","❌ 音不在和弦里"],["● Enregistrer","● Record","● Grabar","● Aufnehmen","● 录音"],["▶ Aperçu…","▶ Preview…","▶ Vista previa…","▶ Vorschau…","▶ 预览……"],["Aperçu terminé.","Preview finished.","Vista previa terminada.","Vorschau beendet.","预览结束。"],["🎙️ À l'écoute… chante ou fredonne.","🎙️ Listening… sing or hum.","🎙️ Escuchando… canta o tararea.","🎙️ Höre zu… sing oder summe.","🎙️ 正在聆听……唱或哼。"],["❌ Accès au micro refusé.","❌ Microphone access denied.","❌ Acceso al micrófono denegado.","❌ Mikrofonzugriff verweigert.","❌ 麦克风访问被拒绝。"],["● Écoute…","● Listening…","● Escuchando…","● Höre zu…","● 聆听……"],["Prépare-toi…","Get ready…","Prepárate…","Mach dich bereit…","准备好……"],["🎤 Démarrer l'écoute","🎤 Start listening","🎤 Empezar a escuchar","🎤 Zuhören starten","🎤 开始聆听"],["Fredonne d'abord une mélodie.","Hum a melody first.","Tararea una melodía primero.","Summe zuerst eine Melodie.","先哼一段旋律。"],["❌ Web MIDI non supporté ici (utilise Chrome/Edge sur ordinateur, ou Android). Pas disponible sur iPhone/Safari.","❌ Web MIDI not supported here (use Chrome/Edge on desktop, or Android). Not available on iPhone/Safari.","❌ Web MIDI no compatible aquí (usa Chrome/Edge en ordenador, o Android). No disponible en iPhone/Safari.","❌ Web MIDI hier nicht unterstützt (nutze Chrome/Edge am Computer oder Android). Nicht auf iPhone/Safari verfügbar.","❌ 此处不支持 Web MIDI（请在电脑上使用 Chrome/Edge，或使用安卓）。iPhone/Safari 不支持。"],["❌ Accès MIDI refusé.","❌ MIDI access denied.","❌ Acceso MIDI denegado.","❌ MIDI-Zugriff verweigert.","❌ MIDI 访问被拒绝。"],["Rien à réécouter — enregistre d'abord.","Nothing to replay — record first.","Nada que reproducir — graba primero.","Nichts zum Abspielen — nimm zuerst auf.","没有可回放的——先录音。"],["▶ Lecture terminée.","▶ Playback finished.","▶ Reproducción terminada.","▶ Wiedergabe beendet.","▶ 回放结束。"],["Rien à sauvegarder — enregistre d'abord.","Nothing to save — record first.","Nada que guardar — graba primero.","Nichts zu speichern — nimm zuerst auf.","没有可保存的——先录音。"],["Rien à exporter.","Nothing to export.","Nada que exportar.","Nichts zu exportieren.","没有可导出的。"],["⏳ Rendu du fichier audio…","⏳ Rendering the audio file…","⏳ Generando el archivo de audio…","⏳ Audiodatei wird erstellt…","⏳ 正在生成音频文件……"],["⬇ Fichier WAV exporté.","⬇ WAV file exported.","⬇ Archivo WAV exportado.","⬇ WAV-Datei exportiert.","⬇ WAV 文件已导出。"],["■ Arrêté.","■ Stopped.","■ Detenido.","■ Gestoppt.","■ 已停止。"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Majeure","Major","Mayor","Dur","大调"],["Mineure naturelle","Natural minor","Menor natural","Natürlich Moll","自然小调"],["Mineure harmonique","Harmonic minor","Menor armónica","Harmonisch Moll","和声小调"],["Mineure mélodique","Melodic minor","Menor melódica","Melodisch Moll","旋律小调"],["Dorien","Dorian","Dórico","Dorisch","多利亚"],["Mixolydien","Mixolydian","Mixolidio","Mixolydisch","混合利底亚"],["Pentatonique","Pentatonic","Pentatónica","Pentatonik","五声"],["Blues","Blues","Blues","Blues","布鲁斯"],["Chromatique","Chromatic","Cromática","Chromatisch","半音阶"],["Ton entier","Whole tone","Tonos enteros","Ganzton","全音阶"],["Majeur","Major","Mayor","Dur","大三和弦"],["Mineur","Minor","Menor","Moll","小三和弦"],["7e","7th","7.ª","7","属七"],["Mineur 7","Minor 7","Menor 7","Moll 7","小七"],["Majeur 7","Major 7","Mayor 7","Dur 7","大七"],["Sixte","Sixth","Sexta","Sexte","六和弦"],["Diminué","Diminished","Disminuido","Vermindert","减"],["Augmenté","Augmented","Aumentado","Übermäßig","增"],["Sus2","Sus2","Sus2","Sus2","Sus2"],["Sus4","Sus4","Sus4","Sus4","Sus4"],["Noires MG / Croches MD","Quarters LH / Eighths RH","Negras MI / Corcheas MD","Viertel LH / Achtel RH","左手四分 / 右手八分"],["Croches MG / Noires MD","Eighths LH / Quarters RH","Corcheas MI / Negras MD","Achtel LH / Viertel RH","左手八分 / 右手四分"],["2 contre 3 (polyrythme)","2 against 3 (polyrhythm)","2 contra 3 (polirritmia)","2 gegen 3 (Polyrhythmus)","2 对 3（复节奏）"],["Contretemps (MG temps / MD «et»)","Off-beat (LH beat / RH \"and\")","Contratiempo (MI tiempo / MD \"y\")","Gegenschlag (LH Schlag / RH „und“)","切分（左手正拍 / 右手“与”）"],["Basse simple + mélodie","Simple bass + melody","Bajo simple + melodía","Einfacher Bass + Melodie","简单低音 + 旋律"],["Balancier (Do / Sol)","Swing (C / G)","Balanceo (Do / Sol)","Schaukel (C / G)","摇摆（C / G）"],["Basse d'Alberti","Alberti bass","Bajo de Alberti","Alberti-Bass","阿尔贝蒂低音"],["Ronde (4 temps)","Whole note (4 beats)","Redonda (4 tiempos)","Ganze Note (4 Schläge)","全音符（4 拍）"],["Blanche (2 temps)","Half note (2 beats)","Blanca (2 tiempos)","Halbe Note (2 Schläge)","二分音符（2 拍）"],["Noire (1 temps)","Quarter note (1 beat)","Negra (1 tiempo)","Viertelnote (1 Schlag)","四分音符（1 拍）"],["Croche (½)","Eighth note (½)","Corchea (½)","Achtelnote (½)","八分音符（½）"],["Double croche (¼)","Sixteenth note (¼)","Semicorchea (¼)","Sechzehntelnote (¼)","十六分音符（¼）"],["Seconde M","Major 2nd","2.ª mayor","Große Sekunde","大二度"],["Tierce m","Minor 3rd","3.ª menor","Kleine Terz","小三度"],["Tierce M","Major 3rd","3.ª mayor","Große Terz","大三度"],["Quarte juste","Perfect 4th","4.ª justa","Reine Quarte","纯四度"],["Quinte juste","Perfect 5th","5.ª justa","Reine Quinte","纯五度"],["Sixte M","Major 6th","6.ª mayor","Große Sexte","大六度"],["Octave","Octave","Octava","Oktave","八度"],["0 altération","0 accidentals","0 alteraciones","0 Vorzeichen","0 升降号"],["1 dièse","1 sharp","1 sostenido","1 Kreuz","1 个升号"],["2 dièses","2 sharps","2 sostenidos","2 Kreuze","2 个升号"],["3 dièses","3 sharps","3 sostenidos","3 Kreuze","3 个升号"],["4 dièses","4 sharps","4 sostenidos","4 Kreuze","4 个升号"],["5 dièses","5 sharps","5 sostenidos","5 Kreuze","5 个升号"],["6 dièses","6 sharps","6 sostenidos","6 Kreuze","6 个升号"],["5 bémols","5 flats","5 bemoles","5 b","5 个降号"],["4 bémols","4 flats","4 bemoles","4 b","4 个降号"],["3 bémols","3 flats","3 bemoles","3 b","3 个降号"],["2 bémols","2 flats","2 bemoles","2 b","2 个降号"],["1 bémol","1 flat","1 bemol","1 b","1 个降号"],["Main droite = le thème. Main gauche = une basse simple Do/Sol. Idéal pour un premier assemblage.","Right hand = the theme. Left hand = a simple C/G bass. Ideal for a first combination.","Mano derecha = el tema. Mano izquierda = un bajo simple Do/Sol. Ideal para una primera combinación.","Rechte Hand = das Thema. Linke Hand = ein einfacher C/G-Bass. Ideal für eine erste Kombination.","右手＝主题。左手＝简单的 C/G 低音。适合第一次合手。"],["Mélodie main droite, basse main gauche qui alterne Do et Sol.","Right-hand melody, left-hand bass alternating C and G.","Melodía en la mano derecha, bajo en la izquierda alternando Do y Sol.","Melodie rechte Hand, Bass linke Hand im Wechsel C und G.","右手旋律，左手低音在 C 和 G 之间交替。"],["La comptine parfaite pour débuter à deux mains : main gauche très lente (une note par mesure).","The perfect nursery rhyme to start two hands: very slow left hand (one note per bar).","La canción infantil perfecta para empezar a dos manos: mano izquierda muy lenta (una nota por compás).","Das perfekte Kinderlied für den Start mit zwei Händen: sehr langsame linke Hand (eine Note pro Takt).","开始双手练习的完美童谣：左手很慢（每小节一个音）。"],["Main droite en arpège, main gauche « pom » sur le premier temps. Sens du 3 temps.","Right hand in arpeggio, left hand \"oom\" on the first beat. A feel for 3/4 time.","Mano derecha en arpegio, mano izquierda \"pum\" en el primer tiempo. Sentido del 3 por 4.","Rechte Hand als Arpeggio, linke Hand „bum“ auf dem ersten Schlag. Gefühl für den 3/4-Takt.","右手琶音，左手在第一拍“嘭”。感受 3/4 拍。"],["Ta première mélodie connue à deux mains.","Your first well-known two-hand melody.","Tu primera melodía conocida a dos manos.","Deine erste bekannte zweihändige Melodie.","你第一首熟悉的双手旋律。"],["Accompagnement + mélodie","Accompaniment + melody","Acompañamiento + melodía","Begleitung + Melodie","伴奏 + 旋律"],["Deux rythmes (coordination)","Two rhythms (coordination)","Dos ritmos (coordinación)","Zwei Rhythmen (Koordination)","两种节奏（协调）"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Pose des 5 doigts (Do)","Five-finger position (C)","Posición de 5 dedos (Do)","Fünf-Finger-Lage (C)","五指位置（C）"],["Gamme de Do majeur (1 octave)","C major scale (1 octave)","Escala de Do mayor (1 octava)","C-Dur-Tonleiter (1 Oktave)","C 大调音阶（1 个八度）"],["Arpège de Do majeur","C major arpeggio","Arpegio de Do mayor","C-Dur-Arpeggio","C 大调琶音"],["Hanon nº1 (déliateur)","Hanon no. 1 (warm-up)","Hanon n.º 1 (calentamiento)","Hanon Nr. 1 (Aufwärmen)","哈农第 1 条（热身）"],["Trille Do–Ré (3–2)","C–D trill (3–2)","Trino Do–Re (3–2)","Triller C–D (3–2)","C–D 颤音（3–2）"],["Chromatique (Do→Sol)","Chromatic (C→G)","Cromática (Do→Sol)","Chromatisch (C→G)","半音阶（C→G）"],["Gamme de Do (2 octaves)","C scale (2 octaves)","Escala de Do (2 octavas)","C-Tonleiter (2 Oktaven)","C 音阶（2 个八度）"],["Gamme de Sol majeur","G major scale","Escala de Sol mayor","G-Dur-Tonleiter","G 大调音阶"],["Gamme de Fa majeur","F major scale","Escala de Fa mayor","F-Dur-Tonleiter","F 大调音阶"],["Arpège de La mineur","A minor arpeggio","Arpegio de La menor","a-Moll-Arpeggio","A 小调琶音"],["Tierces brisées (Do)","Broken thirds (C)","Terceras quebradas (Do)","Gebrochene Terzen (C)","分解三度（C）"],["Sauts d'octave (Do)","Octave jumps (C)","Saltos de octava (Do)","Oktavsprünge (C)","八度跳跃（C）"],["Joue :","Play:","Toca:","Spiele:","弹："],["Note","Note","Nota","Note","音符"],["joue :","play:","toca:","spiele:","弹："],["Aucun morceau ne correspond.","No song matches.","Ninguna canción coincide.","Kein Stück passt.","没有匹配的曲子。"],["notes","notes","notas","Noten","个音符"],["répétitions · conseillé","reps · suggested","reps · sugerido","Wdh. · empfohlen","次 · 建议"],["répétition","rep","rep","Wdh.","次"],["🏆 Exercice terminé ! +25 XP","🏆 Exercise complete! +25 XP","🏆 ¡Ejercicio completado! +25 XP","🏆 Übung fertig! +25 XP","🏆 练习完成！+25 经验"],["Mélodie main droite — note","Right-hand melody — note","Melodía mano derecha — nota","Melodie rechte Hand — Note","右手旋律——第"],["tours complets :","full loops:","vueltas completas:","volle Durchläufe:","个完整循环："],["2 voix","2 voices","2 voces","2 Stimmen","2 声部"],["Deux mains : joue les DEUX notes surlignées ensemble à chaque étape.","Two hands: play BOTH highlighted notes together at each step.","Dos manos: toca las DOS notas resaltadas a la vez en cada paso.","Zwei Hände: spiele bei jedem Schritt BEIDE markierten Noten zusammen.","双手：每一步同时弹奏两个高亮的音符。"],["Main gauche seule (notes graves, en bleu).","Left hand alone (low notes, in blue).","Mano izquierda sola (notas graves, en azul).","Linke Hand allein (tiefe Noten, blau).","仅左手（低音，蓝色）。"],["Main droite seule (mélodie, en vert).","Right hand alone (melody, in green).","Mano derecha sola (melodía, en verde).","Rechte Hand allein (Melodie, grün).","仅右手（旋律，绿色）。"],["Étape","Step","Paso","Schritt","第"],["Démo","Demo","Demo","Demo","演示"],["deux mains","two hands","dos manos","zwei Hände","双手"],["main gauche","left hand","mano izquierda","linke Hand","左手"],["main droite","right hand","mano derecha","rechte Hand","右手"],["Bravo !","Well done!","¡Bien!","Super!","太棒了！"],["Deux mains réussi — le plus dur est fait !","Two hands done — the hardest part is over!","¡Dos manos logrado — lo más difícil ya pasó!","Zwei Hände geschafft — das Schwerste ist vorbei!","双手完成——最难的部分过去了！"],["Main terminée. Essaie l'autre main, puis « Deux mains ».","Hand finished. Try the other hand, then \"Two hands\".","Mano terminada. Prueba la otra mano y luego \"Dos manos\".","Hand fertig. Probiere die andere Hand, dann „Zwei Hände“.","这只手完成了。试试另一只手，再点“双手”。"],["Cours réussi !","Course passed!","¡Curso superado!","Kurs bestanden!","课程通过！"],["terminé — niveau","complete — level","completado — nivel","fertig — Stufe","完成——第"],["débloqué !","unlocked!","¡desbloqueado!","freigeschaltet!","级已解锁！"],["🎉 Routine du jour terminée — excellent !","🎉 Today's routine complete — excellent!","🎉 ¡Rutina de hoy completada — excelente!","🎉 Heutige Routine fertig — ausgezeichnet!","🎉 今日日程完成——太棒了！"],["majeur","major","mayor","Dur","大调"],["▶ Écouter la gamme","▶ Play the scale","▶ Escuchar la escala","▶ Tonleiter anhören","▶ 聆听音阶"],["Enregistré :","Recorded:","Grabado:","Aufgenommen:","已录制："],["s. Clique « Réécouter ».","s. Click \"Replay\".","s. Pulsa \"Reproducir\".","s. Klicke „Abspielen“.","秒。点击“回放”。"],["Rien enregistré.","Nothing recorded.","Nada grabado.","Nichts aufgenommen.","没有录到内容。"],["▶ Lecture","▶ Playback","▶ Reproducción","▶ Wiedergabe","▶ 回放"],["au ralenti","slowed","lento","langsam","慢速"],["Sauvegardé :","Saved:","Guardado:","Gespeichert:","已保存："],["Lecture de :","Reading:","Lectura:","Lesen:","正在读取："],["notes importées.","notes imported.","notas importadas.","Noten importiert.","个音符已导入。"],["Créé","Created","Creado","Erstellt","已创建"],["Connecté :","Connected:","Conectado:","Verbunden:","已连接："],["Aucun clavier détecté — branche-le, allume-le, puis réessaie.","No keyboard detected — plug it in, turn it on, then try again.","No se detectó teclado — conéctalo, enciéndelo y vuelve a intentarlo.","Kein Keyboard erkannt — anschließen, einschalten und erneut versuchen.","未检测到键盘——请连接、开机后再试。"],["Réinitialiser toute ta progression ?","Reset all your progress?","¿Reiniciar todo tu progreso?","Gesamten Fortschritt zurücksetzen?","要重置全部进度吗？"],["<b style=\"color:var(--text)\">Gamme majeure</b> — suite d'intervalles Ton-Ton-½Ton-Ton-Ton-Ton-½Ton (ex. Do Ré Mi Fa Sol La Si Do).","<b style=\"color:var(--text)\">Major scale</b> — sequence of intervals Tone-Tone-½Tone-Tone-Tone-Tone-½Tone (e.g. C D E F G A B C).","<b style=\"color:var(--text)\">Escala mayor</b> — secuencia de intervalos Tono-Tono-½Tono-Tono-Tono-Tono-½Tono (ej. Do Re Mi Fa Sol La Si Do).","<b style=\"color:var(--text)\">Dur-Tonleiter</b> — Intervallfolge Ganz-Ganz-½Ton-Ganz-Ganz-Ganz-½Ton (z. B. C D E F G A B C).","<b style=\"color:var(--text)\">大调音阶</b> —— 音程顺序：全-全-半-全-全-全-半（如 C D E F G A B C）。"],["<b style=\"color:var(--text)\">Construire un accord (triade)</b> — empile la 1ʳᵉ, la 3ᵉ et la 5ᵉ note de la gamme. Majeur = tierce Majeure + tierce mineure ; mineur = l'inverse.","<b style=\"color:var(--text)\">Building a chord (triad)</b> — stack the 1st, 3rd and 5th notes of the scale. Major = major third + minor third; minor = the reverse.","<b style=\"color:var(--text)\">Construir un acorde (tríada)</b> — apila la 1.ª, 3.ª y 5.ª nota de la escala. Mayor = tercera mayor + tercera menor; menor = al revés.","<b style=\"color:var(--text)\">Einen Akkord bauen (Dreiklang)</b> — staple die 1., 3. und 5. Note der Tonleiter. Dur = große Terz + kleine Terz; Moll = umgekehrt.","<b style=\"color:var(--text)\">构建和弦（三和弦）</b> —— 叠放音阶的第 1、3、5 个音。大＝大三度＋小三度；小＝相反。"],["<b style=\"color:var(--text)\">Degrés d'une gamme majeure</b> — I ii iii IV V vi vii°. Les accords I, IV et V sont majeurs ; ii, iii, vi sont mineurs. Beaucoup de chansons = I–V–vi–IV.","<b style=\"color:var(--text)\">Degrees of a major scale</b> — I ii iii IV V vi vii°. Chords I, IV and V are major; ii, iii, vi are minor. Many songs = I–V–vi–IV.","<b style=\"color:var(--text)\">Grados de una escala mayor</b> — I ii iii IV V vi vii°. Los acordes I, IV y V son mayores; ii, iii, vi son menores. Muchas canciones = I–V–vi–IV.","<b style=\"color:var(--text)\">Stufen einer Dur-Tonleiter</b> — I ii iii IV V vi vii°. Die Akkorde I, IV und V sind Dur; ii, iii, vi sind Moll. Viele Lieder = I–V–vi–IV.","<b style=\"color:var(--text)\">大调的级数</b> —— I ii iii IV V vi vii°。I、IV、V 是大和弦；ii、iii、vi 是小和弦。很多歌曲＝I–V–vi–IV。"],["<b style=\"color:var(--text)\">Cycle des quintes</b> — chaque pas horaire ajoute un dièse (quinte au-dessus) ; chaque pas antihoraire ajoute un bémol (quarte). Utile pour connaître l'armure d'une tonalité.","<b style=\"color:var(--text)\">Circle of fifths</b> — each clockwise step adds a sharp (a fifth up); each counter-clockwise step adds a flat (a fourth). Handy for knowing a key's signature.","<b style=\"color:var(--text)\">Círculo de quintas</b> — cada paso horario añade un sostenido (una quinta arriba); cada paso antihorario añade un bemol (una cuarta). Útil para conocer la armadura de una tonalidad.","<b style=\"color:var(--text)\">Quintenzirkel</b> — jeder Schritt im Uhrzeigersinn fügt ein Kreuz hinzu (eine Quinte höher); jeder Schritt gegen den Uhrzeigersinn fügt ein b hinzu (eine Quarte). Praktisch, um die Vorzeichen einer Tonart zu kennen.","<b style=\"color:var(--text)\">五度圈</b> —— 顺时针每一步加一个升号（上方五度）；逆时针每一步加一个降号（四度）。便于了解某个调的调号。"],["<b style=\"color:var(--text)\">Conseil pratique</b> — travaille chaque main séparément, lentement, au métronome ; augmente le tempo seulement quand c'est régulier et sans faute.","<b style=\"color:var(--text)\">Practical tip</b> — work each hand separately, slowly, with the metronome; only raise the tempo when it's steady and mistake-free.","<b style=\"color:var(--text)\">Consejo práctico</b> — trabaja cada mano por separado, despacio, con el metrónomo; sube el tempo solo cuando sea regular y sin errores.","<b style=\"color:var(--text)\">Praktischer Tipp</b> — übe jede Hand einzeln, langsam, mit dem Metronom; erhöhe das Tempo erst, wenn es gleichmäßig und fehlerfrei ist.","<b style=\"color:var(--text)\">实用建议</b> —— 分别、慢速、用节拍器练每只手；只有稳定且无错时才加快速度。"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+[["Tonique :","Tonic:","Tónica:","Grundton:","主音："],["Fondamentale :","Root:","Fundamental:","Grundton:","根音："],["Type :","Type:","Tipo:","Typ:","类型："],["Clé :","Clef:","Clave:","Schlüssel:","谱号："],["Main :","Hand:","Mano:","Hand:","手："],["Difficulté :","Difficulty:","Dificultad:","Schwierigkeit:","难度："],["Tempo","Tempo","Tempo","Tempo","速度"]].forEach(r => dict(r[0], r[1], r[2], r[3], r[4]));
+
+function tr(s) { if (LANG === 'fr' || !s) return s; const d = TR[LANG]; const k = s.replace(/[\u00a0]/g, ' ').replace(/\s+/g, ' ').trim(); return (d && (d[s] || d[k])) || s; }
 function applyI18n() {
   document.documentElement.lang = LANG;
-  document.querySelectorAll('[data-tr]').forEach(el => { if (el.__fr == null) el.__fr = el.textContent.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim(); el.textContent = t(el.__fr); });
-  document.querySelectorAll('[data-tr-ph]').forEach(el => { if (el.__frp == null) el.__frp = el.getAttribute('placeholder') || ''; el.setAttribute('placeholder', t(el.__frp)); });
+  document.querySelectorAll('[data-tr]').forEach(el => { if (el.__fr == null) el.__fr = el.textContent.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim(); el.textContent = tr(el.__fr); });
+  document.querySelectorAll('[data-tr-ph]').forEach(el => { if (el.__frp == null) el.__frp = el.getAttribute('placeholder') || ''; el.setAttribute('placeholder', tr(el.__frp)); });
 }
 function initLang() {
   let l = store.data.lang;
@@ -1117,6 +1125,7 @@ function refreshDynamic() {
   if (typeof Program !== 'undefined') Program.refresh();
   if (typeof Course !== 'undefined' && Course.refresh) Course.refresh();
   if (typeof Songs !== 'undefined') Songs.render();
+  if (typeof Theory !== 'undefined' && Theory.refresh) Theory.refresh();
 }
 function setLang(l) { LANG = l; store.data.lang = l; store.save(); applyI18n(); renderBottomNav(); renderSubtabs(); refreshDynamic(); }
 
@@ -1276,7 +1285,7 @@ function switchTab(tab) {
   currentCat = cat.id; currentTab = tab; lastTabByCat[cat.id] = tab;
   // reset transient modes when leaving
   Lessons.stop(); Songs.stop(); Technique.stop(); Independence.stop(); Metronome.stop(); DuoMode.stop(); Reading.stop(); Course.stop();
-  const mt = document.getElementById('metroToggle'); if (mt) mt.textContent = '▶ Démarrer';
+  const mt = document.getElementById('metroToggle'); if (mt) mt.textContent = tr('▶ Démarrer');
   clearMarks('hint'); clearMarks('target');
   document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
@@ -1287,13 +1296,13 @@ function switchTab(tab) {
 function renderSubtabs() {
   const cat = CATEGORIES.find(c => c.id === currentCat);
   const el = document.getElementById('subtabs');
-  el.innerHTML = cat.tabs.map(tb => '<button class="tab' + (tb === currentTab ? ' active' : '') + '" data-tab="' + tb + '">' + t(TAB_LABELS[tb]) + '</button>').join('');
+  el.innerHTML = cat.tabs.map(tb => '<button class="tab' + (tb === currentTab ? ' active' : '') + '" data-tab="' + tb + '">' + tr(TAB_LABELS[tb]) + '</button>').join('');
   el.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
   el.style.display = cat.tabs.length > 1 ? '' : 'none';
 }
 function renderBottomNav() {
   const el = document.getElementById('bottomnav');
-  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + t(c.label) + '</span></button>').join('');
+  el.innerHTML = CATEGORIES.map(c => '<button class="navbtn' + (c.id === currentCat ? ' active' : '') + '" data-cat="' + c.id + '"><span class="ic">' + c.icon + '</span><span class="lbl">' + tr(c.label) + '</span></button>').join('');
   el.querySelectorAll('.navbtn').forEach(b => b.addEventListener('click', () => {
     const c = CATEGORIES.find(x => x.id === b.dataset.cat);
     switchTab(lastTabByCat[c.id] || c.tabs[0]);
@@ -1320,13 +1329,13 @@ const Lessons = (() => {
     target = p[Math.floor(Math.random()*p.length)];
     mark(target, 'hint');
     const solf = document.getElementById('useSolfege').checked;
-    promptEl.textContent = 'Joue : ' + midiToShort(target, solf);
+    promptEl.textContent = tr('Joue :') + ' ' + midiToShort(target, solf);
     AudioEngine.pluck(target, 0.5, 0.5);
   }
   function start() {
     running = true; streak = 0; updateProg();
-    fbEl.textContent=''; fbEl.className='feedback';
-    document.getElementById('lessonStart').textContent = 'Recommencer';
+    fbEl.textContent=tr(''); fbEl.className='feedback';
+    document.getElementById('lessonStart').textContent = tr('Recommencer');
     next();
   }
   function stop() { running = false; if (nextTimer) { clearTimeout(nextTimer); nextTimer = null; } clearMarks('hint'); }
@@ -1335,18 +1344,18 @@ const Lessons = (() => {
     if (!running || target === null) return;
     if (midi === target) {
       streak++; addXp(5); updateProg();
-      fbEl.textContent = 'Juste ! 🎵'; fbEl.className = 'feedback good';
+      fbEl.textContent = tr('Juste ! 🎵'); fbEl.className = 'feedback good';
       if (streak >= GOAL) {
         running = false; if (nextTimer) { clearTimeout(nextTimer); nextTimer = null; } clearMarks('hint');
         store.data.lessons++; store.save(); renderStats();
-        promptEl.textContent = 'Leçon réussie ! 🏆'; addXp(50);
-        fbEl.textContent = '+50 XP — bravo !';
+        promptEl.textContent = tr('Leçon réussie ! 🏆'); addXp(50);
+        fbEl.textContent = tr('+50 XP — bravo !');
       } else {
         nextTimer = setTimeout(next, 550);
       }
     } else {
       streak = Math.max(0, streak-1); updateProg();
-      fbEl.textContent = 'Pas tout à fait — réessaie'; fbEl.className='feedback bad';
+      fbEl.textContent = tr('Pas tout à fait — réessaie'); fbEl.className='feedback bad';
     }
   }
   document.getElementById('lessonStart').addEventListener('click', start);
@@ -1444,7 +1453,7 @@ const Chords = (() => {
 // helpers for chips
 function chip(label, active, onClick) {
   const b = document.createElement('button');
-  b.className = 'chip' + (active?' active':''); b.textContent = label; b.dataset.val = label;
+  b.className = 'chip' + (active?' active':''); b.textContent = tr(label); b.dataset.val = label; b.setAttribute('data-tr', ''); b.__fr = label;
   b.addEventListener('click', onClick); return b;
 }
 function setActive(container, val) {
@@ -1621,7 +1630,7 @@ const Songs = (() => {
     const sel = document.getElementById('songComposer'); if (!sel) return;
     const cur = sel.value;
     const comps = [...new Set(allSongs().map(s => s.composer || '—'))].sort((a, b) => a.localeCompare(b, 'fr'));
-    sel.innerHTML = '<option value="">' + t('Tous les auteurs') + '</option>' + comps.map(c => '<option value="' + c + '">' + c + '</option>').join('');
+    sel.innerHTML = '<option value="">' + tr('Tous les auteurs') + '</option>' + comps.map(c => '<option value="' + c + '">' + c + '</option>').join('');
     sel.value = cur;
   }
   function render() {
@@ -1632,14 +1641,14 @@ const Songs = (() => {
       (!q || (s.title + ' ' + (s.composer || '')).toLowerCase().includes(q)) &&
       (!comp || (s.composer || '—') === comp));
     listEl.innerHTML = '';
-    if (!list.length) { listEl.innerHTML = '<p class="sub" style="margin:0">Aucun morceau ne correspond à «&nbsp;' + q + '&nbsp;».</p>'; return; }
+    if (!list.length) { listEl.innerHTML = '<p class="sub" style="margin:0">' + tr('Aucun morceau ne correspond.') + '</p>'; return; }
     list.forEach(s => {
       const done = store.data.songsDone[s.id];
       const el = document.createElement('div');
       el.className = 'song' + (current && current.id === s.id ? ' active' : ''); el.dataset.id = s.id;
       el.innerHTML = `<h3>${s.title} ${done ? '✅' : ''}</h3>
         <div class="meta">${s.composer || '—'} · ${s.notes.length} notes</div>
-        <span class="diff">${t(s.diff || 'Perso')}</span>`
+        <span class="diff">${tr(s.diff || 'Perso')}</span>`
         + (s.user ? `<span class="song-del" data-del="${s.id}" title="Supprimer">🗑</span>` : '');
       el.addEventListener('click', (e) => { if (e.target.classList.contains('song-del')) return; select(s.id); });
       listEl.appendChild(el);
@@ -1657,8 +1666,8 @@ const Songs = (() => {
     document.querySelectorAll('.song').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
     player.style.display='';
     titleEl.textContent = current.title;
-    descEl.textContent = t(current.desc);
-    progEl.style.width='0%'; fbEl.textContent=''; counterEl.textContent='';
+    descEl.textContent = tr(current.desc);
+    progEl.style.width='0%'; fbEl.textContent=tr(''); counterEl.textContent=tr('');
   }
   function seq() { return current.notes.map(name => n(name.replace(/\d/,''), parseInt(name.match(/\d/)[0])) ); }
   function demo() {
@@ -1666,11 +1675,11 @@ const Songs = (() => {
     mode='demo';
     playSequence(seq().map(m=>({midi:m,dur:0.4})), 0.42, i=>{
       progEl.style.width=((i+1)/current.notes.length*100)+'%';
-    }, () => { mode=null; fbEl.textContent='Démo terminée'; });
+    }, () => { mode=null; fbEl.textContent=tr('Démo terminée'); });
   }
   function guide() {
     if (!current) return;
-    stopSequence(); mode='guide'; idx=0; fbEl.textContent='À toi de jouer !';
+    stopSequence(); mode='guide'; idx=0; fbEl.textContent=tr('À toi de jouer !');
     showTarget();
   }
   function showTarget() {
@@ -1678,7 +1687,7 @@ const Songs = (() => {
     const s = seq();
     if (idx >= s.length) { finish(); return; }
     mark(s[idx], 'target');
-    counterEl.textContent = `Note ${idx+1} / ${s.length} — joue : ${midiToShort(s[idx], document.getElementById('useSolfege').checked)}`;
+    counterEl.textContent = tr('Note') + ' ' + (idx+1) + ' / ' + s.length + ' — ' + tr('joue :') + ' ' + midiToShort(s[idx], document.getElementById('useSolfege').checked);
     progEl.style.width=(idx/s.length*100)+'%';
   }
   function onNote(midi) {
@@ -1686,15 +1695,15 @@ const Songs = (() => {
     const s = seq();
     if (midi === s[idx]) {
       idx++; addXp(2);
-      fbEl.textContent='👍'; fbEl.className='feedback good';
+      fbEl.textContent=tr('👍'); fbEl.className='feedback good';
       showTarget();
     } else {
-      fbEl.textContent='❌ ce n\'est pas la bonne note'; fbEl.className='feedback bad';
+      fbEl.textContent=tr('❌ ce n\'est pas la bonne note'); fbEl.className='feedback bad';
     }
   }
   function finish() {
     mode=null; clearMarks('target'); progEl.style.width='100%';
-    fbEl.textContent='🏆 Morceau terminé ! +40 XP'; fbEl.className='feedback good';
+    fbEl.textContent=tr('🏆 Morceau terminé ! +40 XP'); fbEl.className='feedback good';
     if (!store.data.songsDone[current.id]) { store.data.songs++; store.data.songsDone[current.id]=true; }
     addXp(40); store.save(); renderStats(); render();
     document.querySelectorAll('.song').forEach(x=>x.classList.toggle('active', x.dataset.id===current.id));
@@ -1703,7 +1712,7 @@ const Songs = (() => {
 
   document.getElementById('songDemo').addEventListener('click', demo);
   document.getElementById('songGuide').addEventListener('click', guide);
-  document.getElementById('songStop').addEventListener('click', () => { stop(); fbEl.textContent='Arrêté'; });
+  document.getElementById('songStop').addEventListener('click', () => { stop(); fbEl.textContent=tr('Arrêté'); });
   document.getElementById('songSearch').addEventListener('input', render);
   document.getElementById('songComposer').addEventListener('change', render);
   return { render, onNote, stop, select };
@@ -1728,7 +1737,7 @@ const Ear = (() => {
     });
   }
   function nextQ() {
-    build(); fbEl.textContent='';
+    build(); fbEl.textContent=tr('');
     target = whites[Math.floor(Math.random()*whites.length)];
     setTimeout(()=>AudioEngine.pluck(target,0.7,0.6), 250);
   }
@@ -1739,7 +1748,7 @@ const Ear = (() => {
     if (m===target) {
       store.data.earRight++; addXp(5);
       document.getElementById('earScore').textContent = store.data.earRight;
-      el.classList.add('good'); fbEl.textContent='Bravo ! 🎯'; fbEl.className='feedback good';
+      el.classList.add('good'); fbEl.textContent=tr('Bravo ! 🎯'); fbEl.className='feedback good';
       target=null; store.save(); renderStats();
       setTimeout(nextQ, 900);
     } else {
@@ -1792,8 +1801,8 @@ function autoHit(midi, dur) {
 }
 
 document.getElementById('metroToggle').addEventListener('click', e => {
-  if (Metronome.running) { Metronome.stop(); e.target.textContent = '▶ Démarrer'; }
-  else { Metronome.start(+document.getElementById('metroBpm').value); e.target.textContent = '■ Arrêter'; }
+  if (Metronome.running) { Metronome.stop(); e.target.textContent = tr('▶ Démarrer'); }
+  else { Metronome.start(+document.getElementById('metroBpm').value); e.target.textContent = tr('■ Arrêter'); }
 });
 document.getElementById('metroBpm').addEventListener('input', e => {
   document.getElementById('metroBpmVal').textContent = e.target.value + ' BPM';
@@ -1856,15 +1865,15 @@ const Technique = (() => {
   function select(id) {
     stop(); ex = TECH_EX.find(e => e.id === id);
     setActive(listEl, ex.name);
-    counterEl.textContent = ex.notes.length + ' notes · ' + ex.reps + ' répétitions · conseillé ' + ex.bpm + ' BPM';
-    fbEl.textContent = ''; progEl.style.width = '0%';
+    counterEl.textContent = ex.notes.length + ' ' + tr('notes') + ' · ' + ex.reps + ' ' + tr('répétitions · conseillé') + ' ' + ex.bpm + ' BPM';
+    fbEl.textContent = tr(''); progEl.style.width = '0%';
   }
   function seq() { return ex.notes.map(pm); }
   function total() { return ex.notes.length * ex.reps; }
   function doneCount() { return reps * ex.notes.length + idx; }
   function guide() {
     stopSequence(); active = true; idx = 0; reps = 0;
-    fbEl.textContent = 'C\'est parti — suis les doigtés !'; fbEl.className = 'feedback good';
+    fbEl.textContent = tr('C\'est parti — suis les doigtés !'); fbEl.className = 'feedback good';
     if (useMetro) { Metronome.start(ex.bpm); }
     showTarget();
   }
@@ -1875,37 +1884,37 @@ const Technique = (() => {
     mark(s[idx], 'target');
     const f = ex.fingers && ex.fingers[idx] ? '<span class="finger-badge">' + ex.fingers[idx] + '</span>' : '';
     const solf = document.getElementById('useSolfege').checked;
-    counterEl.innerHTML = f + 'Joue&nbsp;: <b>' + midiToShort(s[idx], solf) + '</b>  —  répétition ' + (reps + 1) + '/' + ex.reps;
+    counterEl.innerHTML = f + tr('Joue :') + ' <b>' + midiToShort(s[idx], solf) + '</b>  —  ' + tr('répétition') + ' ' + (reps + 1) + '/' + ex.reps;
     progEl.style.width = (doneCount() / total() * 100) + '%';
   }
   function demo() {
     stop(); active = false;
     const s = []; for (let r = 0; r < 1; r++) seq().forEach(m => s.push({ midi: m, dur: 0.32 }));
     if (useMetro) Metronome.start(ex.bpm);
-    playSequence(s, 60 / ex.bpm, null, () => { fbEl.textContent = 'Démo terminée — à toi !'; });
+    playSequence(s, 60 / ex.bpm, null, () => { fbEl.textContent = tr('Démo terminée — à toi !'); });
   }
   function onNote(midi) {
     if (!active) return;
     const s = seq();
     if (midi === s[idx]) {
-      idx++; addXp(1); fbEl.textContent = '👍'; fbEl.className = 'feedback good';
+      idx++; addXp(1); fbEl.textContent = tr('👍'); fbEl.className = 'feedback good';
       showTarget();
     } else {
-      fbEl.textContent = '❌ mauvaise note — regarde le doigté surligné'; fbEl.className = 'feedback bad';
+      fbEl.textContent = tr('❌ mauvaise note — regarde le doigté surligné'); fbEl.className = 'feedback bad';
     }
   }
   function finish() {
     active = false; clearMarks('target'); Metronome.stop();
-    document.getElementById('metroToggle').textContent = '▶ Démarrer';
+    document.getElementById('metroToggle').textContent = tr('▶ Démarrer');
     progEl.style.width = '100%';
-    counterEl.innerHTML = '🏆 Exercice terminé ! +25 XP';
-    fbEl.textContent = 'Bravo — remonte le tempo de 5 BPM et recommence.'; fbEl.className = 'feedback good';
+    counterEl.innerHTML = tr('🏆 Exercice terminé ! +25 XP');
+    fbEl.textContent = tr('Bravo — remonte le tempo de 5 BPM et recommence.'); fbEl.className = 'feedback good';
     store.data.tech++; addXp(25);
   }
   function stop() { active = false; clearMarks('target'); }
   document.getElementById('techGuide').addEventListener('click', guide);
   document.getElementById('techDemo').addEventListener('click', demo);
-  document.getElementById('techStop').addEventListener('click', () => { stop(); Metronome.stop(); document.getElementById('metroToggle').textContent = '▶ Démarrer'; fbEl.textContent = 'Arrêté'; });
+  document.getElementById('techStop').addEventListener('click', () => { stop(); Metronome.stop(); document.getElementById('metroToggle').textContent = tr('▶ Démarrer'); fbEl.textContent = tr('Arrêté'); });
   return { init, onNote, stop };
 })();
 
@@ -1954,7 +1963,7 @@ const Independence = (() => {
     selectBacking('b1'); selectPoly('p1');
 
     document.getElementById('backingStart').addEventListener('click', backingStart);
-    document.getElementById('backingStop').addEventListener('click', () => { stopBacking(); backingCounter.textContent = 'Arrêté'; });
+    document.getElementById('backingStop').addEventListener('click', () => { stopBacking(); backingCounter.textContent = tr('Arrêté'); });
     document.getElementById('backingBpm').addEventListener('input', e => { document.getElementById('backingBpmVal').textContent = e.target.value + ' BPM'; });
     document.getElementById('polyStart').addEventListener('click', polyStart);
     document.getElementById('polyStop').addEventListener('click', () => { stopPoly(); });
@@ -1970,7 +1979,7 @@ const Independence = (() => {
   }
 
   /* ---------- Mode A: backing ---------- */
-  function selectBacking(id) { stopBacking(); bEx = BACKING.find(e => e.id === id); setActive(backingList, bEx.name); document.getElementById('backingBpm').value = bEx.bpm; document.getElementById('backingBpmVal').textContent = bEx.bpm + ' BPM'; backingCounter.textContent = ''; }
+  function selectBacking(id) { stopBacking(); bEx = BACKING.find(e => e.id === id); setActive(backingList, bEx.name); document.getElementById('backingBpm').value = bEx.bpm; document.getElementById('backingBpmVal').textContent = bEx.bpm + ' BPM'; backingCounter.textContent = tr(''); }
   function backingStart() {
     stopBacking(); bActive = true; bBeat = 0; rIdx = 0; tours = 0;
     const bpm = +document.getElementById('backingBpm').value;
@@ -1979,7 +1988,7 @@ const Independence = (() => {
       const m = pm(bEx.left[bBeat % bEx.left.length]); autoHit(m, 0.35); bBeat++;
     });
   }
-  function showRight() { clearMarks('target'); if (!bActive) return; mark(pm(bEx.right[rIdx]), 'target'); backingCounter.textContent = 'Mélodie main droite — note ' + (rIdx + 1) + '/' + bEx.right.length + ' · tours complets : ' + tours; }
+  function showRight() { clearMarks('target'); if (!bActive) return; mark(pm(bEx.right[rIdx]), 'target'); backingCounter.textContent = tr('Mélodie main droite — note') + ' ' + (rIdx + 1) + '/' + bEx.right.length + ' · ' + tr('tours complets :') + ' ' + tours; }
   function backingNote(midi) {
     if (!bActive) return;
     if (midi === pm(bEx.right[rIdx])) {
@@ -1991,7 +2000,7 @@ const Independence = (() => {
   function stopBacking() { bActive = false; Metronome.stop(); clearMarks('target'); }
 
   /* ---------- Mode B: polyrhythm ---------- */
-  function selectPoly(id) { stopPoly(); pPat = POLY.find(e => e.id === id); setActive(polyList, pPat.name); renderGrid(); polyScore.textContent = ''; }
+  function selectPoly(id) { stopPoly(); pPat = POLY.find(e => e.id === id); setActive(polyList, pPat.name); renderGrid(); polyScore.textContent = tr(''); }
   function renderGrid() {
     let cells = '';
     for (let i = 0; i < pPat.cells; i++) {
@@ -2008,7 +2017,7 @@ const Independence = (() => {
   function cellMs() { return (60000 / (+document.getElementById('polyBpm').value)) / pPat.cpb; }
   function polyStart() {
     stopPoly(); pRunning = true; pT0 = performance.now(); pLastCell = -1; pTaps = 0; pGood = 0;
-    polyScore.textContent = 'Joue avec le modèle… (Q = gauche, M = droite)';
+    polyScore.textContent = tr('Joue avec le modèle… (Q = gauche, M = droite)');
     loop();
   }
   function loop() {
@@ -2081,13 +2090,13 @@ const Theory = (() => {
     ivOpt.innerHTML = '';
     IVs.forEach(iv => {
       const b = document.createElement('div');
-      b.className = 'quiz-opt'; b.style.fontSize = '14px'; b.textContent = iv.name;
+      b.className = 'quiz-opt'; b.style.fontSize = '14px'; b.textContent = tr(iv.name); b.setAttribute('data-tr', ''); b.__fr = iv.name;
       b.addEventListener('click', () => ivGuess(iv, b));
       ivOpt.appendChild(b);
     });
   }
   function ivNext() {
-    ivBuild(); ivFb.textContent = '';
+    ivBuild(); ivFb.textContent = tr('');
     ivRoot = 60 + Math.floor(Math.random() * 5); // C4..E4
     ivCur = IVs[Math.floor(Math.random() * IVs.length)];
     ivPlay();
@@ -2102,7 +2111,7 @@ const Theory = (() => {
     ivTotal++;
     if (iv.s === ivCur.s) {
       ivScore++; store.data.iv++; addXp(5); el.classList.add('good');
-      ivFb.textContent = 'Juste ! 🎯'; ivFb.className = 'feedback good';
+      ivFb.textContent = tr('Juste ! 🎯'); ivFb.className = 'feedback good';
     } else {
       el.classList.add('bad');
       ivFb.textContent = 'Non — c\'était une ' + ivCur.name; ivFb.className = 'feedback bad';
@@ -2150,9 +2159,9 @@ const Theory = (() => {
     const notes = MAJ.map(iv => root + iv);
     clearMarks('target'); notes.forEach(m => mark(m, 'target'));
     const solf = document.getElementById('useSolfege').checked;
-    cofInfo.innerHTML = '<b style="color:var(--accent);font-size:16px">' + d.k + ' majeur</b><br>'
-      + d.acc + '<br><span style="color:var(--text-dim)">' + notes.map(m => midiToShort(m, solf)).join(' · ') + '</span>'
-      + '<br><button class="btn" id="cofPlay" style="margin-top:10px">▶ Écouter la gamme</button>';
+    cofInfo.innerHTML = '<b style="color:var(--accent);font-size:16px">' + d.k + ' ' + tr('majeur') + '</b><br>'
+      + tr(d.acc) + '<br><span style="color:var(--text-dim)">' + notes.map(m => midiToShort(m, solf)).join(' · ') + '</span>'
+      + '<br><button class="btn" id="cofPlay" style="margin-top:10px">' + tr('▶ Écouter la gamme') + '</button>';
     document.getElementById('cofPlay').addEventListener('click', () => playSequence(notes.map(m => ({ midi:m, dur:0.3 })), 0.32));
   }
 
@@ -2173,19 +2182,17 @@ const Theory = (() => {
     });
   }
 
-  function init() {
-    ivBuild(); ivNext();
-    cofBuild();
-    rhyBuild();
+  function setMemo() {
     document.getElementById('theoryMemo').innerHTML = [
       '<b style="color:var(--text)">Gamme majeure</b> — suite d\'intervalles Ton-Ton-½Ton-Ton-Ton-Ton-½Ton (ex. Do Ré Mi Fa Sol La Si Do).',
       '<b style="color:var(--text)">Construire un accord (triade)</b> — empile la 1ʳᵉ, la 3ᵉ et la 5ᵉ note de la gamme. Majeur = tierce Majeure + tierce mineure ; mineur = l\'inverse.',
       '<b style="color:var(--text)">Degrés d\'une gamme majeure</b> — I ii iii IV V vi vii°. Les accords I, IV et V sont majeurs ; ii, iii, vi sont mineurs. Beaucoup de chansons = I–V–vi–IV.',
       '<b style="color:var(--text)">Cycle des quintes</b> — chaque pas horaire ajoute un dièse (quinte au-dessus) ; chaque pas antihoraire ajoute un bémol (quarte). Utile pour connaître l\'armure d\'une tonalité.',
       '<b style="color:var(--text)">Conseil pratique</b> — travaille chaque main séparément, lentement, au métronome ; augmente le tempo seulement quand c\'est régulier et sans faute.',
-    ].map(t => '<p style="margin:0 0 10px">• ' + t + '</p>').join('');
+    ].map(t => '<p style="margin:0 0 10px">• ' + tr(t) + '</p>').join('');
   }
-  return { init };
+  function init() { ivBuild(); ivNext(); cofBuild(); rhyBuild(); setMemo(); }
+  return { init, refresh: setMemo };
 })();
 
 /* ============================================================
@@ -2231,7 +2238,7 @@ const DuoMode = (() => {
     DUO.forEach(p => {
       const el = document.createElement('div');
       el.className = 'song'; el.dataset.id = p.id;
-      el.innerHTML = '<h3>' + p.title + '</h3><div class="meta">' + p.composer + ' · 2 voix</div><span class="diff">Mains séparées</span>';
+      el.innerHTML = '<h3>' + p.title + '</h3><div class="meta">' + p.composer + ' · ' + tr('2 voix') + '</div><span class="diff">' + tr('Mains séparées') + '</span>';
       el.addEventListener('click', () => select(p.id));
       listEl.appendChild(el);
     });
@@ -2241,15 +2248,15 @@ const DuoMode = (() => {
     document.querySelectorAll('#duoList .song').forEach(x => x.classList.toggle('active', x.dataset.id === id));
     player.style.display = '';
     document.getElementById('duoTitle').textContent = cur.title;
-    document.getElementById('duoDesc').textContent = cur.desc;
-    progEl.style.width = '0%'; fbEl.textContent = ''; counterEl.textContent = 'Choisis une main, puis « Mode guidé ».';
+    document.getElementById('duoDesc').textContent = tr(cur.desc);
+    progEl.style.width = '0%'; fbEl.textContent = tr(''); counterEl.textContent = tr('Choisis une main, puis « Mode guidé ».');
   }
   function setHand(h) {
     hand = h; stop();
     document.querySelectorAll('#duoHand .chip').forEach(c => c.classList.toggle('active', c.dataset.hand === h));
-    progEl.style.width = '0%'; fbEl.textContent = '';
-    counterEl.textContent = h === 'both' ? 'Deux mains : joue les DEUX notes surlignées ensemble à chaque étape.'
-      : (h === 'left' ? 'Main gauche seule (notes graves, en bleu).' : 'Main droite seule (mélodie, en vert).');
+    progEl.style.width = '0%'; fbEl.textContent = tr('');
+    counterEl.textContent = h === 'both' ? tr('Deux mains : joue les DEUX notes surlignées ensemble à chaque étape.')
+      : (h === 'left' ? tr('Main gauche seule (notes graves, en bleu).') : tr('Main droite seule (mélodie, en vert).'));
   }
   // separate-hand note list (skips rests)
   function handSeq(h) { return cur[h === 'left' ? 'l' : 'r'].filter(x => x).map(pm); }
@@ -2259,7 +2266,7 @@ const DuoMode = (() => {
     if (!cur) return;
     stopTimer(); clearMarks('target'); clearMarks('hint');
     active = true; idx = 0;
-    fbEl.textContent = 'À toi de jouer !'; fbEl.className = 'feedback good';
+    fbEl.textContent = tr('À toi de jouer !'); fbEl.className = 'feedback good';
     if (hand === 'both') showBothStep(); else showSepTarget();
     mode = 'guide';
   }
@@ -2284,7 +2291,7 @@ const DuoMode = (() => {
     if (rr != null) mark(rr, 'target');
     if (ll != null) mark(ll, 'hint');
     const solf = document.getElementById('useSolfege').checked;
-    counterEl.innerHTML = '🙌 Étape ' + (idx + 1) + '/' + len + ' — '
+    counterEl.innerHTML = '🙌 ' + tr('Étape') + ' ' + (idx + 1) + '/' + len + ' — '
       + (rr != null ? '<b style="color:var(--good)">MD ' + midiToShort(rr, solf) + '</b>' : '<span style="color:var(--text-dim)">MD —</span>')
       + ' + '
       + (ll != null ? '<b style="color:var(--accent-2)">MG ' + midiToShort(ll, solf) + '</b>' : '<span style="color:var(--text-dim)">MG —</span>');
@@ -2296,26 +2303,26 @@ const DuoMode = (() => {
       if (required && required.has(midi)) {
         if (!pressedSet.has(midi)) { pressedSet.add(midi); addXp(1); }
         if (pressedSet.size >= required.size) {
-          fbEl.textContent = '👍'; fbEl.className = 'feedback good';
+          fbEl.textContent = tr('👍'); fbEl.className = 'feedback good';
           idx++; showBothStep();
         } else {
-          fbEl.textContent = 'Encore l\'autre main…'; fbEl.className = 'feedback good';
+          fbEl.textContent = tr('Encore l\'autre main…'); fbEl.className = 'feedback good';
         }
       } else {
-        fbEl.textContent = '❌ note en trop'; fbEl.className = 'feedback bad';
+        fbEl.textContent = tr('❌ note en trop'); fbEl.className = 'feedback bad';
       }
     } else {
       const s = handSeq(hand);
-      if (midi === s[idx]) { idx++; addXp(1); fbEl.textContent = '👍'; fbEl.className = 'feedback good'; showSepTarget(); }
-      else { fbEl.textContent = '❌ mauvaise note'; fbEl.className = 'feedback bad'; }
+      if (midi === s[idx]) { idx++; addXp(1); fbEl.textContent = tr('👍'); fbEl.className = 'feedback good'; showSepTarget(); }
+      else { fbEl.textContent = tr('❌ mauvaise note'); fbEl.className = 'feedback bad'; }
     }
   }
   function finish() {
     active = false; clearMarks('target'); clearMarks('hint');
     progEl.style.width = '100%';
     const bonus = hand === 'both' ? 60 : 30;
-    fbEl.textContent = '🏆 Bravo ! +' + bonus + ' XP'; fbEl.className = 'feedback good';
-    counterEl.textContent = hand === 'both' ? 'Deux mains réussi — le plus dur est fait !' : 'Main terminée. Essaie l\'autre main, puis « Deux mains ».';
+    fbEl.textContent = '🏆 ' + tr('Bravo !') + ' +' + bonus + ' XP'; fbEl.className = 'feedback good';
+    counterEl.textContent = hand === 'both' ? tr('Deux mains réussi — le plus dur est fait !') : tr('Main terminée. Essaie l\'autre main, puis « Deux mains ».');
     store.data.duo++; addXp(bonus);
   }
   function demo() {
@@ -2323,9 +2330,9 @@ const DuoMode = (() => {
     stop(); mode = 'demo';
     const len = cur.r.length; let i = 0;
     const gap = 60000 / cur.bpm;
-    fbEl.textContent = 'Démo (' + (hand === 'both' ? 'deux mains' : hand === 'left' ? 'main gauche' : 'main droite') + ')'; fbEl.className = 'feedback good';
+    fbEl.textContent = tr('Démo') + ' (' + tr(hand === 'both' ? 'deux mains' : hand === 'left' ? 'main gauche' : 'main droite') + ')'; fbEl.className = 'feedback good';
     function step() {
-      if (i >= len) { clearMarks('target'); clearMarks('hint'); fbEl.textContent = 'Démo terminée'; return; }
+      if (i >= len) { clearMarks('target'); clearMarks('hint'); fbEl.textContent = tr('Démo terminée'); return; }
       clearMarks('target'); clearMarks('hint');
       const rr = cur.r[i] ? pm(cur.r[i]) : null;
       const ll = cur.l[i] ? pm(cur.l[i]) : null;
@@ -2345,7 +2352,7 @@ const DuoMode = (() => {
     document.getElementById('duoHand').addEventListener('click', e => { const c = e.target.closest('.chip'); if (c) setHand(c.dataset.hand); });
     document.getElementById('duoGuide').addEventListener('click', guide);
     document.getElementById('duoDemo').addEventListener('click', demo);
-    document.getElementById('duoStop').addEventListener('click', () => { stop(); fbEl.textContent = 'Arrêté'; });
+    document.getElementById('duoStop').addEventListener('click', () => { stop(); fbEl.textContent = tr('Arrêté'); });
   }
   return { init, render, onNote, stop };
 })();
@@ -2402,7 +2409,7 @@ const DailyPlan = (() => {
       const ok = cur >= target;
       return '<div class="task ' + (ok ? 'done' : '') + '" data-tab="' + tk.tab + '">'
         + '<div class="ic">' + tk.ic + '</div>'
-        + '<div class="body"><div class="t-label">' + t(tk.label) + '</div>'
+        + '<div class="body"><div class="t-label">' + tr(tk.label) + '</div>'
         + '<div class="t-bar"><span style="width:' + (cur / target * 100) + '%"></span></div>'
         + '<div class="t-num">' + cur + ' / ' + target + '</div></div>'
         + '<div class="t-check">' + (ok ? '✓' : '○') + '</div></div>';
@@ -2415,14 +2422,14 @@ const DailyPlan = (() => {
     achEl.innerHTML = ACHIEVEMENTS.map(a => {
       const v = a.stat(), ok = v >= a.target, pct = Math.min(100, v / a.target * 100);
       return '<div class="stat ach ' + (ok ? '' : 'locked') + '">'
-        + '<div class="a-title">' + (ok ? '🏅' : '🔒') + ' ' + t(a.label) + '</div>'
-        + '<div class="a-desc">' + t(a.desc) + '</div>'
+        + '<div class="a-title">' + (ok ? '🏅' : '🔒') + ' ' + tr(a.label) + '</div>'
+        + '<div class="a-desc">' + tr(a.desc) + '</div>'
         + '<div class="progress-bar" style="height:6px;margin:8px 0 2px"><span style="width:' + pct + '%"></span></div>'
         + '<div class="a-prog">' + Math.min(v, a.target) + ' / ' + a.target + '</div></div>';
     }).join('');
 
     const dp = document.getElementById('planDoneHint');
-    if (dp) dp.textContent = doneCount === DAILY_TASKS.length ? '🎉 Routine du jour terminée — excellent !' : '';
+    if (dp) dp.textContent = doneCount === DAILY_TASKS.length ? tr('🎉 Routine du jour terminée — excellent !') : '';
   }
   function init() {
     goalEl.addEventListener('click', e => {
@@ -2478,21 +2485,21 @@ const Reading = (() => {
   function assist() { return document.getElementById('readAssist').checked; }
   function solf() { return document.getElementById('useSolfege').checked; }
   function pool() { return clef === 'bass' ? naturalsInRange(48, 60) : naturalsInRange(60, 81); }
-  function preview() { target = clef === 'bass' ? 55 : 67; staffEl.innerHTML = staffSVG(target, clef); nameEl.textContent = ''; }
+  function preview() { target = clef === 'bass' ? 55 : 67; staffEl.innerHTML = staffSVG(target, clef); nameEl.textContent = tr(''); }
   function next() {
     clearMarks('hint'); if (timer) { clearTimeout(timer); timer = null; }
     const p = pool(); target = p[Math.floor(Math.random() * p.length)];
-    staffEl.innerHTML = staffSVG(target, clef); fbEl.textContent = '';
-    if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else nameEl.textContent = '';
+    staffEl.innerHTML = staffSVG(target, clef); fbEl.textContent = tr('');
+    if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else nameEl.textContent = tr('');
   }
-  function start() { running = true; streak = 0; progEl.style.width = '0%'; document.getElementById('readStart').textContent = 'Recommencer'; next(); }
+  function start() { running = true; streak = 0; progEl.style.width = '0%'; document.getElementById('readStart').textContent = tr('Recommencer'); next(); }
   function stop() { running = false; if (timer) { clearTimeout(timer); timer = null; } clearMarks('hint'); }
   function onNote(midi) {
     if (!running || target === null) return;
     if (midi === target) {
       streak++; addXp(3); store.data.read++; store.save(); renderStats();
-      fbEl.textContent = 'Juste ! 🎵'; fbEl.className = 'feedback good'; progEl.style.width = (streak / GOAL * 100) + '%';
-      if (streak >= GOAL) { running = false; clearMarks('hint'); nameEl.textContent = '🏆'; fbEl.textContent = 'Lecture réussie ! +30 XP'; addXp(30); document.getElementById('readStart').textContent = 'Recommencer'; }
+      fbEl.textContent = tr('Juste ! 🎵'); fbEl.className = 'feedback good'; progEl.style.width = (streak / GOAL * 100) + '%';
+      if (streak >= GOAL) { running = false; clearMarks('hint'); nameEl.textContent = tr('🏆'); fbEl.textContent = tr('Lecture réussie ! +30 XP'); addXp(30); document.getElementById('readStart').textContent = tr('Recommencer'); }
       else timer = setTimeout(next, 500);
     } else {
       fbEl.textContent = '❌ c\'était ' + midiToShort(target, solf()); fbEl.className = 'feedback bad';
@@ -2508,7 +2515,7 @@ const Reading = (() => {
       if (running) next(); else preview();
     });
     document.getElementById('readStart').addEventListener('click', start);
-    document.getElementById('readAssist').addEventListener('change', () => { if (running) { staffEl.innerHTML = staffSVG(target, clef); if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else { nameEl.textContent = ''; clearMarks('hint'); } } });
+    document.getElementById('readAssist').addEventListener('change', () => { if (running) { staffEl.innerHTML = staffSVG(target, clef); if (assist()) { nameEl.textContent = midiToShort(target, solf()); mark(target, 'hint'); } else { nameEl.textContent = tr(''); clearMarks('hint'); } } });
     preview();
   }
   return { init, onNote, stop };
@@ -2643,16 +2650,16 @@ const Program = (() => {
           const k = key(wi, di, ti), dn = done(k);
           return '<div class="pgm-task ' + (dn ? 'done' : '') + '">'
             + '<input type="checkbox" ' + (dn ? 'checked' : '') + ' ' + (unlocked ? '' : 'disabled') + ' data-key="' + k + '">'
-            + '<label>' + t(tk.t) + '</label>'
-            + '<span class="lnk" data-tab="' + tk.tab + '">' + t('→ ouvrir') + '</span></div>';
+            + '<label>' + tr(tk.t) + '</label>'
+            + '<span class="lnk" data-tab="' + tk.tab + '">' + tr('→ ouvrir') + '</span></div>';
         }).join('');
         daysHtml += '<div class="pgm-day ' + (unlocked ? '' : 'locked') + '">'
-          + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + t(day.title) + '</div>'
+          + '<div class="pgm-day-title">' + (complete ? '✅' : unlocked ? '▶️' : '🔒') + ' ' + tr(day.title) + '</div>'
           + tasksHtml + '</div>';
       });
-      html += '<div class="pgm-week"><div class="pgm-week-head"><div><h3>' + t(w.title) + '</h3>'
-        + (w.goal ? '<div class="wk-goal">' + t(w.goal) + '</div>' : '')
-        + '</div><span class="wk-prog">' + wkDone + '/' + w.days.length + ' ' + t('jours') + '</span></div>' + daysHtml + '</div>';
+      html += '<div class="pgm-week"><div class="pgm-week-head"><div><h3>' + tr(w.title) + '</h3>'
+        + (w.goal ? '<div class="wk-goal">' + tr(w.goal) + '</div>' : '')
+        + '</div><span class="wk-prog">' + wkDone + '/' + w.days.length + ' ' + tr('jours') + '</span></div>' + daysHtml + '</div>';
     });
     contentEl.innerHTML = html;
     contentEl.querySelectorAll('.pgm-task input').forEach(cb => cb.addEventListener('change', () => {
@@ -2664,7 +2671,7 @@ const Program = (() => {
     }));
     const total = days.length;
     barEl.style.width = (doneDays / total * 100) + '%';
-    summaryEl.textContent = doneDays + ' / ' + total + ' ' + t('jours') + (doneDays === total ? ' — ' + t('programme terminé, félicitations !') + ' 🎓' : '');
+    summaryEl.textContent = doneDays + ' / ' + total + ' ' + tr('jours') + (doneDays === total ? ' — ' + tr('programme terminé, félicitations !') + ' 🎓' : '');
   }
   function init() { if (!store.data.program) store.data.program = { done: {} }; refresh(); }
   return { init, refresh };
@@ -2758,12 +2765,12 @@ const Course = (() => {
       const ok = unlocked(L.level);
       const b = document.createElement('button');
       b.className = 'chip' + (L.level === level ? ' active' : '');
-      b.textContent = (ok ? '' : '🔒 ') + t('Niveau') + ' ' + L.level;
+      b.textContent = (ok ? '' : '🔒 ') + tr('Niveau') + ' ' + L.level;
       b.addEventListener('click', () => { if (!ok) return; level = L.level; detail.style.display = 'none'; stop(); renderLevels(); renderList(); });
       levelsEl.appendChild(b);
     });
     const L = levelObj(level), dc = L.courses.filter(c => isDone(c.id)).length;
-    document.getElementById('courseLevelName').textContent = t(L.name);
+    document.getElementById('courseLevelName').textContent = tr(L.name);
     document.getElementById('courseLevelProg').textContent = dc + ' / ' + L.courses.length + ' cours';
     document.getElementById('courseLevelBar').style.width = (dc / L.courses.length * 100) + '%';
   }
@@ -2773,7 +2780,7 @@ const Course = (() => {
     L.courses.forEach((c, i) => {
       const el = document.createElement('div');
       el.className = 'song' + (cur && cur.id === c.id ? ' active' : '');
-      el.innerHTML = '<h3>' + (isDone(c.id) ? '✅ ' : '') + t(c.title) + '</h3><span class="diff">' + t('Cours') + ' ' + (i + 1) + '</span>';
+      el.innerHTML = '<h3>' + (isDone(c.id) ? '✅ ' : '') + tr(c.title) + '</h3><span class="diff">' + tr('Cours') + ' ' + (i + 1) + '</span>';
       el.addEventListener('click', () => openCourse(c.id));
       listEl.appendChild(el);
     });
@@ -2783,10 +2790,10 @@ const Course = (() => {
     cur = levelObj(level).courses.find(c => c.id === id);
     renderList();
     detail.style.display = '';
-    document.getElementById('courseTitle').textContent = t(cur.title);
-    document.getElementById('courseIntro').textContent = t(cur.intro);
-    document.getElementById('courseHowto').textContent = '👉 ' + t(cur.howto);
-    staffEl.style.display = 'none'; fbEl.textContent = ''; progEl.style.width = isDone(cur.id) ? '100%' : '0%';
+    document.getElementById('courseTitle').textContent = tr(cur.title);
+    document.getElementById('courseIntro').textContent = tr(cur.intro);
+    document.getElementById('courseHowto').textContent = '👉 ' + tr(cur.howto);
+    staffEl.style.display = 'none'; fbEl.textContent = tr(''); progEl.style.width = isDone(cur.id) ? '100%' : '0%';
     document.getElementById('courseStart').textContent = isDone(cur.id) ? '↺ Refaire la pratique' : '🎯 Pratiquer';
   }
   function markSeq() { clearMarks('target'); if (pr.idx < pr.notes.length) { mark(pr.notes[pr.idx], 'target'); progEl.style.width = (pr.idx / pr.notes.length * 100) + '%'; } }
@@ -2797,18 +2804,18 @@ const Course = (() => {
     if (p.type === 'sequence') { pr = { type:'sequence', notes:p.notes.map(pm), idx:0 }; staffEl.style.display = 'none'; markSeq(); }
     else if (p.type === 'chord') { const ms = p.notes.map(pm); pr = { type:'chord', need:new Set(ms), got:new Set() }; staffEl.style.display = 'none'; ms.forEach(m => mark(m, 'target')); }
     else if (p.type === 'reading') { pr = { type:'reading', clef:p.clef || 'treble', n:p.count || 5, i:0, target:null }; staffEl.style.display = ''; nextReading(); }
-    fbEl.textContent = 'À toi de jouer !'; fbEl.className = 'feedback good';
+    fbEl.textContent = tr('À toi de jouer !'); fbEl.className = 'feedback good';
   }
   function onNote(midi) {
     if (!pr) return;
     if (pr.type === 'sequence') {
-      if (midi === pr.notes[pr.idx]) { pr.idx++; addXp(1); fbEl.textContent = '👍'; fbEl.className = 'feedback good'; if (pr.idx >= pr.notes.length) complete(); else markSeq(); }
-      else { fbEl.textContent = '❌ suis les touches surlignées'; fbEl.className = 'feedback bad'; }
+      if (midi === pr.notes[pr.idx]) { pr.idx++; addXp(1); fbEl.textContent = tr('👍'); fbEl.className = 'feedback good'; if (pr.idx >= pr.notes.length) complete(); else markSeq(); }
+      else { fbEl.textContent = tr('❌ suis les touches surlignées'); fbEl.className = 'feedback bad'; }
     } else if (pr.type === 'chord') {
       if (pr.need.has(midi)) { if (!pr.got.has(midi)) { pr.got.add(midi); addXp(1); } fbEl.textContent = '👍 ' + pr.got.size + '/' + pr.need.size; fbEl.className = 'feedback good'; if (pr.got.size >= pr.need.size) complete(); }
-      else { fbEl.textContent = '❌ note hors de l\'accord'; fbEl.className = 'feedback bad'; }
+      else { fbEl.textContent = tr('❌ note hors de l\'accord'); fbEl.className = 'feedback bad'; }
     } else if (pr.type === 'reading') {
-      if (midi === pr.target) { pr.i++; addXp(2); store.data.read++; store.save(); fbEl.textContent = 'Juste ! 🎵'; fbEl.className = 'feedback good'; if (pr.i >= pr.n) complete(); else nextReading(); }
+      if (midi === pr.target) { pr.i++; addXp(2); store.data.read++; store.save(); fbEl.textContent = tr('Juste ! 🎵'); fbEl.className = 'feedback good'; if (pr.i >= pr.n) complete(); else nextReading(); }
       else { fbEl.textContent = '❌ c\'était ' + midiToShort(pr.target, document.getElementById('useSolfege').checked); fbEl.className = 'feedback bad'; }
     }
   }
@@ -2817,17 +2824,17 @@ const Course = (() => {
     const already = isDone(cur.id);
     store.data.courses.done[cur.id] = true; store.save();
     const xp = already ? 5 : 30; addXp(xp);
-    fbEl.textContent = '🏆 Cours réussi ! +' + xp + ' XP'; fbEl.className = 'feedback good';
-    document.getElementById('courseStart').textContent = '↺ Refaire la pratique';
+    fbEl.textContent = '🏆 ' + tr('Cours réussi !') + ' +' + xp + ' XP'; fbEl.className = 'feedback good';
+    document.getElementById('courseStart').textContent = tr('↺ Refaire la pratique');
     renderLevels(); renderList(); renderStats();
-    if (levelComplete(level) && level < COURSES.length) setTimeout(() => { fbEl.textContent = '🎓 Niveau ' + level + ' terminé — niveau ' + (level + 1) + ' débloqué !'; }, 500);
+    if (levelComplete(level) && level < COURSES.length) setTimeout(() => { fbEl.textContent = '🎓 ' + tr('Niveau') + ' ' + level + ' ' + tr('terminé — niveau') + ' ' + (level + 1) + ' ' + tr('débloqué !'); }, 500);
   }
   function stop() { pr = null; clearMarks('target'); }
   function init() {
     if (!store.data.courses) store.data.courses = { done: {} };
     renderLevels(); renderList();
     document.getElementById('courseStart').addEventListener('click', start);
-    document.getElementById('courseStop').addEventListener('click', () => { stop(); fbEl.textContent = 'Arrêté'; });
+    document.getElementById('courseStop').addEventListener('click', () => { stop(); fbEl.textContent = tr('Arrêté'); });
   }
   return { init, onNote, stop, refresh: function () { renderLevels(); renderList(); } };
 })();
@@ -2844,7 +2851,7 @@ const Recorder = (() => {
 
   function startRec() {
     stopPlay(); events = []; held.clear(); recording = true; startT = performance.now();
-    const b = document.getElementById('recToggle'); b.textContent = '■ Arrêter'; b.classList.add('armed');
+    const b = document.getElementById('recToggle'); b.textContent = tr('■ Arrêter'); b.classList.add('armed');
     statusTimer = setInterval(() => status('● Enregistrement… ' + onCount() + ' notes · ' + ((performance.now() - startT) / 1000).toFixed(1) + ' s'), 200);
   }
   function stopRec() {
@@ -2853,8 +2860,8 @@ const Recorder = (() => {
     held.forEach(m => events.push({ type: 'off', midi: m, t })); held.clear();
     recording = false;
     if (statusTimer) { clearInterval(statusTimer); statusTimer = null; }
-    const b = document.getElementById('recToggle'); b.textContent = '● Enregistrer'; b.classList.remove('armed');
-    status(events.length ? 'Enregistré : ' + onCount() + ' notes · ' + (duration() / 1000).toFixed(1) + ' s. Clique « Réécouter ».' : 'Rien enregistré.');
+    const b = document.getElementById('recToggle'); b.textContent = tr('● Enregistrer'); b.classList.remove('armed');
+    status(events.length ? tr('Enregistré :') + ' ' + onCount() + ' ' + tr('notes') + ' · ' + (duration() / 1000).toFixed(1) + ' ' + tr('s. Clique « Réécouter ».') : tr('Rien enregistré.'));
   }
   function noteOn(midi) { if (recording) { events.push({ type: 'on', midi, t: performance.now() - startT }); held.add(midi); } }
   function noteOff(midi) { if (recording && held.has(midi)) { events.push({ type: 'off', midi, t: performance.now() - startT }); held.delete(midi); } }
@@ -2862,7 +2869,7 @@ const Recorder = (() => {
   function play(arr, speed) {
     stopPlay();
     const evts = arr || events;
-    if (!evts.length) { status('Rien à réécouter — enregistre d\'abord.'); return; }
+    if (!evts.length) { status(tr('Rien à réécouter — enregistre d\'abord.')); return; }
     const dur = duration(evts);
     evts.forEach(e => {
       const id = setTimeout(() => {
@@ -2872,18 +2879,18 @@ const Recorder = (() => {
       }, e.t / speed);
       playTimers.push(id);
     });
-    playTimers.push(setTimeout(() => { keyEls.forEach(el => el.classList.remove('active')); status('▶ Lecture terminée.'); }, dur / speed + 500));
-    status('▶ Lecture' + (speed < 1 ? ' au ralenti' : '') + '…');
+    playTimers.push(setTimeout(() => { keyEls.forEach(el => el.classList.remove('active')); status(tr('▶ Lecture terminée.')); }, dur / speed + 500));
+    status(tr('▶ Lecture') + (speed < 1 ? ' ' + tr('au ralenti') : '') + '…');
   }
   function stopPlay() { playTimers.forEach(clearTimeout); playTimers = []; keyEls.forEach(el => el.classList.remove('active')); }
 
   function save() {
     if (recording) stopRec();
-    if (!events.length) { status('Rien à sauvegarder — enregistre d\'abord.'); return; }
+    if (!events.length) { status(tr('Rien à sauvegarder — enregistre d\'abord.')); return; }
     const take = { id: 'r' + Date.now(), name: 'Prise du ' + new Date().toLocaleString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }), events: events.slice() };
     store.data.recordings.unshift(take);
     if (store.data.recordings.length > 20) store.data.recordings.pop();
-    store.save(); renderList(); status('💾 Sauvegardé : ' + take.name);
+    store.save(); renderList(); status('💾 ' + tr('Sauvegardé :') + ' ' + take.name);
   }
   function find(id) { return store.data.recordings.find(x => x.id === id); }
   function renderList() {
@@ -2912,8 +2919,8 @@ const Recorder = (() => {
     return notes;
   }
   async function exportWav(evts, name) {
-    if (!evts || !evts.length) { status('Rien à exporter.'); return; }
-    status('⏳ Rendu du fichier audio…');
+    if (!evts || !evts.length) { status(tr('Rien à exporter.')); return; }
+    status(tr('⏳ Rendu du fichier audio…'));
     const notes = eventsToNotes(evts);
     const sr = 44100, total = duration(evts) / 1000 + 2;
     const octx = new OfflineAudioContext(1, Math.ceil(total * sr), sr);
@@ -2938,7 +2945,7 @@ const Recorder = (() => {
     a.download = (name || 'clavier').replace(/[^\w-]+/g, '_') + '.wav';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
-    status('⬇ Fichier WAV exporté.');
+    status(tr('⬇ Fichier WAV exporté.'));
   }
   function encodeWAV(buffer) {
     const sr = buffer.sampleRate, len = buffer.length, data = buffer.getChannelData(0);
@@ -2956,7 +2963,7 @@ const Recorder = (() => {
     document.getElementById('recToggle').addEventListener('click', () => { if (recording) stopRec(); else startRec(); });
     document.getElementById('recPlay').addEventListener('click', () => { if (recording) stopRec(); play(null, 1); });
     document.getElementById('recSlow').addEventListener('click', () => { if (recording) stopRec(); play(null, 0.5); });
-    document.getElementById('recStopPlay').addEventListener('click', () => { stopPlay(); status('■ Arrêté.'); });
+    document.getElementById('recStopPlay').addEventListener('click', () => { stopPlay(); status(tr('■ Arrêté.')); });
     document.getElementById('recSave').addEventListener('click', save);
     document.getElementById('recExport').addEventListener('click', () => { if (recording) stopRec(); exportWav(events, 'clavier-prise'); });
     renderList();
@@ -3085,11 +3092,11 @@ const Create = (() => {
     document.getElementById('midiBtn').addEventListener('click', () => document.getElementById('midiInput').click());
     document.getElementById('midiInput').addEventListener('change', async (e) => {
       const file = e.target.files && e.target.files[0]; if (!file) return;
-      midiStatus().textContent = 'Lecture de « ' + file.name + ' »…';
+      midiStatus().textContent = tr('Lecture de :') + ' ' + file.name;
       try {
         const names = parseMIDI(await file.arrayBuffer());
         const song = saveSong(file.name.replace(/\.midi?$/i, ''), names, 'Importé depuis un fichier MIDI');
-        midiStatus().textContent = '✓ ' + names.length + ' notes importées.';
+        midiStatus().textContent = '✓ ' + names.length + ' ' + tr('notes importées.');
         openInSongs(song.id);
       } catch (err) { midiStatus().textContent = '❌ ' + err.message; }
       e.target.value = '';
@@ -3098,9 +3105,9 @@ const Create = (() => {
       const st = document.getElementById('composeStatus');
       try {
         const names = parseNotes(document.getElementById('composeNotes').value);
-        if (!names.length) { st.textContent = 'Saisis au moins une note.'; return; }
+        if (!names.length) { st.textContent = tr('Saisis au moins une note.'); return; }
         const song = saveSong(document.getElementById('composeTitle').value, names, 'Composé à la main');
-        st.textContent = '✓ Créé (' + names.length + ' notes).';
+        st.textContent = '✓ ' + tr('Créé') + ' (' + names.length + ' ' + tr('notes') + ').';
         openInSongs(song.id);
       } catch (err) { st.textContent = '❌ ' + err.message; }
     });
@@ -3108,9 +3115,9 @@ const Create = (() => {
       const st = document.getElementById('composeStatus');
       try {
         const names = parseNotes(document.getElementById('composeNotes').value);
-        if (!names.length) { st.textContent = 'Saisis au moins une note.'; return; }
-        st.textContent = '▶ Aperçu…';
-        playSequence(names.map(nm => ({ midi: pm(nm), dur: 0.4 })), 0.42, null, () => { st.textContent = 'Aperçu terminé.'; });
+        if (!names.length) { st.textContent = tr('Saisis au moins une note.'); return; }
+        st.textContent = tr('▶ Aperçu…');
+        playSequence(names.map(nm => ({ midi: pm(nm), dur: 0.4 })), 0.42, null, () => { st.textContent = tr('Aperçu terminé.'); });
       } catch (err) { st.textContent = '❌ ' + err.message; }
     });
 
@@ -3145,26 +3152,26 @@ const Create = (() => {
       o.start(t); o.stop(t + 0.06);
     }
     function beginListen(beat) {
-      hOn = true; $('humStatus').textContent = '🎙️ À l\'écoute… chante ou fredonne.'; $('humNote').textContent = '—';
+      hOn = true; $('humStatus').textContent = tr('🎙️ À l\'écoute… chante ou fredonne.'); $('humNote').textContent = tr('—');
       if ($('humMetro').checked) hMetroTimer = setInterval(humClick, beat);
       humLoop();
     }
     async function humStart() {
       if (hOn || hCountIn) return;
       const st = $('humStatus');
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { st.textContent = '❌ Micro non disponible sur cet appareil.'; return; }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { st.textContent = tr('❌ Micro non disponible sur cet appareil.'); return; }
       try { hStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
-      catch (e) { st.textContent = '❌ Accès au micro refusé.'; return; }
+      catch (e) { st.textContent = tr('❌ Accès au micro refusé.'); return; }
       hCaptured = []; hRecent = []; hCur = null; hFrames = 0;
-      $('humSeq').textContent = '';
+      $('humSeq').textContent = tr('');
       hCtx = new (window.AudioContext || window.webkitAudioContext)();
       const src = hCtx.createMediaStreamSource(hStream);
       hAnalyser = hCtx.createAnalyser(); hAnalyser.fftSize = 2048;
       src.connect(hAnalyser);
       hBuf = new Float32Array(hAnalyser.fftSize);
-      $('humBtn').textContent = '● Écoute…';
+      $('humBtn').textContent = tr('● Écoute…');
       const bpm = Math.min(200, Math.max(40, +$('humBpm').value || 90)), beat = 60000 / bpm;
-      let count = 3; st.textContent = 'Prépare-toi…'; $('humNote').textContent = '3'; humClick();
+      let count = 3; st.textContent = tr('Prépare-toi…'); $('humNote').textContent = tr('3'); humClick();
       hCountIn = setInterval(() => {
         count--;
         if (count > 0) { $('humNote').textContent = String(count); humClick(); }
@@ -3178,7 +3185,7 @@ const Create = (() => {
       if (hRAF) cancelAnimationFrame(hRAF);
       if (hStream) { hStream.getTracks().forEach(t => t.stop()); hStream = null; }
       if (hCtx) { hCtx.close(); hCtx = null; }
-      $('humBtn').textContent = '🎤 Démarrer l\'écoute';
+      $('humBtn').textContent = tr('🎤 Démarrer l\'écoute');
       $('humStatus').textContent = hCaptured.length
         ? 'Capturé ' + hCaptured.length + ' notes. Donne un titre puis « Créer le morceau ».'
         : 'Rien capturé — réessaie plus fort et plus près du micro.';
@@ -3187,7 +3194,7 @@ const Create = (() => {
     $('humStop').addEventListener('click', humStop);
     $('humSave').addEventListener('click', () => {
       if (hOn) humStop();
-      if (!hCaptured.length) { $('humStatus').textContent = 'Fredonne d\'abord une mélodie.'; return; }
+      if (!hCaptured.length) { $('humStatus').textContent = tr('Fredonne d\'abord une mélodie.'); return; }
       const song = saveSong($('humTitle').value, hCaptured.slice(), 'Fredonné au micro');
       openInSongs(song.id);
     });
@@ -3208,13 +3215,13 @@ const Midi = (() => {
   function bind(access) {
     const names = [];
     access.inputs.forEach(inp => { inp.onmidimessage = onMIDI; names.push(inp.name); });
-    st().textContent = names.length ? ('✓ Connecté : ' + names.join(', ')) : 'Aucun clavier détecté — branche-le, allume-le, puis réessaie.';
+    st().textContent = names.length ? ('✓ ' + tr('Connecté :') + ' ' + names.join(', ')) : tr('Aucun clavier détecté — branche-le, allume-le, puis réessaie.');
   }
   async function connect() {
-    if (!navigator.requestMIDIAccess) { st().textContent = '❌ Web MIDI non supporté ici (utilise Chrome/Edge sur ordinateur, ou Android). Pas disponible sur iPhone/Safari.'; return; }
-    st().textContent = 'Connexion…';
+    if (!navigator.requestMIDIAccess) { st().textContent = tr('❌ Web MIDI non supporté ici (utilise Chrome/Edge sur ordinateur, ou Android). Pas disponible sur iPhone/Safari.'); return; }
+    st().textContent = tr('Connexion…');
     try { const access = await navigator.requestMIDIAccess(); bind(access); access.onstatechange = () => bind(access); }
-    catch (e) { st().textContent = '❌ Accès MIDI refusé.'; }
+    catch (e) { st().textContent = tr('❌ Accès MIDI refusé.'); }
   }
   function init() {
     // Web MIDI is unsupported on iOS/Safari (and thus the native App Store build) — hide the feature there.
@@ -3258,7 +3265,7 @@ switchTab('plan'); // build nav + land on home (localized labels)
 clearMarks('target'); // clean home screen
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if (confirm('Réinitialiser toute ta progression ?')) { store.reset(); renderStats(); Songs.render(); }
+  if (confirm(tr('Réinitialiser toute ta progression ?'))) { store.reset(); renderStats(); Songs.render(); }
 });
 
 // keep scale/chord/ear labels in sync with solfège toggle
