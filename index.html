@@ -3247,6 +3247,7 @@ const Midi = (() => {
 /* ============================================================
    INIT
    ============================================================ */
+initLang(); // set language FIRST so every render below is localized
 buildPiano();
 renderStats();
 Scales.init();

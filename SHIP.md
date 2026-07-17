@@ -61,9 +61,13 @@ Sur https://appstoreconnect.apple.com → **Mes apps** → **+** :
 - **URL de politique de confidentialité** : https://apprendre-piano.netlify.app/privacy.html
 - **URL d'assistance** : https://apprendre-piano.netlify.app
 - Catégorie : Éducation (secondaire : Musique) · Classement d'âge : 4+.
-- **Captures d'écran** (obligatoires) : prends-les depuis le simulateur iPhone (6.7" et 6.5").
-- Description, mots-clés, texte promotionnel.
-- **Localisations** : l'app détecte la langue de l'appareil (FR/EN/ES/DE) et propose un sélecteur. Dans App Store Connect, ajoute une **localisation par langue** (nom, description, mots-clés traduits) pour la visibilité sur chaque marché. Le clavier MIDI est **masqué automatiquement sur iOS** (Web MIDI non supporté par Safari/WKWebView) — rien à configurer.
+- **Captures d'écran** (obligatoires) : **déjà générées** dans `store/screenshots/` aux dimensions exactes Apple :
+  - `store/screenshots/6.7-inch/<langue>/` → 1290 × 2796 (obligatoire)
+  - `store/screenshots/6.5-inch/<langue>/` → 1242 × 2688
+  - 5 captures par langue (FR/EN/ES/DE/ZH). Téléverse le dossier de chaque langue dans sa localisation.
+  - Pour les régénérer après une modif : `node store/shots.mjs` (serveur local sur :4599 requis).
+- **Description, sous-titre, mots-clés, texte promo, nouveautés** : **déjà rédigés dans les 5 langues** → `store/APPSTORE-LISTING.md` (copier-coller).
+- **Localisations** : l'app détecte la langue de l'appareil (FR/EN/ES/DE/中文) et propose un sélecteur. Ajoute une **localisation par langue** dans App Store Connect (fiches déjà prêtes ci-dessus). Le clavier MIDI est **masqué automatiquement sur iOS** (Web MIDI non supporté par Safari/WKWebView) — rien à configurer.
 
 ## 5) Archiver et soumettre
 Dans Xcode :
