@@ -5,8 +5,9 @@ const BASE = 'http://localhost:4599/index.html';
 const LANGS = ['fr', 'en', 'es', 'de', 'zh'];
 // Apple sizes: [css width, css height, deviceScaleFactor, folder]  -> pixel = css * dsf
 const SIZES = [
-  [430, 932, 3, '6.7-inch'],   // 1290 x 2796
-  [414, 896, 3, '6.5-inch'],   // 1242 x 2688
+  [430, 932, 3, '6.7-inch'],       // 1290 x 2796  (iPhone obligatoire)
+  [414, 896, 3, '6.5-inch'],       // 1242 x 2688  (iPhone)
+  [1024, 1366, 2, '12.9-inch-ipad'], // 2048 x 2732 (iPad obligatoire si app universelle)
 ];
 
 const today = (() => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); })();
@@ -23,7 +24,7 @@ const SCREENS = [
   ['01-play',  `switchTab('play');`],
   ['02-plan',  `switchTab('plan');`],
   ['03-songs', `switchTab('songs');`],
-  ['04-courses', `switchTab('courses');`],
+  ['04-courses', `switchTab('courses'); const c=document.querySelector('#courseList .song'); if(c) c.click(); const b=document.getElementById('courseStart'); if(b) b.click(); window.scrollTo(0,0);`],
   ['05-duo',   `switchTab('duo'); const s=document.querySelector('#duoList .song'); if(s) s.click(); const g=document.getElementById('duoGuide'); if(g) g.click();`],
 ];
 

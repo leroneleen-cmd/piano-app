@@ -35,12 +35,15 @@ npm run ios:sync
 ```
 
 ## 2) Icône & écran de lancement
+Les sources sont **déjà prêtes** dans `resources/` :
+- `resources/icon.png` (1024×1024) — l'icône Pianote.
+- `resources/splash.png` + `resources/splash-dark.png` (2732×2732) — l'écran de lancement (icône + nom sur fond sombre). Régénérer : `node store/splash.mjs` (serveur local sur :4599). Aperçu : `store/splash-preview.png`.
+
+Il ne reste qu'à générer les jeux d'assets iOS dans le projet Xcode :
 ```bash
-mkdir -p resources
-cp icons/icon-1024.png resources/icon.png
 npx @capacitor/assets generate --ios --iconBackgroundColor '#e89a34' --splashBackgroundColor '#0f1117'
 ```
-(Regénère automatiquement tout l'AppIcon set + le splash dans le projet Xcode.)
+(Regénère automatiquement tout l'AppIcon set + le splash dans le projet Xcode à partir de `resources/`.)
 
 ## 3) Configurer dans Xcode
 ```bash
