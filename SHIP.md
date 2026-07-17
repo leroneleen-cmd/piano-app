@@ -66,6 +66,7 @@ Sur https://appstoreconnect.apple.com → **Mes apps** → **+** :
   - `store/screenshots/6.5-inch/<langue>/` → 1242 × 2688
   - 5 captures par langue (FR/EN/ES/DE/ZH). Téléverse le dossier de chaque langue dans sa localisation.
   - Pour les régénérer après une modif : `node store/shots.mjs` (serveur local sur :4599 requis).
+  - **Version « marketing » recommandée** (plus vendeuse) : `store/marketing/<langue>/` — mêmes captures dans un cadre iPhone, sur fond dégradé, avec un slogan traduit par écran (1290 × 2796). Régénérer : `node store/marketing.mjs`. Ce sont ces images-là à téléverser en priorité.
 - **Description, sous-titre, mots-clés, texte promo, nouveautés** : **déjà rédigés dans les 5 langues** → `store/APPSTORE-LISTING.md` (copier-coller).
 - **Localisations** : l'app détecte la langue de l'appareil (FR/EN/ES/DE/中文) et propose un sélecteur. Ajoute une **localisation par langue** dans App Store Connect (fiches déjà prêtes ci-dessus). Le clavier MIDI est **masqué automatiquement sur iOS** (Web MIDI non supporté par Safari/WKWebView) — rien à configurer.
 
