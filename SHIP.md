@@ -1,4 +1,4 @@
-# Publier « Clavier » sur l'App Store
+# Publier « Pianote » sur l'App Store
 
 Ce guide part de l'état actuel du dépôt (app web + wrapper iOS Capacitor déjà configuré)
 et va jusqu'à la soumission à Apple.
@@ -48,7 +48,7 @@ npm run ios:open
 ```
 Dans Xcode, cible **App** :
 - **Signing & Capabilities** → coche « Automatically manage signing » → sélectionne ton **Team**.
-- **General** → Display Name : `Clavier` · Version : `1.0` · Build : `1` · iOS Deployment Target : `14.0`.
+- **General** → Display Name : `Pianote` · Version : `1.0` · Build : `1` · iOS Deployment Target : `14.0`.
 - **Info** → ajoute la clé `ITSAppUsesNonExemptEncryption` = `NO` (évite la question sur le chiffrement).
 - **Info** → ajoute `NSMicrophoneUsageDescription` (ex. « Le micro sert à transformer ce que tu fredonnes en notes »). **Obligatoire** : sans cette clé l'app crashe à l'ouverture du micro (fonction « Fredonner »).
 - Choisis les orientations (Portrait suffit ; paysage possible).
@@ -56,7 +56,7 @@ Dans Xcode, cible **App** :
 
 ## 4) Fiche App Store Connect
 Sur https://appstoreconnect.apple.com → **Mes apps** → **+** :
-- Nom : `Clavier` · Langue principale : Français · Bundle ID : celui de l'étape 1 · SKU : `clavier-001`.
+- Nom : `Pianote` · Langue principale : Français · Bundle ID : celui de l'étape 1 · SKU : `clavier-001`.
 - **Confidentialité** → « Les données ne sont pas collectées » (tout est local, aucun réseau).
 - **URL de politique de confidentialité** : https://apprendre-piano.netlify.app/privacy.html
 - **URL d'assistance** : https://apprendre-piano.netlify.app

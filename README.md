@@ -1,4 +1,4 @@
-# 🎹 Clavier — Apprendre le piano en autonomie
+# 🎹 Pianote — Apprendre le piano en autonomie
 
 Application web pour apprendre le piano, sans installation ni serveur. Le son est synthétisé
 avec la Web Audio API et la progression est enregistrée localement dans le navigateur.

@@ -12,13 +12,13 @@ Catégorie : Éducation (secondaire : Musique) · Âge : 4+ · Prix : Gratuit
 
 ## 🇫🇷 Français (langue principale)
 
-**Nom :** Clavier : apprendre le piano
+**Nom :** Pianote : apprendre le piano
 **Sous‑titre :** Cours, morceaux et exercices
 **Mots‑clés :** piano,apprendre,clavier,solfège,cours,musique,notes,gammes,accords,débutant,portée,oreille
 **Texte promotionnel :** Apprends le piano à ton rythme : un plan quotidien, des cours par niveaux, des morceaux guidés et des exercices — 100 % hors‑ligne, sans pub.
 
 **Description :**
-Clavier transforme ton téléphone en professeur de piano de poche. Pensé pour apprendre en autonomie, du tout débutant à l'avancé.
+Pianote transforme ton téléphone en professeur de piano de poche. Pensé pour apprendre en autonomie, du tout débutant à l'avancé.
 
 • Plan du jour — une routine quotidienne d'objectifs, un quota d'XP et une série de jours pour rester motivé.
 • Programme en 8 semaines — un parcours progressif, jour après jour.
@@ -40,13 +40,13 @@ Clavier transforme ton téléphone en professeur de piano de poche. Pensé pour 
 
 ## 🇬🇧 English
 
-**Name:** Clavier: Learn Piano
+**Name:** Pianote: Learn Piano
 **Subtitle:** Courses, songs & exercises
 **Keywords:** piano,learn,keyboard,sight reading,lessons,music,notes,scales,chords,beginner,ear,theory
 **Promotional Text:** Learn piano at your own pace: a daily plan, level‑based courses, guided songs and exercises — 100% offline, no ads.
 
 **Description:**
-Clavier turns your phone into a pocket piano teacher. Built for learning on your own, from absolute beginner to advanced.
+Pianote turns your phone into a pocket piano teacher. Built for learning on your own, from absolute beginner to advanced.
 
 • Daily Plan — a daily routine of goals, an XP target and a streak to keep you going.
 • 8‑Week Program — a step‑by‑step path, day by day.
@@ -68,13 +68,13 @@ Clavier turns your phone into a pocket piano teacher. Built for learning on your
 
 ## 🇪🇸 Español
 
-**Nombre:** Clavier: aprende piano
+**Nombre:** Pianote: aprende piano
 **Subtítulo:** Cursos, piezas y ejercicios
 **Palabras clave:** piano,aprender,teclado,lectura,solfeo,lecciones,música,escalas,acordes,principiante,oído
 **Texto promocional:** Aprende piano a tu ritmo: un plan diario, cursos por niveles, canciones guiadas y ejercicios — 100% sin conexión, sin anuncios.
 
 **Descripción:**
-Clavier convierte tu teléfono en un profesor de piano de bolsillo. Pensado para aprender por tu cuenta, del principiante al nivel avanzado.
+Pianote convierte tu teléfono en un profesor de piano de bolsillo. Pensado para aprender por tu cuenta, del principiante al nivel avanzado.
 
 • Plan diario — una rutina de objetivos, una meta de XP y una racha para mantener la motivación.
 • Programa de 8 semanas — un recorrido progresivo, día a día.
@@ -96,13 +96,13 @@ Clavier convierte tu teléfono en un profesor de piano de bolsillo. Pensado para
 
 ## 🇩🇪 Deutsch
 
-**Name:** Clavier: Klavier lernen
+**Name:** Pianote: Klavier lernen
 **Untertitel:** Kurse, Stücke & Übungen
 **Schlüsselwörter:** klavier,lernen,keyboard,notenlesen,kurse,musik,noten,tonleitern,akkorde,anfänger,gehör
 **Werbetext:** Lerne Klavier in deinem Tempo: ein Tagesplan, Kurse nach Stufen, geführte Stücke und Übungen — 100% offline, ohne Werbung.
 
 **Beschreibung:**
-Clavier macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen Lernen, vom absoluten Anfänger bis zum Fortgeschrittenen.
+Pianote macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen Lernen, vom absoluten Anfänger bis zum Fortgeschrittenen.
 
 • Tagesplan — eine tägliche Routine mit Zielen, XP‑Ziel und einer Serie zur Motivation.
 • 8‑Wochen‑Programm — ein schrittweiser Weg, Tag für Tag.
@@ -124,13 +124,13 @@ Clavier macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen
 
 ## 🇨🇳 中文（简体）
 
-**名称：** Clavier：学钢琴
+**名称：** Pianote：学钢琴
 **副标题：** 课程、歌曲与练习
 **关键词：** 钢琴,学习,键盘,识谱,课程,音乐,音阶,和弦,初学者,乐理,听力,自学
 **宣传文本：** 按自己的节奏学钢琴：每日计划、分级课程、引导式歌曲与练习——完全离线，无广告。
 
 **描述：**
-Clavier 把你的手机变成随身钢琴老师，专为自学而设计，从零基础到进阶。
+Pianote 把你的手机变成随身钢琴老师，专为自学而设计，从零基础到进阶。
 
 • 每日计划——每天的目标、经验值目标和连续天数，帮你保持动力。
 • 8 周课程表——循序渐进，一天一天来。
