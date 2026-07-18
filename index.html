@@ -3381,7 +3381,7 @@ const Midi = (() => {
 // deploy the Cloudflare Worker (coach-backend/). See coach-backend/README.md.
 const COACH_ENDPOINT = (location.protocol === 'http:' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname))
   ? 'http://localhost:8787/coach'
-  : 'https://pianote-coach.YOUR-SUBDOMAIN.workers.dev/coach';
+  : 'https://pianote-coach.pianote.workers.dev/coach';
 
 const Sub = (() => {
   const MONTHLY = 'com.pianote.app.coach.monthly';
