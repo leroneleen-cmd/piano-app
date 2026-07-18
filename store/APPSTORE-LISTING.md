@@ -3,6 +3,8 @@
 Copie‑colle chaque bloc dans **App Store Connect → ton app → Localisations**.
 Limites Apple : Nom ≤ 30 · Sous‑titre ≤ 30 · Texte promo ≤ 170 · Mots‑clés ≤ 100 · Description ≤ 4000.
 
+> **Nom App Store vs nom sous l'icône.** Le champ **Nom** ci‑dessous est le titre affiché sur l'App Store (fort signal SEO) : il met le mot‑clé en tête + la marque. Le nom **sous l'icône** de l'iPhone reste « **Pianote** » (défini par `CFBundleDisplayName`, ~12 car.) — ne pas le changer.
+
 URL d'assistance : https://apprendre-piano.netlify.app
 URL marketing   : https://apprendre-piano.netlify.app
 Confidentialité : https://apprendre-piano.netlify.app/privacy.html
@@ -12,7 +14,7 @@ Catégorie : Éducation (secondaire : Musique) · Âge : 4+ · Prix : Gratuit
 
 ## 🇫🇷 Français (langue principale)
 
-**Nom :** Pianote : apprendre le piano
+**Nom :** Cours de piano - Pianote
 **Sous‑titre :** Cours, morceaux et exercices
 **Mots‑clés :** piano,apprendre,clavier,solfège,cours,musique,notes,gammes,accords,débutant,portée,oreille
 **Texte promotionnel :** Apprends le piano à ton rythme : un plan quotidien, des cours par niveaux, des morceaux guidés et des exercices — 100 % hors‑ligne, sans pub.
@@ -40,7 +42,7 @@ Pianote transforme ton téléphone en professeur de piano de poche. Pensé pour 
 
 ## 🇬🇧 English
 
-**Name:** Pianote: Learn Piano
+**Name:** Piano Lessons - Pianote
 **Subtitle:** Courses, songs & exercises
 **Keywords:** piano,learn,keyboard,sight reading,lessons,music,notes,scales,chords,beginner,ear,theory
 **Promotional Text:** Learn piano at your own pace: a daily plan, level‑based courses, guided songs and exercises — 100% offline, no ads.
@@ -68,7 +70,7 @@ Pianote turns your phone into a pocket piano teacher. Built for learning on your
 
 ## 🇪🇸 Español
 
-**Nombre:** Pianote: aprende piano
+**Nombre:** Clases de piano - Pianote
 **Subtítulo:** Cursos, piezas y ejercicios
 **Palabras clave:** piano,aprender,teclado,lectura,solfeo,lecciones,música,escalas,acordes,principiante,oído
 **Texto promocional:** Aprende piano a tu ritmo: un plan diario, cursos por niveles, canciones guiadas y ejercicios — 100% sin conexión, sin anuncios.
@@ -96,7 +98,7 @@ Pianote convierte tu teléfono en un profesor de piano de bolsillo. Pensado para
 
 ## 🇩🇪 Deutsch
 
-**Name:** Pianote: Klavier lernen
+**Name:** Klavier lernen - Pianote
 **Untertitel:** Kurse, Stücke & Übungen
 **Schlüsselwörter:** klavier,lernen,keyboard,notenlesen,kurse,musik,noten,tonleitern,akkorde,anfänger,gehör
 **Werbetext:** Lerne Klavier in deinem Tempo: ein Tagesplan, Kurse nach Stufen, geführte Stücke und Übungen — 100% offline, ohne Werbung.
@@ -124,7 +126,7 @@ Pianote macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen
 
 ## 🇨🇳 中文（简体）
 
-**名称：** Pianote：学钢琴
+**名称：** 钢琴课 - Pianote
 **副标题：** 课程、歌曲与练习
 **关键词：** 钢琴,学习,键盘,识谱,课程,音乐,音阶,和弦,初学者,乐理,听力,自学
 **宣传文本：** 按自己的节奏学钢琴：每日计划、分级课程、引导式歌曲与练习——完全离线，无广告。

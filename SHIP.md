@@ -59,7 +59,8 @@ Dans Xcode, cible **App** :
 
 ## 4) Fiche App Store Connect
 Sur https://appstoreconnect.apple.com → **Mes apps** → **+** :
-- Nom : `Pianote` · Langue principale : Français · Bundle ID : celui de l'étape 1 · SKU : `clavier-001`.
+- Nom (titre App Store, optimisé SEO) : `Cours de piano - Pianote` en français, et l'équivalent par langue (voir `store/APPSTORE-LISTING.md`). Le nom **sous l'icône** reste `Pianote` (déjà réglé via `CFBundleDisplayName`). · Langue principale : Français · Bundle ID : `com.pianote.app` · SKU : `pianote-001`.
+- **Modèle : gratuit** (aucun achat intégré pour l'instant). L'accès payant viendra plus tard avec l'assistant IA.
 - **Confidentialité** → « Les données ne sont pas collectées » (tout est local, aucun réseau).
 - **URL de politique de confidentialité** : https://apprendre-piano.netlify.app/privacy.html
 - **URL d'assistance** : https://apprendre-piano.netlify.app
