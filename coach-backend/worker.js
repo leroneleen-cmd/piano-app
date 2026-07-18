@@ -3,16 +3,16 @@
 // Deploy:  cd coach-backend && npx wrangler deploy
 import { buildMessages, MODEL, MAX_TOKENS } from './coach-core.mjs';
 
-// Lock this down to your app origins.
-const ALLOW_ORIGINS = new Set([
-  'https://apprendre-piano.netlify.app',
-  'capacitor://localhost', // iOS Capacitor WebView
-  'http://localhost:4599',
-  'http://localhost:8100',
-]);
+// Allow the app's origins: iOS WebView, localhost, and any Netlify deploy
+// (prod + draft/preview subdomains).
+function isAllowed(origin) {
+  return origin === 'capacitor://localhost'
+    || /^http:\/\/localhost(:\d+)?$/.test(origin)
+    || /^https:\/\/[a-z0-9-]*\.?netlify\.app$/.test(origin);
+}
 
 function corsHeaders(origin) {
-  const allow = ALLOW_ORIGINS.has(origin) ? origin : 'https://apprendre-piano.netlify.app';
+  const allow = isAllowed(origin) ? origin : 'https://apprendre-piano.netlify.app';
   return {
     'access-control-allow-origin': allow,
     'access-control-allow-methods': 'POST, OPTIONS',
