@@ -3398,7 +3398,7 @@ const Sub = (() => {
     } catch (e) {}
     return null;
   }
-  function updatePrice() { const el = document.getElementById('coachPrice'); const t = priceText(); if (el && t) el.textContent = t; }
+  function updatePrice() { const el = document.getElementById('coachPrice'); if (!el) return; el.textContent = priceText() || ('5,99 € / ' + tr('mois')); }
   function refreshOwned() {
     try { if (cdv && typeof cdv.owned === 'function' && cdv.owned(MONTHLY)) grant(true); } catch (e) {}
   }
@@ -3516,6 +3516,8 @@ const Coach = (() => {
   }
   return { init, send, refresh, openPaywall, closePaywall };
 })();
+// Exposer pour les gardes window.* (setLang, Sub.grant) et le débogage.
+window.Sub = Sub; window.Coach = Coach;
 
 /* ============================================================
    INIT

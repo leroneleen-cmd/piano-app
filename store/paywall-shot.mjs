@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 430, height: 932 }, deviceScaleFactor: 3, locale: 'fr-FR' });
+const p = await ctx.newPage();
+await p.goto('http://localhost:4599/index.html', { waitUntil: 'networkidle' });
+await p.waitForTimeout(400);
+await p.evaluate(() => { if (window.setLang) setLang('fr'); switchTab('coach'); Coach.openPaywall(); });
+await p.waitForTimeout(500);
+await p.screenshot({ path: 'store/paywall-profia.png' });
+await b.close();
+console.log('ok');
