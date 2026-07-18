@@ -1,0 +1,48 @@
+{
+  "identifier" : "EFA6A121-E8A1-4FF6-95DE-F1618494F80A",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_developerTeamID" : "BC4MP47Q54",
+    "_lastSynchronizedDate" : 0
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "D6C05FA9-9279-4D34-923F-99084F469129",
+      "localizations" : [],
+      "name" : "Pianote Premium",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "5.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "FEDA7F96-F097-4292-BC5E-231A14524688",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Prof de piano IA : réponses personnalisées, plan d'entraînement, disponible 24h/24.",
+              "displayName" : "Prof de piano IA",
+              "locale" : "fr_FR"
+            },
+            {
+              "description" : "AI piano teacher: personalised answers, a practice plan, available 24/7.",
+              "displayName" : "AI Piano Teacher",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.pianote.app.coach.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Coach IA mensuel",
+          "subscriptionGroupID" : "D6C05FA9-9279-4D34-923F-99084F469129",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

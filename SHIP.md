@@ -93,6 +93,37 @@ Apple refuse les apps qui ne sont « qu'un site web emballé ». Points en notre
 Si besoin de renforcer encore : ajouter des notifications locales (rappel de pratique),
 un widget, ou l'enregistrement audio exporté — dis-le et je l'ajoute.
 
+## Prof de piano IA (fonctionnalité payante — abonnement)
+
+L'app est gratuite ; le **Prof IA** est la fonctionnalité payante (abonnement mensuel). Le code (chat + paywall) est déjà en place ; il reste 3 branchements côté comptes.
+
+### Étape 1 — Déployer le backend (proxy vers Claude)
+La clé Anthropic ne doit **jamais** être dans l'app ; elle vit sur un petit serveur. Cloudflare Worker (gratuit) :
+```bash
+cd ~/piano-app/coach-backend
+npx wrangler login            # ton compte Cloudflare
+npx wrangler deploy           # affiche l'URL, ex. https://pianote-coach.<toi>.workers.dev
+npx wrangler secret put ANTHROPIC_API_KEY   # colle ta clé Anthropic
+```
+Modèle utilisé : `claude-haiku-4-5` (le moins cher, ~0,25 ¢/message). Modifiable dans `coach-backend/coach-core.mjs`.
+
+### Étape 2 — Renseigner l'URL du Worker dans l'app
+Dans `index.html`, une seule ligne à changer (constante **`COACH_ENDPOINT`**) : remplace
+`https://pianote-coach.YOUR-SUBDOMAIN.workers.dev/coach` par l'URL affichée à l'étape 1.
+Puis `npm run ios:sync`.
+
+### Étape 3 — Créer l'abonnement dans App Store Connect
+1. App Store Connect → ton app → **Monétisation → Abonnements** → crée un **groupe** (« Pianote Premium ») puis un abonnement auto‑renouvelable :
+   - **ID produit** : `com.pianote.app.coach.monthly` (doit correspondre exactement au code)
+   - Durée : 1 mois · Prix : 5,99 € · Localisations (nom/description).
+2. Le plugin d'achat est déjà installé (`cordova-plugin-purchase`) et synchronisé.
+3. **Tester sans App Store Connect** : un fichier StoreKit de test est prêt → `ios/App/App/Pianote.storekit`. Dans Xcode : glisse‑le dans le projet (s'il n'y est pas déjà), puis **Product → Scheme → Edit Scheme → Run → Options → StoreKit Configuration → Pianote.storekit**. Tu peux alors dérouler l'achat dans le simulateur.
+4. Pour la vraie soumission : renseigne la **confidentialité** (l'app reste « aucune donnée collectée » ; l'appel au coach passe par ton backend, sans compte utilisateur) et joins l'abonnement à la version.
+
+> Sécurité (v1) : l'accès au coach est vérifié côté app (abonnement StoreKit) avant d'appeler le backend. Pour durcir, ajoute la vérification du reçu StoreKit (JWS) dans `coach-backend/worker.js` (marqueur `TODO(prod)`), plus un rate‑limit — dis‑le et je l'ajoute.
+
+---
+
 ## Mettre à jour l'app plus tard
 Après toute modif de `index.html` :
 ```bash
