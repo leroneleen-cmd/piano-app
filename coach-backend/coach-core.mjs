@@ -1,10 +1,10 @@
 // Shared logic for the Pianote AI piano teacher.
-// Used by both the local dev server (dev-server.mjs) and the Cloudflare Worker (worker.js).
+// Backend runs on Cloudflare Workers AI (free tier, no credit card, no extra key).
+// Used by the Worker (worker.js) and the local dev server (dev-server.mjs).
 
-// Haiku 4.5 = le modèle Claude le plus économique, largement suffisant pour un
-// prof de piano (tâche courte, bien cadrée, multilingue). Passe à
-// 'claude-sonnet-5' si tu veux plus de finesse pédagogique (~3× le coût/token).
-export const MODEL = 'claude-haiku-4-5';
+// Cloudflare Workers AI model. Llama 3.3 70B ≈ Haiku-level quality, multilingual.
+// Cheaper/lighter option to stretch the free allocation: '@cf/meta/llama-3.1-8b-instruct'.
+export const MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 export const MAX_TOKENS = 600;
 
 const LANG_NAME = { fr: 'French', en: 'English', es: 'Spanish', de: 'German', zh: 'Simplified Chinese' };
@@ -39,41 +39,17 @@ export function cleanMessages(messages) {
     .slice(-20); // keep the last 20 turns
 }
 
-export function buildPayload(body = {}) {
-  return {
-    model: body.model || MODEL,
-    max_tokens: MAX_TOKENS,
-    system: buildSystem(body.context),
-    messages: cleanMessages(body.messages),
-  };
+// Chat messages for Workers AI: system prompt first, then the conversation.
+export function buildMessages(body = {}) {
+  return [{ role: 'system', content: buildSystem(body.context) }, ...cleanMessages(body.messages)];
 }
 
-// Call the Anthropic Messages API. Works in Node 18+ and Cloudflare Workers (global fetch).
-export async function callClaude(apiKey, payload) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) {
-    const detail = await res.text().catch(() => '');
-    throw new Error(`Anthropic ${res.status}: ${detail.slice(0, 300)}`);
-  }
-  const data = await res.json();
-  const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('').trim();
-  return text || '…';
-}
-
-// Offline mock so the chat UI can be tested without an API key.
+// Offline mock so the chat UI can be tested without the AI binding.
 export function mockReply(body = {}) {
   const last = cleanMessages(body.messages).filter(m => m.role === 'user').pop();
   const q = last ? last.content : '';
-  return `【mode démo — sans clé API】 Bonne question : « ${q.slice(0, 80)} ». `
+  return `【mode démo — sans IA】 Bonne question : « ${q.slice(0, 80)} ». `
     + `Voici un conseil : commence lentement, mains séparées, puis assemble à petit tempo. `
     + `Dans Pianote, essaie le cours de ton niveau puis un morceau guidé pour appliquer. `
-    + `(Ajoute ta clé Anthropic au backend pour des réponses réelles.)`;
+    + `(Déploie le Worker Cloudflare pour des réponses réelles via Workers AI.)`;
 }

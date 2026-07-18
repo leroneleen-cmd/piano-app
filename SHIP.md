@@ -97,15 +97,16 @@ un widget, ou l'enregistrement audio exporté — dis-le et je l'ajoute.
 
 L'app est gratuite ; le **Prof IA** est la fonctionnalité payante (abonnement mensuel). Le code (chat + paywall) est déjà en place ; il reste 3 branchements côté comptes.
 
-### Étape 1 — Déployer le backend (proxy vers Claude)
-La clé Anthropic ne doit **jamais** être dans l'app ; elle vit sur un petit serveur. Cloudflare Worker (gratuit) :
+### Étape 1 — Déployer le backend (Cloudflare Workers AI — gratuit, sans clé, sans carte bleue)
+Un petit Worker parle au modèle IA à la place de l'app. Il utilise **Cloudflare Workers AI** : aucune clé API, aucune carte bleue.
 ```bash
 cd ~/piano-app/coach-backend
-npx wrangler login            # ton compte Cloudflare
+npx wrangler login            # ton compte Cloudflare (si pas déjà fait)
+# une seule fois : choisir un sous-domaine workers.dev
+#   https://dash.cloudflare.com/<account>/workers/onboarding
 npx wrangler deploy           # affiche l'URL, ex. https://pianote-coach.<toi>.workers.dev
-npx wrangler secret put ANTHROPIC_API_KEY   # colle ta clé Anthropic
 ```
-Modèle utilisé : `claude-haiku-4-5` (le moins cher, ~0,25 ¢/message). Modifiable dans `coach-backend/coach-core.mjs`.
+Modèle utilisé : `@cf/meta/llama-3.3-70b-instruct-fp8-fast` (proche de Haiku, multilingue). Modifiable dans `coach-backend/coach-core.mjs`. Le plan gratuit Cloudflare inclut une allocation Workers AI quotidienne ; au‑delà, plan Workers Payant (~5 $/mois).
 
 ### Étape 2 — Renseigner l'URL du Worker dans l'app
 Dans `index.html`, une seule ligne à changer (constante **`COACH_ENDPOINT`**) : remplace

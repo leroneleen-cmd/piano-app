@@ -1,9 +1,9 @@
-// Cloudflare Worker — production backend for the Pianote AI piano teacher.
+// Cloudflare Worker — backend for the Pianote AI piano teacher.
+// Uses Cloudflare Workers AI (free tier, no API key, no credit card).
 // Deploy:  cd coach-backend && npx wrangler deploy
-// Secret:  npx wrangler secret put ANTHROPIC_API_KEY
-import { buildPayload, callClaude } from './coach-core.mjs';
+import { buildMessages, MODEL, MAX_TOKENS } from './coach-core.mjs';
 
-// Lock this down to your app origins in production.
+// Lock this down to your app origins.
 const ALLOW_ORIGINS = new Set([
   'https://apprendre-piano.netlify.app',
   'capacitor://localhost', // iOS Capacitor WebView
@@ -30,13 +30,12 @@ export default {
     if (request.method !== 'POST' || !url.pathname.startsWith('/coach')) {
       return new Response('not found', { status: 404, headers: cors });
     }
-    if (!env.ANTHROPIC_API_KEY) {
-      return json({ error: 'server_not_configured' }, 500, cors);
-    }
+    if (!env.AI) return json({ error: 'ai_binding_missing' }, 500, cors);
     try {
       const body = await request.json();
-      // TODO(prod): verify body.subscription (StoreKit JWS) here before spending tokens.
-      const reply = await callClaude(env.ANTHROPIC_API_KEY, buildPayload(body));
+      // TODO(prod): verify body.subscription (StoreKit JWS) here before spending the quota.
+      const out = await env.AI.run(MODEL, { messages: buildMessages(body), max_tokens: MAX_TOKENS });
+      const reply = (out && (out.response ?? out.result?.response) || '').trim() || '…';
       return json({ reply }, 200, cors);
     } catch (e) {
       return json({ error: 'coach_failed', detail: String(e.message || e).slice(0, 200) }, 500, cors);
