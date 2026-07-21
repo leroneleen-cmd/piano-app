@@ -6,7 +6,7 @@ Limites Apple : Nom ≤ 30 · Sous‑titre ≤ 30 · Texte promo ≤ 170 · Mots
 > **Nom App Store vs nom sous l'icône.** Le champ **Nom** ci‑dessous est le titre affiché sur l'App Store (fort signal SEO) : il met le mot‑clé en tête + la marque. Le nom **sous l'icône** de l'iPhone reste « **Pianote** » (défini par `CFBundleDisplayName`, ~12 car.) — ne pas le changer.
 
 URL d'assistance : https://pianote-site.pages.dev/support
-URL marketing   : https://apprendre-piano.netlify.app
+URL marketing   : https://pianote-site.pages.dev
 Confidentialité : https://pianote-site.pages.dev/privacy
 Catégorie : Éducation (secondaire : Musique) · Âge : 4+ · Prix : Gratuit
 
