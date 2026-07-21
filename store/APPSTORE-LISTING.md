@@ -5,9 +5,9 @@ Limites Apple : Nom ≤ 30 · Sous‑titre ≤ 30 · Texte promo ≤ 170 · Mots
 
 > **Nom App Store vs nom sous l'icône.** Le champ **Nom** ci‑dessous est le titre affiché sur l'App Store (fort signal SEO) : il met le mot‑clé en tête + la marque. Le nom **sous l'icône** de l'iPhone reste « **Pianote** » (défini par `CFBundleDisplayName`, ~12 car.) — ne pas le changer.
 
-URL d'assistance : https://apprendre-piano.netlify.app
+URL d'assistance : https://pianote-site.pages.dev/support
 URL marketing   : https://apprendre-piano.netlify.app
-Confidentialité : https://apprendre-piano.netlify.app/privacy.html
+Confidentialité : https://pianote-site.pages.dev/privacy
 Catégorie : Éducation (secondaire : Musique) · Âge : 4+ · Prix : Gratuit
 
 ---
@@ -32,8 +32,6 @@ Pianote transforme ton téléphone en professeur de piano de poche. Pensé pour 
 • Technique — métronome, exercices de dextérité avec doigtés, indépendance des mains.
 • Studio — enregistre ton jeu et réécoute‑toi, à vitesse normale ou au ralenti.
 • Créer / importer — transforme un fichier MIDI ou une suite de notes en morceau jouable.
-• Clavier MIDI — branche un vrai piano électrique (sur ordinateur/Android).
-
 100 % hors‑ligne · aucune publicité · aucun compte · aucune donnée collectée · disponible en français, anglais, espagnol, allemand et chinois.
 
 **Nouveautés :** Première version : plan quotidien, programme 8 semaines, cours par niveaux, 20+ morceaux, lecture de portée, oreille, technique, enregistrement et 5 langues.
@@ -60,8 +58,6 @@ Pianote turns your phone into a pocket piano teacher. Built for learning on your
 • Technique — metronome, dexterity exercises with fingering, hand independence.
 • Studio — record your playing and listen back, at normal speed or slowed down.
 • Create / Import — turn a MIDI file or a series of notes into a playable piece.
-• MIDI Keyboard — plug in a real electric piano (on desktop/Android).
-
 100% offline · no ads · no account · no data collected · available in French, English, Spanish, German and Chinese.
 
 **What's New:** First release: daily plan, 8‑week program, level courses, 20+ songs, staff reading, ear training, technique, recording and 5 languages.
@@ -88,8 +84,6 @@ Pianote convierte tu teléfono en un profesor de piano de bolsillo. Pensado para
 • Técnica — metrónomo, ejercicios de destreza con digitación, independencia de manos.
 • Estudio — graba lo que tocas y escúchate, a velocidad normal o lenta.
 • Crear / importar — convierte un archivo MIDI o una serie de notas en una pieza tocable.
-• Teclado MIDI — conecta un piano eléctrico real (en ordenador/Android).
-
 100% sin conexión · sin anuncios · sin cuenta · sin recopilación de datos · disponible en francés, inglés, español, alemán y chino.
 
 **Novedades:** Primera versión: plan diario, programa de 8 semanas, cursos por niveles, más de 20 canciones, lectura, oído, técnica, grabación y 5 idiomas.
@@ -116,8 +110,6 @@ Pianote macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen
 • Technik — Metronom, Fingerübungen mit Fingersatz, Handunabhängigkeit.
 • Studio — nimm dein Spiel auf und höre es dir an, normal oder verlangsamt.
 • Erstellen / Importieren — mach aus einer MIDI‑Datei oder Notenfolge ein spielbares Stück.
-• MIDI‑Keyboard — schließe ein echtes E‑Piano an (am Computer/Android).
-
 100% offline · keine Werbung · kein Konto · keine Datenerfassung · verfügbar auf Französisch, Englisch, Spanisch, Deutsch und Chinesisch.
 
 **Neu:** Erste Version: Tagesplan, 8‑Wochen‑Programm, Stufenkurse, 20+ Stücke, Notenlesen, Gehörbildung, Technik, Aufnahme und 5 Sprachen.
@@ -144,8 +136,6 @@ Pianote 把你的手机变成随身钢琴老师，专为自学而设计，从零
 • 技巧——节拍器、带指法的灵活性练习、双手独立。
 • 录音室——录下你的演奏并回放，可正常速度或放慢。
 • 创作 / 导入——把 MIDI 文件或一串音符变成可弹奏的曲子。
-• MIDI 键盘——连接真正的电钢琴（电脑/安卓）。
-
 完全离线 · 无广告 · 无需账号 · 不收集数据 · 支持法语、英语、西班牙语、德语和中文。
 
 **更新内容：** 首个版本：每日计划、8 周课程表、分级课程、20+ 首歌曲、识谱、听力、技巧、录音，以及 5 种语言。
