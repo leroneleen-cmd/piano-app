@@ -3,22 +3,115 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Pianote</title>
+<title>Pianote — Apprends le piano à ton rythme</title>
+<meta name="description" content="Pianote transforme ton téléphone en professeur de piano de poche : cours par niveaux, morceaux guidés, exercices, et un prof de piano IA. 100 % hors-ligne, sans pub." />
+<meta property="og:title" content="Pianote — Apprends le piano à ton rythme" />
+<meta property="og:description" content="Cours, morceaux guidés, exercices et un prof de piano IA. 100 % hors-ligne, sans pub." />
 <style>
-  :root { color-scheme: dark; }
-  body { margin:0; min-height:100vh; display:grid; place-items:center; background:#0f1117; color:#e8eaf0;
-    font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; text-align:center; }
-  a { display:inline-block; margin:8px; color:#1a1204; background:linear-gradient(135deg,#f8c368,#e0871f);
-    padding:12px 20px; border-radius:12px; text-decoration:none; font-weight:700; }
-  h1 { font-size:28px; } p { color:#9aa0ad; }
+  :root{ color-scheme:dark; --bg:#0f1117; --bg2:#161923; --line:#262b38; --text:#e8eaf0; --dim:#9aa0ad;
+    --accent:#f8c368; --accent2:#e0871f; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
+  a{ color:var(--accent); }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 22px; }
+  .btn{ display:inline-block; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#1a1204;
+    font-weight:800; text-decoration:none; padding:14px 26px; border-radius:14px; box-shadow:0 6px 20px rgba(224,135,31,.35); }
+  .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); box-shadow:none; }
+
+  /* Hero */
+  header.hero{ text-align:center; padding:64px 0 24px;
+    background:radial-gradient(60% 50% at 50% 0%, rgba(248,195,104,.12), transparent 70%); }
+  .logo{ width:104px; height:104px; border-radius:24px; box-shadow:0 12px 40px rgba(0,0,0,.5); }
+  h1{ font-size:44px; line-height:1.1; margin:20px 0 8px; letter-spacing:.2px; }
+  .tagline{ font-size:20px; color:var(--dim); margin:0 auto 26px; max-width:620px; }
+  .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .badges{ margin-top:16px; color:var(--dim); font-size:14px; }
+
+  /* Screenshots */
+  .shots{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; padding:36px 0 8px; }
+  .shots img{ width:230px; max-width:70vw; border-radius:22px; }
+
+  /* Sections */
+  section{ padding:44px 0; }
+  h2{ font-size:28px; text-align:center; margin:0 0 6px; }
+  .sub{ text-align:center; color:var(--dim); margin:0 auto 30px; max-width:640px; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .card{ background:var(--bg2); border:1px solid var(--line); border-radius:16px; padding:20px; }
+  .card .ic{ font-size:26px; }
+  .card h3{ margin:10px 0 4px; font-size:17px; }
+  .card p{ margin:0; color:var(--dim); font-size:14.5px; }
+
+  .ai{ background:linear-gradient(180deg,var(--bg2),var(--bg)); border:1px solid var(--line);
+    border-radius:20px; padding:34px 26px; text-align:center; }
+  .ai .ic{ width:64px; height:64px; border-radius:16px; display:grid; place-items:center; font-size:32px; margin:0 auto 12px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2)); }
+
+  .pills{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; color:var(--dim); font-size:14px; }
+  .pill{ background:var(--bg2); border:1px solid var(--line); border-radius:999px; padding:6px 14px; }
+
+  footer{ border-top:1px solid var(--line); padding:28px 0 48px; text-align:center; color:var(--dim); font-size:14px; }
+  footer a{ margin:0 10px; }
+  @media (max-width:560px){ h1{ font-size:34px; } .tagline{ font-size:17px; } }
 </style>
 </head>
 <body>
-<div>
-  <h1>🎹 Pianote</h1>
-  <p>Apprendre le piano en autonomie.</p>
-  <a href="support.html">Aide &amp; Support</a>
-  <a href="privacy.html">Confidentialité</a>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="icon.png" alt="Icône Pianote" />
+    <h1>Apprends le piano à ton rythme</h1>
+    <p class="tagline">Pianote transforme ton téléphone en professeur de piano de poche&nbsp;: cours par niveaux, morceaux guidés, exercices — et un prof de piano IA.</p>
+    <div class="cta-row">
+      <a class="btn" href="#features">Découvrir</a>
+      <a class="btn ghost" href="support.html">Aide &amp; Support</a>
+    </div>
+    <p class="badges">🎹 100 % hors-ligne · 🚫 sans pub · 🔒 sans compte · 🌍 5 langues</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="shots">
+    <img src="shot1.png" alt="Cours par niveaux" loading="lazy" />
+    <img src="shot2.png" alt="Morceaux guidés" loading="lazy" />
+    <img src="shot3.png" alt="Clavier jouable" loading="lazy" />
+  </div>
 </div>
+
+<section id="features" class="wrap">
+  <h2>Tout pour progresser, seul</h2>
+  <p class="sub">Du tout débutant à l'avancé, un vrai parcours guidé.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">🎓</div><h3>Cours par niveaux</h3><p>Gammes, accords, renversements, modes, arpèges — explication puis pratique guidée.</p></div>
+    <div class="card"><div class="ic">🎵</div><h3>Morceaux guidés</h3><p>20+ titres du domaine public : la note à jouer s'illumine et t'attend.</p></div>
+    <div class="card"><div class="ic">🙌</div><h3>Mains séparées</h3><p>Travaille la main gauche, la main droite, puis assemble.</p></div>
+    <div class="card"><div class="ic">📖</div><h3>Lecture de portée</h3><p>Clé de sol et clé de fa, à ton rythme.</p></div>
+    <div class="card"><div class="ic">💪</div><h3>Technique &amp; oreille</h3><p>Métronome, doigtés, indépendance des mains, intervalles, cycle des quintes.</p></div>
+    <div class="card"><div class="ic">📅</div><h3>Plan du jour</h3><p>Une routine d'objectifs, un quota d'XP et une série de jours pour rester motivé.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="ai">
+    <div class="ic">✨</div>
+    <h2>Prof de piano IA</h2>
+    <p class="sub" style="margin-bottom:14px">Un coach personnel qui s'adapte à ton niveau et répond à toutes tes questions, 24 h/24, dans ta langue. 3 questions gratuites, puis un abonnement pour un accompagnement illimité.</p>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top:8px">
+  <div class="pills">
+    <span class="pill">Français</span><span class="pill">English</span><span class="pill">Español</span>
+    <span class="pill">Deutsch</span><span class="pill">中文</span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><a href="support.html">Aide &amp; Support</a> · <a href="privacy.html">Confidentialité</a></div>
+    <p>© 2026 Pianote · <a href="mailto:linco.jerome@gmail.com">linco.jerome@gmail.com</a></p>
+  </div>
+</footer>
+
 </body>
 </html>
