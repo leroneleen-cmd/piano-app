@@ -34,6 +34,8 @@ Pianote transforme ton téléphone en professeur de piano de poche. Pensé pour 
 • Créer / importer — transforme un fichier MIDI ou une suite de notes en morceau jouable.
 100 % hors‑ligne · aucune publicité · aucun compte · aucune donnée collectée · disponible en français, anglais, espagnol, allemand et chinois.
 
+Conditions d'utilisation (EULA) : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
 **Nouveautés :** Première version : plan quotidien, programme 8 semaines, cours par niveaux, 20+ morceaux, lecture de portée, oreille, technique, enregistrement et 5 langues.
 
 ---
@@ -59,6 +61,8 @@ Pianote turns your phone into a pocket piano teacher. Built for learning on your
 • Studio — record your playing and listen back, at normal speed or slowed down.
 • Create / Import — turn a MIDI file or a series of notes into a playable piece.
 100% offline · no ads · no account · no data collected · available in French, English, Spanish, German and Chinese.
+
+Terms of Use (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 
 **What's New:** First release: daily plan, 8‑week program, level courses, 20+ songs, staff reading, ear training, technique, recording and 5 languages.
 
@@ -86,6 +90,8 @@ Pianote convierte tu teléfono en un profesor de piano de bolsillo. Pensado para
 • Crear / importar — convierte un archivo MIDI o una serie de notas en una pieza tocable.
 100% sin conexión · sin anuncios · sin cuenta · sin recopilación de datos · disponible en francés, inglés, español, alemán y chino.
 
+Términos de uso (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
 **Novedades:** Primera versión: plan diario, programa de 8 semanas, cursos por niveles, más de 20 canciones, lectura, oído, técnica, grabación y 5 idiomas.
 
 ---
@@ -112,6 +118,8 @@ Pianote macht dein Handy zum Klavierlehrer für die Tasche. Zum selbstständigen
 • Erstellen / Importieren — mach aus einer MIDI‑Datei oder Notenfolge ein spielbares Stück.
 100% offline · keine Werbung · kein Konto · keine Datenerfassung · verfügbar auf Französisch, Englisch, Spanisch, Deutsch und Chinesisch.
 
+Nutzungsbedingungen (EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
 **Neu:** Erste Version: Tagesplan, 8‑Wochen‑Programm, Stufenkurse, 20+ Stücke, Notenlesen, Gehörbildung, Technik, Aufnahme und 5 Sprachen.
 
 ---
@@ -137,5 +145,7 @@ Pianote 把你的手机变成随身钢琴老师，专为自学而设计，从零
 • 录音室——录下你的演奏并回放，可正常速度或放慢。
 • 创作 / 导入——把 MIDI 文件或一串音符变成可弹奏的曲子。
 完全离线 · 无广告 · 无需账号 · 不收集数据 · 支持法语、英语、西班牙语、德语和中文。
+
+使用条款 (EULA)：https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 
 **更新内容：** 首个版本：每日计划、8 周课程表、分级课程、20+ 首歌曲、识谱、听力、技巧、录音，以及 5 种语言。
